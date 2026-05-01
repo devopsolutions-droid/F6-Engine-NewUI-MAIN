@@ -1,0 +1,28 @@
+using UnityEngine;
+
+/// <summary>
+/// One asset per engine model. Fill in the Inspector and add to EngineRegistry.
+/// </summary>
+[CreateAssetMenu(fileName = "NewEngineData", menuName = "Engine VR/Engine Data")]
+public class EngineData : ScriptableObject
+{
+    [Header("Identity")]
+    public string engineName = "Engine Name";
+    [TextArea(2, 4)]
+    public string engineDescription = "Engine description.";
+    public string engineCategory = "General";
+
+    [Header("Visuals")]
+    [Tooltip("Thumbnail shown on the home screen card.")]
+    public Sprite thumbnail;
+
+    [Header("Scene")]
+    [Tooltip("Prefab of the 3D engine model. Must have EnginePart components on children.")]
+    public GameObject enginePrefab;
+
+    [Tooltip("World-space position where the engine prefab will be placed in the engine scene.")]
+    public Vector3 spawnPosition = Vector3.zero;
+
+    [Tooltip("World-space rotation (Euler) for the spawned engine.")]
+    public Vector3 spawnRotation = Vector3.zero;
+}
