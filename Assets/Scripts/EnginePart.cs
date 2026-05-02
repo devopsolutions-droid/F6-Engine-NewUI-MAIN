@@ -55,7 +55,7 @@ public class EnginePart : MonoBehaviour
     [Header("Outline")]
     public OutlineColorPreset outlineColorPreset = OutlineColorPreset.Custom;
     public Color outlineColor = Color.red;
-    [Range(0.001f, 0.02f)] public float outlineWidth = 0.004f;
+    [Range(0.001f, 0.02f)] public float outlineWidth = 0.01343f;
 
     [Header("Exploded View")]
     [Tooltip("Preset position for organized explosion layout.")]

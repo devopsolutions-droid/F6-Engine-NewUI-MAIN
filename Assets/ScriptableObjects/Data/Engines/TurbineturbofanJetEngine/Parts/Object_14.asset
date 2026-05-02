@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_14
+  m_EditorClassIdentifier: 
+  partName: Oil Pump
+  description: The oil pump is a small, thin-flat component positioned on the left
+    side of the engine, responsible for circulating oil throughout the engine and
+    maintaining lubrication. Its metal-mid material and moderate vertex count indicate
+    a focus on durability and flow management. The oil pump is a critical component
+    of the engine, requiring precise design and engineering to achieve reliable operation
+    and prevent oil starvation.
+  audioExplanation: {fileID: 0}

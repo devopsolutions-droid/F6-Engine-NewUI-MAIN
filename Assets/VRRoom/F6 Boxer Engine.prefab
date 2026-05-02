@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a834285bdae334baf91c63c9567a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partData: {fileID: 0}
   partName: Intake Values
   description: Intake valves control the flow of air or air-fuel mixture into the
     combustion chamber, opening and closing at precise times to ensure efficient
@@ -111,15 +112,16 @@ MonoBehaviour:
   glowColor: {r: 0, g: 0.8, b: 1, a: 1}
   glowIntensity: 2.5
   ghostAlpha: 0
+  ghostFadeDuration: 0.25
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  outlineColorPreset: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
-  outlineWidth: 0.015
+  outlineWidth: 0.01343
+  explodePosition: 0
   explodeDistance: 5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
-  useExplicitExplodeTarget: 1
-  explicitExplodedWorldPosition: {x: -1.8742561, y: -6.85, z: -2.09}
 --- !u!64 &9107176264595290291
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -306,6 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a834285bdae334baf91c63c9567a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partData: {fileID: 0}
   partName: Spark plug wires
   description: These wires deliver electrical current from the ignition system to
     the spark plugs, enabling ignition of the air-fuel mixture inside the engine
@@ -317,15 +320,16 @@ MonoBehaviour:
   glowColor: {r: 0, g: 0.8, b: 1, a: 1}
   glowIntensity: 2.5
   ghostAlpha: 0
+  ghostFadeDuration: 0.25
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  outlineColorPreset: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
-  outlineWidth: 0.015
+  outlineWidth: 0.01343
+  explodePosition: 0
   explodeDistance: 5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
-  useExplicitExplodeTarget: 1
-  explicitExplodedWorldPosition: {x: 0.37574387, y: -0.8499999, z: -2.09}
 --- !u!1 &745922034025381238
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,6 +449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a834285bdae334baf91c63c9567a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partData: {fileID: 0}
   partName: Engine Part
   description: A protective outer layer designed to shield engine components from
     heat, debris, and damage, while also adding a distinctive visual style to the
@@ -456,15 +461,16 @@ MonoBehaviour:
   glowColor: {r: 0, g: 0.8, b: 1, a: 1}
   glowIntensity: 2.5
   ghostAlpha: 0
+  ghostFadeDuration: 0.25
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  outlineColorPreset: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
-  outlineWidth: 0.015
+  outlineWidth: 0.01343
+  explodePosition: 0
   explodeDistance: 5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
-  useExplicitExplodeTarget: 0
-  explicitExplodedWorldPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &872959890284989706
 GameObject:
   m_ObjectHideFlags: 0
@@ -562,6 +568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a834285bdae334baf91c63c9567a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partData: {fileID: 0}
   partName: Exhaust Input
   description: The exhaust input is the section where burned gases exit the engine
     cylinders, directing them into the exhaust manifold for proper flow and emission
@@ -573,15 +580,16 @@ MonoBehaviour:
   glowColor: {r: 0, g: 0.8, b: 1, a: 1}
   glowIntensity: 2.5
   ghostAlpha: 0
+  ghostFadeDuration: 0.25
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  outlineColorPreset: 0
   outlineColor: {r: 0, g: 1, b: 0.26723504, a: 1}
-  outlineWidth: 0.05
+  outlineWidth: 0.01343
+  explodePosition: 0
   explodeDistance: 5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
-  useExplicitExplodeTarget: 1
-  explicitExplodedWorldPosition: {x: -1.8742561, y: -6.1, z: 0.16000009}
 --- !u!64 &3654915751931780032
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -702,6 +710,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a834285bdae334baf91c63c9567a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partData: {fileID: 0}
   partName: Engine Cover
   description: The engine cover protects internal components from dust, debris, and
     damage while also reducing noise and improving the overall visual appearance
@@ -713,15 +722,16 @@ MonoBehaviour:
   glowColor: {r: 0, g: 0.8, b: 1, a: 1}
   glowIntensity: 1.98
   ghostAlpha: 0
+  ghostFadeDuration: 0.25
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  outlineColorPreset: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
-  outlineWidth: 0.015
+  outlineWidth: 0.01343
+  explodePosition: 0
   explodeDistance: 5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
-  useExplicitExplodeTarget: 1
-  explicitExplodedWorldPosition: {x: -1.8742561, y: -3.1, z: 0.9100001}
 --- !u!64 &3010245426373533037
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -866,6 +876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a834285bdae334baf91c63c9567a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partData: {fileID: 0}
   partName: EngineCover RedTop
   description: This red top engine cover adds a sporty visual element while protecting
     upper engine components, often used in performance vehicles to enhance both aesthetics
@@ -877,15 +888,16 @@ MonoBehaviour:
   glowColor: {r: 0, g: 0.8, b: 1, a: 1}
   glowIntensity: 2.5
   ghostAlpha: 0
+  ghostFadeDuration: 0.25
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  outlineColorPreset: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
-  outlineWidth: 0.015
+  outlineWidth: 0.01343
+  explodePosition: 0
   explodeDistance: 5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
-  useExplicitExplodeTarget: 1
-  explicitExplodedWorldPosition: {x: -1.8742561, y: -0.8499999, z: 0.9100001}
 --- !u!1 &1739322675122353412
 GameObject:
   m_ObjectHideFlags: 0
@@ -1005,6 +1017,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a834285bdae334baf91c63c9567a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partData: {fileID: 0}
   partName: Exhaust Manifold
   description: The exhaust manifold collects gases from multiple cylinders and channels
     them into a single pipe, improving efficiency and ensuring smoother exhaust flow
@@ -1016,15 +1029,16 @@ MonoBehaviour:
   glowColor: {r: 0, g: 0.8, b: 1, a: 1}
   glowIntensity: 2.5
   ghostAlpha: 0
+  ghostFadeDuration: 0.25
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  outlineColorPreset: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
-  outlineWidth: 0.015
+  outlineWidth: 0.01343
+  explodePosition: 0
   explodeDistance: 5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
-  useExplicitExplodeTarget: 1
-  explicitExplodedWorldPosition: {x: -1.8742561, y: 0.6500001, z: -2.09}
 --- !u!1 &3695628546293577309
 GameObject:
   m_ObjectHideFlags: 0
@@ -1122,6 +1136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a834285bdae334baf91c63c9567a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partData: {fileID: 0}
   partName: Spark Plug Wires
   description: Part description here.
   audioExplanation: {fileID: 8300000, guid: 77bf40a9ba6a10e429c28fefb295b9a0, type: 3}
@@ -1131,15 +1146,16 @@ MonoBehaviour:
   glowColor: {r: 0, g: 0.8, b: 1, a: 1}
   glowIntensity: 2.5
   ghostAlpha: 0
+  ghostFadeDuration: 0.25
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  outlineColorPreset: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
-  outlineWidth: 0.015
+  outlineWidth: 0.01343
+  explodePosition: 0
   explodeDistance: 5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
-  useExplicitExplodeTarget: 1
-  explicitExplodedWorldPosition: {x: 0.37574387, y: -0.8499999, z: -2.09}
 --- !u!64 &8399081094306679470
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1258,6 +1274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a834285bdae334baf91c63c9567a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partData: {fileID: 0}
   partName: Engine Part
   description: Part description here.
   audioExplanation: {fileID: 0}
@@ -1267,15 +1284,16 @@ MonoBehaviour:
   glowColor: {r: 0, g: 0.8, b: 1, a: 1}
   glowIntensity: 2.5
   ghostAlpha: 0
+  ghostFadeDuration: 0.25
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  outlineColorPreset: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
-  outlineWidth: 0.015
+  outlineWidth: 0.01343
+  explodePosition: 0
   explodeDistance: 5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
-  useExplicitExplodeTarget: 0
-  explicitExplodedWorldPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &3940621289650638856
 GameObject:
   m_ObjectHideFlags: 0
@@ -1395,6 +1413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a834285bdae334baf91c63c9567a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partData: {fileID: 0}
   partName: Exhaust Manifold
   description: Part description here.
   audioExplanation: {fileID: 8300000, guid: ac8c52b849d55644494d730a1e6175b5, type: 3}
@@ -1404,15 +1423,16 @@ MonoBehaviour:
   glowColor: {r: 0, g: 0.8, b: 1, a: 1}
   glowIntensity: 2.5
   ghostAlpha: 0
+  ghostFadeDuration: 0.25
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  outlineColorPreset: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
-  outlineWidth: 0.015
+  outlineWidth: 0.01343
+  explodePosition: 0
   explodeDistance: 5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
-  useExplicitExplodeTarget: 1
-  explicitExplodedWorldPosition: {x: -1.8742561, y: 0.6500001, z: -2.09}
 --- !u!1 &3986912751846864733
 GameObject:
   m_ObjectHideFlags: 0
@@ -1510,6 +1530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a834285bdae334baf91c63c9567a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partData: {fileID: 0}
   partName: Exhaust Manifold
   description: This manifold gathers exhaust gases from each cylinder and directs
     them into the exhaust system, playing a key role in engine efficiency and emission
@@ -1521,15 +1542,16 @@ MonoBehaviour:
   glowColor: {r: 0, g: 0.8, b: 1, a: 1}
   glowIntensity: 2.5
   ghostAlpha: 0
+  ghostFadeDuration: 0.25
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  outlineColorPreset: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
-  outlineWidth: 0.015
+  outlineWidth: 0.01343
+  explodePosition: 0
   explodeDistance: 5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
-  useExplicitExplodeTarget: 1
-  explicitExplodedWorldPosition: {x: -1.8742561, y: 0.6500001, z: -2.09}
 --- !u!64 &4881659521047486076
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1649,6 +1671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a834285bdae334baf91c63c9567a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partData: {fileID: 0}
   partName: Exhaust Manifold
   description: The exhaust manifold collects gases from multiple cylinders and channels
     them into a single pipe, improving efficiency and ensuring smoother exhaust flow
@@ -1660,15 +1683,16 @@ MonoBehaviour:
   glowColor: {r: 0, g: 0.8, b: 1, a: 1}
   glowIntensity: 2.5
   ghostAlpha: 0
+  ghostFadeDuration: 0.25
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  outlineColorPreset: 0
   outlineColor: {r: 1, g: 0.24449521, b: 0, a: 1}
-  outlineWidth: 0.015
+  outlineWidth: 0.01343
+  explodePosition: 0
   explodeDistance: 5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
-  useExplicitExplodeTarget: 1
-  explicitExplodedWorldPosition: {x: -1.8742561, y: 0.6500001, z: -2.09}
 --- !u!64 &6929748909161831599
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1787,6 +1811,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a834285bdae334baf91c63c9567a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partData: {fileID: 0}
   partName: Engine Motor
   description: Engine Motor
   audioExplanation: {fileID: 8300000, guid: 1d74be0d61a5a014dba0ea68476dd28b, type: 3}
@@ -1796,15 +1821,16 @@ MonoBehaviour:
   glowColor: {r: 0, g: 0.8, b: 1, a: 1}
   glowIntensity: 2.5
   ghostAlpha: 0.12
+  ghostFadeDuration: 0.25
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  outlineColorPreset: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
-  outlineWidth: 0.05
+  outlineWidth: 0.01343
+  explodePosition: 0
   explodeDistance: 5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
-  useExplicitExplodeTarget: 1
-  explicitExplodedWorldPosition: {x: 0.37574387, y: -5.35, z: -2.09}
 --- !u!1 &5652982684279629312
 GameObject:
   m_ObjectHideFlags: 0
@@ -1902,6 +1928,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a834285bdae334baf91c63c9567a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partData: {fileID: 0}
   partName: Engine Red Cover
   description: Similar to the primary red engine cover, this component provides additional
     protection or symmetry in the design while maintaining a consistent visual style
@@ -1913,15 +1940,16 @@ MonoBehaviour:
   glowColor: {r: 0, g: 0.8, b: 1, a: 1}
   glowIntensity: 2.5
   ghostAlpha: 0
+  ghostFadeDuration: 0.25
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  outlineColorPreset: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
-  outlineWidth: 0.015
+  outlineWidth: 0.01343
+  explodePosition: 0
   explodeDistance: 5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
-  useExplicitExplodeTarget: 1
-  explicitExplodedWorldPosition: {x: -1.8742561, y: -0.8499999, z: 0.9100001}
 --- !u!64 &6490751350538819570
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2041,6 +2069,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a834285bdae334baf91c63c9567a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partData: {fileID: 0}
   partName: Engine Red Cover
   description: "A protective engine cover with a red finish, designed to shield components
     while enhancing the engine\u2019s visual appeal, often seen in high-performance
@@ -2052,15 +2081,16 @@ MonoBehaviour:
   glowColor: {r: 0, g: 0.8, b: 1, a: 1}
   glowIntensity: 2.5
   ghostAlpha: 0
+  ghostFadeDuration: 0.25
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  outlineColorPreset: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
-  outlineWidth: 0.015
+  outlineWidth: 0.01343
+  explodePosition: 0
   explodeDistance: 5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
-  useExplicitExplodeTarget: 1
-  explicitExplodedWorldPosition: {x: -1.8742561, y: -0.8499999, z: 0.9100001}
 --- !u!64 &6617175979135508787
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2202,6 +2232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a834285bdae334baf91c63c9567a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partData: {fileID: 0}
   partName: Alternator
   description: "The alternator converts mechanical energy from the engine into electrical
     energy, powering the vehicle\u2019s electrical systems and continuously charging
@@ -2213,15 +2244,16 @@ MonoBehaviour:
   glowColor: {r: 0, g: 0.8, b: 1, a: 1}
   glowIntensity: 2.5
   ghostAlpha: 0
+  ghostFadeDuration: 0.25
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  outlineColorPreset: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
-  outlineWidth: 0.015
+  outlineWidth: 0.01343
+  explodePosition: 0
   explodeDistance: 5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
-  useExplicitExplodeTarget: 1
-  explicitExplodedWorldPosition: {x: -4.874256, y: -3.1, z: -2.09}
 --- !u!1 &7397898257026842808
 GameObject:
   m_ObjectHideFlags: 0
@@ -2341,6 +2373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a834285bdae334baf91c63c9567a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partData: {fileID: 0}
   partName: Intake Valves
   description: Part description here.
   audioExplanation: {fileID: 8300000, guid: 0995cc85500b1bd45a56f689695a9f4f, type: 3}
@@ -2350,15 +2383,16 @@ MonoBehaviour:
   glowColor: {r: 0, g: 0.8, b: 1, a: 1}
   glowIntensity: 2.5
   ghostAlpha: 0
+  ghostFadeDuration: 0.25
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  outlineColorPreset: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
-  outlineWidth: 0.015
+  outlineWidth: 0.01343
+  explodePosition: 0
   explodeDistance: 5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
-  useExplicitExplodeTarget: 1
-  explicitExplodedWorldPosition: {x: -1.8742561, y: -6.85, z: -2.09}
 --- !u!1 &8139086539173997090
 GameObject:
   m_ObjectHideFlags: 0
@@ -2478,6 +2512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a834285bdae334baf91c63c9567a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partData: {fileID: 0}
   partName: Piston
   description: The piston moves up and down inside the cylinder, converting combustion
     pressure into mechanical force that drives the crankshaft and powers the engine.
@@ -2488,15 +2523,16 @@ MonoBehaviour:
   glowColor: {r: 0, g: 0.8, b: 1, a: 1}
   glowIntensity: 2.5
   ghostAlpha: 0
+  ghostFadeDuration: 0.25
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  outlineColorPreset: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
-  outlineWidth: 0.015
+  outlineWidth: 0.01343
+  explodePosition: 0
   explodeDistance: 5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
-  useExplicitExplodeTarget: 1
-  explicitExplodedWorldPosition: {x: 1.1257439, y: -3.1, z: -2.09}
 --- !u!1 &8231506390629746235
 GameObject:
   m_ObjectHideFlags: 0
@@ -2616,6 +2652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a834285bdae334baf91c63c9567a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partData: {fileID: 0}
   partName: Timing cover
   description: The timing cover protects the timing chain or belt and related components,
     ensuring proper synchronization between the crankshaft and camshaft for smooth
@@ -2627,15 +2664,16 @@ MonoBehaviour:
   glowColor: {r: 0, g: 0.8, b: 1, a: 1}
   glowIntensity: 2.5
   ghostAlpha: 0
+  ghostFadeDuration: 0.25
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  outlineColorPreset: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
-  outlineWidth: 0.015
+  outlineWidth: 0.01343
+  explodePosition: 0
   explodeDistance: 5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
-  useExplicitExplodeTarget: 1
-  explicitExplodedWorldPosition: {x: -1.8742561, y: -3.1, z: -5.09}
 --- !u!1 &8475490780739670896
 GameObject:
   m_ObjectHideFlags: 0
@@ -2733,6 +2771,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a834285bdae334baf91c63c9567a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partData: {fileID: 0}
   partName: Fuel Motor
   description: This component represents the system responsible for delivering fuel
     into the engine, ensuring proper combustion by maintaining consistent fuel flow
@@ -2744,15 +2783,16 @@ MonoBehaviour:
   glowColor: {r: 0, g: 0.8, b: 1, a: 1}
   glowIntensity: 2.5
   ghostAlpha: 0
+  ghostFadeDuration: 0.25
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  outlineColorPreset: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
-  outlineWidth: 0.015
+  outlineWidth: 0.01343
+  explodePosition: 0
   explodeDistance: 5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
-  useExplicitExplodeTarget: 1
-  explicitExplodedWorldPosition: {x: 0.37574387, y: -5.35, z: -2.09}
 --- !u!64 &3113155035392827822
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2872,6 +2912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a834285bdae334baf91c63c9567a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  partData: {fileID: 0}
   partName: F6 Icon
   description: A visual icon representing the legendary flat six boxer engine, known
     for smooth performance, balanced design, and distinctive engineering heritage.
@@ -2882,15 +2923,16 @@ MonoBehaviour:
   glowColor: {r: 0, g: 0.8, b: 1, a: 1}
   glowIntensity: 2.5
   ghostAlpha: 0
+  ghostFadeDuration: 0.25
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  outlineColorPreset: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
-  outlineWidth: 0.015
+  outlineWidth: 0.01343
+  explodePosition: 0
   explodeDistance: 5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
-  useExplicitExplodeTarget: 1
-  explicitExplodedWorldPosition: {x: -1.8742561, y: -0.099999905, z: -2.09}
 --- !u!64 &118137058020971491
 MeshCollider:
   m_ObjectHideFlags: 0

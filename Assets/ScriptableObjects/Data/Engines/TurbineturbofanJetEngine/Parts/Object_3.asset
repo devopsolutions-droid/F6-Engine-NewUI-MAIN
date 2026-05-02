@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_3
+  m_EditorClassIdentifier: 
+  partName: Fan Cone
+  description: The fan cone is a large, elongated component positioned at the center
+    of the engine, playing a crucial role in directing airflow and increasing efficiency.
+    Its plastic-cone-black material and relatively low vertex count suggest a focus
+    on lightweight, aerodynamic design. The fan cone works in tandem with the compressor
+    housing to optimize engine performance.
+  audioExplanation: {fileID: 0}
