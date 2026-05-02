@@ -49,19 +49,16 @@ public class EngineViewManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Scans the scene for all EnginePart components (including on inactive objects).
+    /// Scans the scene for all EnginePart components on ACTIVE objects only.
+    /// Inactive objects haven't had Awake() called so their state is uninitialized.
     /// </summary>
     void RefreshParts()
     {
-        _allParts = FindObjectsByType<EnginePart>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        _allParts = FindObjectsByType<EnginePart>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
         if (_allParts == null || _allParts.Length == 0)
-        {
-            Debug.LogError("[EngineViewManager] No EnginePart components found in scene!");
-        }
+            Debug.LogError("[EngineViewManager] No active EnginePart components found in scene!");
         else
-        {
             Debug.Log($"[EngineViewManager] Found {_allParts.Length} EngineParts in scene.");
-        }
     }
 
     void InitExplodeTargets()

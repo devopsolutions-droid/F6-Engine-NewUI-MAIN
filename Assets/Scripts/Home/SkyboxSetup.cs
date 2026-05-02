@@ -1,102 +1,70 @@
 using UnityEngine;
 
 /// <summary>
-/// Applies a background image as the scene skybox.
-/// 
-/// Mode A — Panoramic (equirectangular 360° image):
-///   Set mode to Panoramic and assign your 2:1 ratio texture.
-///   Gives full immersive 360° VR background.
-///
-/// Mode B — Sphere Backdrop (any flat/regular image):
-///   Set mode to SphereBackdrop. A large inverted sphere is created around
-///   the player with the image mapped onto it.
+/// Robust VR background image.
+/// Creates a dedicated background camera that renders the image fullscreen.
+/// The image stays completely static regardless of head movement.
 /// </summary>
 public class SkyboxSetup : MonoBehaviour
 {
-    public enum BackgroundMode { Panoramic, SphereBackdrop, SolidColor }
-
-    [Header("Mode")]
-    public BackgroundMode mode = BackgroundMode.Panoramic;
-
-    [Header("Panoramic / Sphere Backdrop")]
-    [Tooltip("Your background image texture. For Panoramic: must be equirectangular (2:1 ratio). For SphereBackdrop: any image works.")]
     public Texture2D backgroundTexture;
-
-    [Header("Solid Color (fallback)")]
-    public Color solidColor = new Color(0.05f, 0.05f, 0.1f);
-
-    [Header("Sphere Backdrop Settings")]
-    [Tooltip("Radius of the backdrop sphere. Should be larger than your scene.")]
-    public float sphereRadius = 50f;
 
     void Start()
     {
-        switch (mode)
-        {
-            case BackgroundMode.Panoramic:
-                ApplyPanoramicSkybox();
-                break;
-            case BackgroundMode.SphereBackdrop:
-                ApplySphereBackdrop();
-                break;
-            case BackgroundMode.SolidColor:
-                ApplySolidColor();
-                break;
-        }
-    }
-
-    void ApplyPanoramicSkybox()
-    {
         if (backgroundTexture == null)
         {
-            Debug.LogWarning("[SkyboxSetup] No texture assigned for Panoramic mode. Falling back to solid color.");
-            ApplySolidColor();
+            Debug.LogError("[SkyboxSetup] backgroundTexture is not assigned!");
             return;
         }
 
-        var mat = new Material(Shader.Find("Skybox/Panoramic"));
-        mat.SetTexture("_MainTex", backgroundTexture);
-        mat.SetFloat("_Exposure", 1f);
-        mat.SetFloat("_Rotation", 0f);
-        RenderSettings.skybox = mat;
-        DynamicGI.UpdateEnvironment();
-    }
-
-    void ApplySphereBackdrop()
-    {
-        if (backgroundTexture == null)
+        // Step 1 — Main camera renders on top, clears only depth (not color)
+        Camera mainCam = Camera.main;
+        if (mainCam == null)
         {
-            Debug.LogWarning("[SkyboxSetup] No texture assigned for SphereBackdrop mode. Falling back to solid color.");
-            ApplySolidColor();
+            Debug.LogError("[SkyboxSetup] No Main Camera found!");
             return;
         }
+        mainCam.clearFlags = CameraClearFlags.Depth;
+        mainCam.depth = 1;
 
-        // Create inverted sphere
-        var sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        sphere.name = "[BackgroundSphere]";
-        sphere.transform.position = Vector3.zero;
-        sphere.transform.localScale = Vector3.one * sphereRadius;
-        Destroy(sphere.GetComponent<SphereCollider>());
+        // Step 2 — Create a separate background camera, NOT parented to XR rig
+        GameObject bgCamGO = new GameObject("[BackgroundCamera]");
+        Camera bgCam = bgCamGO.AddComponent<Camera>();
+        bgCam.clearFlags = CameraClearFlags.SolidColor;
+        bgCam.backgroundColor = Color.black;
+        bgCam.cullingMask = 1 << 31; // only render layer 31 (our bg quad)
+        bgCam.depth = 0;             // renders first, behind everything
+        bgCam.nearClipPlane = 0.1f;
+        bgCam.farClipPlane = 10f;
+        bgCam.fieldOfView = 60f;
+        bgCam.stereoTargetEye = StereoTargetEyeMask.Both;
 
-        var mat = new Material(Shader.Find("Unlit/Texture"));
-        mat.SetTexture("_MainTex", backgroundTexture);
-        mat.SetInt("_Cull", (int)UnityEngine.Rendering.CullMode.Front); // render inside
+        // Fix position — never moves
+        bgCamGO.transform.position = Vector3.zero;
+        bgCamGO.transform.rotation = Quaternion.identity;
 
-        sphere.GetComponent<Renderer>().material = mat;
+        // Step 3 — Create the quad on layer 31, in front of bg camera
+        GameObject quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
+        quad.name = "[BackgroundQuad]";
+        quad.layer = 31;
+        Destroy(quad.GetComponent<MeshCollider>());
 
-        // Solid color skybox so the sphere is the only background
-        ApplySolidColor();
-    }
+        quad.transform.position = new Vector3(0f, 0f, 5f);
+        quad.transform.rotation = Quaternion.identity;
 
-    void ApplySolidColor()
-    {
-        var mat = new Material(Shader.Find("Skybox/Panoramic"));
-        // Use a 1x1 solid color texture
-        var tex = new Texture2D(1, 1);
-        tex.SetPixel(0, 0, solidColor);
-        tex.Apply();
-        mat.SetTexture("_MainTex", tex);
-        RenderSettings.skybox = mat;
-        DynamicGI.UpdateEnvironment();
+        // Scale to fill the bg camera's view at Z=5
+        float dist = 5f;
+        float h = 2f * dist * Mathf.Tan(bgCam.fieldOfView * 0.5f * Mathf.Deg2Rad);
+        float w = h * (16f / 9f);
+        quad.transform.localScale = new Vector3(w, h, 1f);
+
+        // Step 4 — Unlit material
+        Material mat = new Material(Shader.Find("Unlit/Texture"));
+        mat.mainTexture = backgroundTexture;
+
+        Renderer rend = quad.GetComponent<Renderer>();
+        rend.material = mat;
+        rend.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        rend.receiveShadows = false;
     }
 }

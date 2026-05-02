@@ -59,7 +59,7 @@ public class EngineCardUI : MonoBehaviour
     {
         if (glowBorder != null) glowBorder.SetActive(true);
         if (cardCanvasGroup != null)
-            LeanTween.alphaCanvas(cardCanvasGroup, 1f, 0.15f);
+            cardCanvasGroup.alpha = 1f;
     }
 
     public void OnHoverExit()

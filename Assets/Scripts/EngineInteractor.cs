@@ -216,13 +216,13 @@ public class EngineInteractor : MonoBehaviour
         }
 
         _audioSource.Stop();
-        if (_activePart.audioExplanation != null)
+        if (_activePart.AudioClip != null)
         {
-            _audioSource.clip = _activePart.audioExplanation;
+            _audioSource.clip = _activePart.AudioClip;
             _audioSource.Play();
         }
 
         infoPanel.Show(_activePart);
-        Debug.Log($"[EngineInteractor] Isolated: {_activePart.partName}");
+        Debug.Log($"[EngineInteractor] Isolated: {_activePart.PartName}");
     }
 }

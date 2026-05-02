@@ -51,7 +51,6 @@ public class EngineSceneLoader : MonoBehaviour
             return;
         }
 
-        // Destroy any previously spawned engine
         if (_spawnedEngine != null) Destroy(_spawnedEngine);
 
         _spawnedEngine = Instantiate(
@@ -61,15 +60,21 @@ public class EngineSceneLoader : MonoBehaviour
         );
         _spawnedEngine.name = $"[Engine] {data.engineName}";
 
-        // Update info panel default text
-        if (infoPanel != null)
+        // Apply PartData from manifest to every EnginePart on the spawned prefab
+        if (data.partManifest != null)
         {
-            infoPanel.SetDefault(data.engineName, data.engineDescription);
+            var parts = _spawnedEngine.GetComponentsInChildren<EnginePart>(true);
+            foreach (var part in parts)
+            {
+                var pd = data.partManifest.GetPartData(part.gameObject.name);
+                if (pd != null) part.partData = pd;
+            }
+            Debug.Log($"[EngineSceneLoader] Applied manifest to {parts.Length} parts.");
         }
 
-        // EngineViewManager and EngineInteractor use FindObjectsByType internally,
-        // so they will pick up the newly spawned parts automatically on their next call.
-        // Force a refresh if the managers are already initialized.
+        if (infoPanel != null)
+            infoPanel.SetDefault(data.engineName, data.engineDescription);
+
         if (engineViewManager != null)
             engineViewManager.RefreshAfterLoad();
 

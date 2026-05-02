@@ -22,8 +22,8 @@ public class PartInfoPanel : MonoBehaviour
 
     public void Show(EnginePart part)
     {
-        titleText.text = part.partName;
-        descriptionText.text = part.description;
+        titleText.text = part.PartName;
+        descriptionText.text = part.Description;
     }
 
     public void Hide() => ResetToDefault();
