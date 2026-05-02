@@ -1,29 +1,38 @@
+using System;
 using UnityEngine;
 
+[Serializable]
+public class EngineSceneEntry
+{
+    public EngineData engineData;
+    public GameObject sceneRoot;
+}
+
 /// <summary>
-/// Place this in the EngineViewScene.
-/// On Start it reads EngineSessionData, spawns the selected engine prefab,
-/// and wires it into EngineViewManager and EngineInteractor automatically.
+/// Place this in the Main Scene.
+/// Maps each EngineData to its pre-placed scene root via EngineSceneEntry list.
+/// On Start, activates only the selected engine and deactivates all others.
 /// </summary>
 public class EngineSceneLoader : MonoBehaviour
 {
     [Header("Session")]
     public EngineSessionData sessionData;
 
+    [Header("Engine Scene Roots")]
+    [Tooltip("Pair each EngineData asset with its pre-placed root GameObject in this scene.")]
+    public EngineSceneEntry[] engineEntries;
+
     [Header("Scene References")]
     public EngineViewManager engineViewManager;
     public EngineInteractor engineInteractor;
     public PartInfoPanel infoPanel;
 
-    [Header("Spawn")]
-    [Tooltip("If sessionData has no selection, this fallback prefab is used (for testing).")]
+    [Header("Fallback")]
+    [Tooltip("Used when entering the scene directly in Editor without a selection.")]
     public EngineData fallbackEngine;
 
     [Header("Back Button")]
-    [Tooltip("Name of the Home scene in Build Settings.")]
     public string homeSceneName = "HomeScene";
-
-    private GameObject _spawnedEngine;
 
     void Start()
     {
@@ -37,53 +46,42 @@ public class EngineSceneLoader : MonoBehaviour
             return;
         }
 
-        LoadEngine(toLoad);
-
-        // Clear session so re-entering home doesn't auto-load
+        ActivateEngine(toLoad);
         sessionData?.Clear();
     }
 
-    void LoadEngine(EngineData data)
+    void ActivateEngine(EngineData selected)
     {
-        if (data.enginePrefab == null)
+        GameObject activeRoot = null;
+
+        foreach (var entry in engineEntries)
         {
-            Debug.LogError($"[EngineSceneLoader] EngineData '{data.engineName}' has no prefab assigned!");
+            if (entry.sceneRoot == null) continue;
+            bool isSelected = entry.engineData == selected;
+            entry.sceneRoot.SetActive(isSelected);
+            if (isSelected) activeRoot = entry.sceneRoot;
+        }
+
+        if (activeRoot == null)
+        {
+            Debug.LogError($"[EngineSceneLoader] No sceneRoot found for '{selected.engineName}'. Check engineEntries list.");
             return;
         }
 
-        if (_spawnedEngine != null) Destroy(_spawnedEngine);
-
-        _spawnedEngine = Instantiate(
-            data.enginePrefab,
-            data.spawnPosition,
-            Quaternion.Euler(data.spawnRotation)
-        );
-        _spawnedEngine.name = $"[Engine] {data.engineName}";
-
-        // Apply PartData from manifest to every EnginePart on the spawned prefab
-        if (data.partManifest != null)
-        {
-            var parts = _spawnedEngine.GetComponentsInChildren<EnginePart>(true);
-            foreach (var part in parts)
-            {
-                var pd = data.partManifest.GetPartData(part.gameObject.name);
-                if (pd != null) part.partData = pd;
-            }
-            Debug.Log($"[EngineSceneLoader] Applied manifest to {parts.Length} parts.");
-        }
-
         if (infoPanel != null)
-            infoPanel.SetDefault(data.engineName, data.engineDescription);
+            infoPanel.SetDefault(selected.engineName, selected.engineDescription);
 
         if (engineViewManager != null)
             engineViewManager.RefreshAfterLoad();
 
-        Debug.Log($"[EngineSceneLoader] Loaded engine: {data.engineName}");
+        Debug.Log($"[EngineSceneLoader] Activated: {selected.engineName}");
     }
 
     /// <summary>Called by the Back button in the engine scene.</summary>
     public void GoHome()
     {
+        HomeSceneUIController.ReturnToScroll = true;
+
         if (SceneTransitionManager.Instance != null)
             SceneTransitionManager.Instance.LoadScene(homeSceneName);
         else

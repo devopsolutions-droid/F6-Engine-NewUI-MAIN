@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd2eea37a43cd340b7c552abaee2a64, type: 3}
+  m_Name: F6BoxerEngineManifest
+  m_EditorClassIdentifier: 
+  parts:
+  - gameObjectName: Alternator
+    partData: {fileID: 11400000, guid: e2788271aaa5de0468efdbaa03e4b7f8, type: 2}
+  - gameObjectName: Engine Cover
+    partData: {fileID: 11400000, guid: 13ae3bc35ccbbe947bff3536dc9e3f14, type: 2}
+  - gameObjectName: Object_9
+    partData: {fileID: 11400000, guid: 5e1f343872c66bf458739645c7ec1d2b, type: 2}
+  - gameObjectName: Exhaust Input
+    partData: {fileID: 11400000, guid: 8e231d0e35dbcc04f901ee9b0ac27a6a, type: 2}
+  - gameObjectName: Exhaust Manifold
+    partData: {fileID: 11400000, guid: 36b6e7d2643932944b5c007eced2aa89, type: 2}
+  - gameObjectName: Exhaust Manifold
+    partData: {fileID: 11400000, guid: 36b6e7d2643932944b5c007eced2aa89, type: 2}
+  - gameObjectName: Exhaust manifold
+    partData: {fileID: 11400000, guid: 36b6e7d2643932944b5c007eced2aa89, type: 2}
+  - gameObjectName: Exhaust Manifold
+    partData: {fileID: 11400000, guid: 36b6e7d2643932944b5c007eced2aa89, type: 2}
+  - gameObjectName: Intake Valves
+    partData: {fileID: 11400000, guid: 3172814621db83c4184ee5dad710e2f3, type: 2}
+  - gameObjectName: Intake Valves
+    partData: {fileID: 11400000, guid: 3172814621db83c4184ee5dad710e2f3, type: 2}
+  - gameObjectName: Fuel Motor
+    partData: {fileID: 11400000, guid: 396ba631f9d44e84ea2c109f8a5d4d00, type: 2}
+  - gameObjectName: Fuel Motor
+    partData: {fileID: 11400000, guid: 396ba631f9d44e84ea2c109f8a5d4d00, type: 2}
+  - gameObjectName: Piston
+    partData: {fileID: 11400000, guid: 835ac248d021c374eba2194b199ec012, type: 2}
+  - gameObjectName: Icon
+    partData: {fileID: 11400000, guid: 24033ab0102cfa742a2656dacbce14c2, type: 2}
+  - gameObjectName: Spark plug wires
+    partData: {fileID: 11400000, guid: ccfe854622a978a4996c8cdf51a5d62a, type: 2}
+  - gameObjectName: Spark Plug Wires
+    partData: {fileID: 11400000, guid: ccfe854622a978a4996c8cdf51a5d62a, type: 2}
+  - gameObjectName: Timing Cover
+    partData: {fileID: 11400000, guid: 9edcc002a50052c4faeaf68cf48f2ea4, type: 2}
+  - gameObjectName: EngineCover RedTop
+    partData: {fileID: 11400000, guid: aa958ed91c8ecf94aa8bdafd94313269, type: 2}
+  - gameObjectName: Engine Red Cover
+    partData: {fileID: 11400000, guid: cb9c258f3a0b11c4089a99ea5fc78165, type: 2}
+  - gameObjectName: Engine Red Cover
+    partData: {fileID: 11400000, guid: cb9c258f3a0b11c4089a99ea5fc78165, type: 2}
+  - gameObjectName: Red Engine Protector
+    partData: {fileID: 11400000, guid: a2aa8edbb0d986e40846f4afc5a2f5f7, type: 2}

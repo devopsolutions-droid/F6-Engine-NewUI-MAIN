@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd2eea37a43cd340b7c552abaee2a64, type: 3}
+  m_Name: EspressoMachineManifest
+  m_EditorClassIdentifier: 
+  parts:
+  - gameObjectName: x.003_carbon fiber_0
+    partData: {fileID: 11400000, guid: 1fee69a066af394468bc6370faea15e8, type: 2}
+  - gameObjectName: x_carbon fiber_0
+    partData: {fileID: 11400000, guid: c983cede44cba6042b7bf62e405545d0, type: 2}
+  - gameObjectName: x.001_carbon fiber_0
+    partData: {fileID: 11400000, guid: a216e6eb4a952f54e8a2aaf1f2e2e92b, type: 2}
+  - gameObjectName: x.002_carbon fiber_0
+    partData: {fileID: 11400000, guid: bf3372e2341dd0544a160b8f1cf5f056, type: 2}
+  - gameObjectName: x.002_steel_0
+    partData: {fileID: 11400000, guid: 6003b59332c35de42b4c16d2cc3a1519, type: 2}
+  - gameObjectName: x.004_steel_0
+    partData: {fileID: 11400000, guid: 26fa32659ed9de140939154a5712277c, type: 2}
+  - gameObjectName: x.005_steel_0
+    partData: {fileID: 11400000, guid: 561f3bc9e68b9bd4db257ee6db7ad944, type: 2}
+  - gameObjectName: x.006_bottom and selectors_0
+    partData: {fileID: 11400000, guid: e0dc82b927526b747855b12049a50d59, type: 2}
+  - gameObjectName: x.007_bottom and selectors_0
+    partData: {fileID: 11400000, guid: 01b28adfc72908e49bd4f921768bf01f, type: 2}
+  - gameObjectName: x.008_Material.004_0
+    partData: {fileID: 11400000, guid: c826d1659e07a2a4bb258f846a20fc95, type: 2}
+  - gameObjectName: x.009_steel_0
+    partData: {fileID: 11400000, guid: 9a4bc140bad936e44aa7461c6995377e, type: 2}
+  - gameObjectName: x.010_carbon fiber_0
+    partData: {fileID: 11400000, guid: 2994d71054436644f8dd3b133f0fc5b8, type: 2}
+  - gameObjectName: x.010_steel_0
+    partData: {fileID: 11400000, guid: 8e4e503e32254f74489eadf4b78d7689, type: 2}
+  - gameObjectName: x.011_steel_0
+    partData: {fileID: 11400000, guid: c8e8b920350a8294b973291cbb915edb, type: 2}
+  - gameObjectName: x.012_steel_0
+    partData: {fileID: 11400000, guid: bdf869d9d659d06418500ef40be1d571, type: 2}
+  - gameObjectName: x.013_carbon fiber_0
+    partData: {fileID: 11400000, guid: 0fae2cca3784d254dbe7de6ac44ff9d4, type: 2}
+  - gameObjectName: x.014_carbon fiber_0
+    partData: {fileID: 11400000, guid: 6028b048274d3f3419eabfc649ad8109, type: 2}
+  - gameObjectName: x.015_Material.005_0
+    partData: {fileID: 11400000, guid: 318a3cf117788714ea8faef46a8fe8e6, type: 2}
+  - gameObjectName: cup.001_cups_0
+    partData: {fileID: 11400000, guid: a1137ebd446cd39448240f2b696fe4cc, type: 2}
+  - gameObjectName: cup_cups_0
+    partData: {fileID: 11400000, guid: b00a8bbf0ba43974ea947daf50f2cc3f, type: 2}
