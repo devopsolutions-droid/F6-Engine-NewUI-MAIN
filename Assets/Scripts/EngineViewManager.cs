@@ -152,7 +152,7 @@ public class EngineViewManager : MonoBehaviour
         // Swap buttons
         if (xrayButton != null)      xrayButton.SetActive(false);
         if (xrayResetButton != null) xrayResetButton.SetActive(true);
-        if (explodeButton != null)   explodeButton.SetActive(false);
+        if (explodeButton != null)   explodeButton.SetActive(true);
         if (assembleButton != null)  assembleButton.SetActive(false);
     }
 
