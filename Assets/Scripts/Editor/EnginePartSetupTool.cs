@@ -27,6 +27,18 @@ public class EnginePartSetupTool : EditorWindow
     [MenuItem("Tools/Engine Part Setup")]
     public static void Open() => GetWindow<EnginePartSetupTool>("Engine Part Setup");
 
+    void OnEnable()
+    {
+        // Auto-find the registry so it's never accidentally left empty
+        if (_registry == null)
+        {
+            var guids = AssetDatabase.FindAssets("t:EngineRegistry");
+            if (guids.Length > 0)
+                _registry = AssetDatabase.LoadAssetAtPath<EngineRegistry>(
+                    AssetDatabase.GUIDToAssetPath(guids[0]));
+        }
+    }
+
     void OnGUI()
     {
         GUILayout.Label("Engine Part Setup Tool", EditorStyles.boldLabel);
@@ -44,6 +56,12 @@ public class EnginePartSetupTool : EditorWindow
 
         _registry = (EngineRegistry)EditorGUILayout.ObjectField(
             "Engine Registry (optional)", _registry, typeof(EngineRegistry), false);
+
+        if (_registry == null)
+            EditorGUILayout.HelpBox(
+                "⚠ No registry assigned — the new engine won't appear on the home screen automatically.\n" +
+                "Drag EngineRegistry.asset here so it gets added automatically.",
+                MessageType.Warning);
 
         _savePath = EditorGUILayout.TextField("Save Path", _savePath);
 
