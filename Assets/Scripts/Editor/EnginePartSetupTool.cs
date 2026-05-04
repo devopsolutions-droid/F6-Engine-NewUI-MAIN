@@ -35,7 +35,7 @@ public class EnginePartSetupTool : EditorWindow
         _engineModel = (GameObject)EditorGUILayout.ObjectField(
             "Engine Model / Prefab", _engineModel, typeof(GameObject), true);
 
-        _engineName     = EditorGUILayout.TextField("Engine(Button) Name",     _engineName);
+        _engineName     = EditorGUILayout.TextField("Display Button Name",     _engineName);
         _engineCategory = EditorGUILayout.TextField("Category",        _engineCategory);
 
         EditorGUILayout.Space(4);
