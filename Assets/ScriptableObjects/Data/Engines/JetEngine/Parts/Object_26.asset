@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_26
+  m_EditorClassIdentifier: 
+  partName: Intake Manifold
+  description: The Intake Manifold is a small, thin-flat component located at the
+    middle-center-rear of the engine, responsible for distributing air-fuel mixture
+    to the combustion chamber. Its accent yellow color indicates a specialized material
+    or coating, which is likely designed to enhance the manifold's durability or
+    performance. Notably, the intake manifold's design is critical for ensuring proper
+    air-fuel mixture distribution, which directly affects the engine's power output,
+    fuel efficiency, and overall performance.
+  audioExplanation: {fileID: 0}

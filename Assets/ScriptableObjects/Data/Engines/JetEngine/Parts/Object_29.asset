@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_29
+  m_EditorClassIdentifier: 
+  partName: Exhaust Manifold Right
+  description: The Exhaust Manifold Right is a large, elongated metal component positioned
+    at the middle-left-center of the engine, playing a crucial role in collecting
+    and directing exhaust gases from the cylinders to the exhaust system. Made of
+    metal-mid material, it is designed to handle high temperatures and pressures,
+    and its location enables optimal exhaust gas flow. Notably, the Exhaust Manifold
+    Right is slightly different from its left counterpart in terms of material, allowing
+    for varying thermal expansion rates.
+  audioExplanation: {fileID: 0}

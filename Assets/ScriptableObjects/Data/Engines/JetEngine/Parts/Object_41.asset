@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_41
+  m_EditorClassIdentifier: 
+  partName: Engine Block (2)
+  description: The Engine Block (2) is a large, elongated component situated at the
+    middle-center-center of the engine, made of accent-yellow material. It serves
+    as the main structural component of the engine, housing the cylinders, crankshaft,
+    and camshaft, and providing a foundation for the engine's operation. Notably,
+    the engine block's large size and elongated shape allow for a high power-to-weight
+    ratio, enabling the engine to generate significant thrust while minimizing weight
+    and maximizing fuel efficiency.
+  audioExplanation: {fileID: 0}

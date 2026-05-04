@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_37
+  m_EditorClassIdentifier: 
+  partName: Cylinder Head
+  description: The Cylinder Head is a small, elongated metal component positioned
+    at the middle-center-center of the engine, responsible for sealing the cylinders
+    and directing airflow and fuel into the combustion chamber. Made of metal-mid
+    material, it provides excellent strength and thermal conductivity, and its location
+    allows for efficient heat transfer and engine operation. Notably, the Cylinder
+    Head is designed to work in conjunction with the engine block and valves to optimize
+    engine performance and efficiency.
+  audioExplanation: {fileID: 0}

@@ -205,7 +205,7 @@ public class EngineInteractor : MonoBehaviour
         {
             if (p == _activePart)
             {
-                p.SetGlowSelected();
+                p.SetSelected();
                 p.ShowPanel();    // keep THIS part's panel visible
             }
             else

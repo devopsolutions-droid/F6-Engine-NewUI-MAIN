@@ -3,7 +3,7 @@ Shader "Custom/Outline"
     Properties
     {
         _OutlineColor ("Outline Color", Color) = (1, 0, 0, 1)
-        _OutlineWidth ("Outline Width", Float) = 0.015
+        _OutlineWidth ("Outline Width", Float) = 1.5
     }
 
     SubShader
@@ -17,6 +17,7 @@ Shader "Custom/Outline"
             Cull Front
             ZWrite On
             ZTest LEqual
+            ColorMask RGB
 
             CGPROGRAM
             #pragma vertex vert
@@ -47,8 +48,21 @@ Shader "Custom/Outline"
                 UNITY_SETUP_INSTANCE_ID(v);
                 UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
-                float3 expandedPos = v.vertex.xyz + normalize(v.normal) * _OutlineWidth;
-                o.pos = UnityObjectToClipPos(float4(expandedPos, 1.0));
+                float4 clipPos = UnityObjectToClipPos(v.vertex);
+
+                // Transform normal to view space using the correct inverse-transpose matrix
+                float3 viewNormal = normalize(mul((float3x3)UNITY_MATRIX_IT_MV, v.normal));
+
+                // Project to clip space using projection scale factors (handles FOV + aspect)
+                float2 projNormal = normalize(float2(
+                    viewNormal.x * UNITY_MATRIX_P[0][0],
+                    viewNormal.y * UNITY_MATRIX_P[1][1]
+                ));
+
+                // Offset in clip space — multiply by w for perspective-correct uniform thickness
+                clipPos.xy += projNormal * clipPos.w * _OutlineWidth * 0.004;
+
+                o.pos = clipPos;
                 return o;
             }
 

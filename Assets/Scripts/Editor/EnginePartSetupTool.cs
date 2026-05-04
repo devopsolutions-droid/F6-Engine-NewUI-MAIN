@@ -22,6 +22,7 @@ public class EnginePartSetupTool : EditorWindow
     private string        _engineName     = "New Engine";
     private string        _engineCategory = "General";
     private string        _savePath       = "Assets/ScriptableObjects/Data/Engines";
+    private float         _panelOffset    = 0.4f;
 
     [MenuItem("Tools/Engine Part Setup")]
     public static void Open() => GetWindow<EnginePartSetupTool>("Engine Part Setup");
@@ -45,6 +46,8 @@ public class EnginePartSetupTool : EditorWindow
             "Engine Registry (optional)", _registry, typeof(EngineRegistry), false);
 
         _savePath = EditorGUILayout.TextField("Save Path", _savePath);
+
+        _panelOffset = EditorGUILayout.Slider("Panel Offset Distance", _panelOffset, 0.05f, 2f);
 
         EditorGUILayout.Space(10);
 
@@ -97,14 +100,12 @@ public class EnginePartSetupTool : EditorWindow
         EnsureFolder(partsFolder);
         EnsureFolder(panelsFolder);
 
-        var meshChildren = CollectMeshChildren(_engineModel);
-
-        // ── Step 1 & 2: EnginePart + layer + PartData — all wired directly ───
+        // ── Steps 1–4: All prefab modifications inside EditPrefabContentsScope ─
         var manifest        = ScriptableObject.CreateInstance<EnginePartManifest>();
         int addedParts      = 0;
         int createdPartData = 0;
+        int createdPanels   = 0;
 
-        // Palette cycles through distinct colors automatically
         var palette = new OutlineColorPreset[]
         {
             OutlineColorPreset.Cyan,
@@ -120,125 +121,183 @@ public class EnginePartSetupTool : EditorWindow
         };
         int paletteIndex = 0;
 
-        bool isPrefabAsset = !string.IsNullOrEmpty(AssetDatabase.GetAssetPath(_engineModel));
+        bool   isPrefabAsset   = !string.IsNullOrEmpty(AssetDatabase.GetAssetPath(_engineModel));
+        string prefabAssetPath = AssetDatabase.GetAssetPath(_engineModel);
+        bool   canEditPrefab   = !string.IsNullOrEmpty(prefabAssetPath);
 
-        foreach (var go in meshChildren)
+        // Compute engine bounds from a temp instance BEFORE opening the scope
+        Vector3 engineCenter = Vector3.zero;
+        float   autoOffset   = _panelOffset;
+        if (canEditPrefab)
         {
-            // Set layer
-            go.layer = enginePartsLayer;
+            var tempInstance = (GameObject)PrefabUtility.InstantiatePrefab(_engineModel);
+            tempInstance.hideFlags = HideFlags.HideAndDontSave;
+            Bounds engineBounds = ComputeEngineBounds(tempInstance);
+            engineCenter = engineBounds.center;
+            autoOffset   = Mathf.Max(engineBounds.extents.magnitude * 0.35f, _panelOffset);
+            DestroyImmediate(tempInstance);
+        }
 
-            // Add MeshCollider (convex) if missing
-            var mc = go.GetComponent<MeshCollider>();
-            if (mc == null) mc = go.AddComponent<MeshCollider>();
-            mc.convex = true;
+        PrefabUtility.EditPrefabContentsScope? scope = canEditPrefab
+            ? new PrefabUtility.EditPrefabContentsScope(prefabAssetPath)
+            : (PrefabUtility.EditPrefabContentsScope?)null;
 
-            // Add EnginePart if missing
-            var ep = go.GetComponent<EnginePart>();
-            if (ep == null)
+        try
+        {
+            GameObject prefabRoot = canEditPrefab ? scope.Value.prefabContentsRoot : _engineModel;
+
+            // Collect mesh children from the LIVE prefab root inside the scope
+            var scopedChildren = CollectMeshChildren(prefabRoot);
+
+            // ── Step 1 & 2: EnginePart + layer + PartData ─────────────────────
+            foreach (var go in scopedChildren)
             {
-                ep = go.AddComponent<EnginePart>();
-                ep.partName = go.name;
-                addedParts++;
+                go.layer = enginePartsLayer;
+
+                var mc = go.GetComponent<MeshCollider>();
+                if (mc == null) mc = go.AddComponent<MeshCollider>();
+                mc.convex = true;
+
+                var ep = go.GetComponent<EnginePart>();
+                if (ep == null)
+                {
+                    ep = go.AddComponent<EnginePart>();
+                    ep.partName = go.name;
+                    addedParts++;
+                }
+
+                ep.outlineColorPreset = palette[paletteIndex % palette.Length];
+                paletteIndex++;
+
+                string safeName  = SanitizeName(go.name);
+                string assetPath = $"{partsFolder}/{safeName}.asset";
+
+                PartData pd;
+                if (File.Exists(assetPath))
+                    pd = AssetDatabase.LoadAssetAtPath<PartData>(assetPath);
+                else
+                {
+                    pd = ScriptableObject.CreateInstance<PartData>();
+                    pd.partName    = go.name;
+                    pd.description = $"Description for {go.name}.";
+                    AssetDatabase.CreateAsset(pd, assetPath);
+                    createdPartData++;
+                }
+
+                ep.partData = pd;
+
+                manifest.parts.Add(new EnginePartManifest.PartEntry
+                {
+                    gameObjectName = go.name,
+                    partData       = pd
+                });
             }
 
-            // Assign cycling outline color preset
-            ep.outlineColorPreset = palette[paletteIndex % palette.Length];
-            paletteIndex++;
-            EditorUtility.SetDirty(ep);
+            Debug.Log($"[Setup] {addedParts} EnginePart components added, {createdPartData} PartData assets created.");
 
-            // Create or reuse PartData asset
-            string safeName  = SanitizeName(go.name);
-            string assetPath = $"{partsFolder}/{safeName}.asset";
-
-            PartData pd;
-            if (File.Exists(assetPath))
+            // ── Step 3: Save manifest ─────────────────────────────────────────
+            string manifestPath = $"{engineFolder}/{_engineName.Replace(" ", "")}Manifest.asset";
+            EnginePartManifest existingManifest = AssetDatabase.LoadAssetAtPath<EnginePartManifest>(manifestPath);
+            if (existingManifest != null)
             {
-                pd = AssetDatabase.LoadAssetAtPath<PartData>(assetPath);
+                foreach (var newEntry in manifest.parts)
+                {
+                    bool found = false;
+                    foreach (var e in existingManifest.parts)
+                        if (e.gameObjectName == newEntry.gameObjectName) { found = true; break; }
+                    if (!found) existingManifest.parts.Add(newEntry);
+                }
+                EditorUtility.SetDirty(existingManifest);
+                manifest = existingManifest;
             }
             else
+                AssetDatabase.CreateAsset(manifest, manifestPath);
+
+            // ── Step 4: Hover panels ──────────────────────────────────────────
+            Transform panelContainer = prefabRoot.transform.Find("_HoverPanels");
+            if (panelContainer == null)
             {
-                pd = ScriptableObject.CreateInstance<PartData>();
-                pd.partName    = go.name;
-                pd.description = $"Description for {go.name}.";
-                AssetDatabase.CreateAsset(pd, assetPath);
-                createdPartData++;
+                var containerGO = new GameObject("_HoverPanels");
+                containerGO.transform.SetParent(prefabRoot.transform, false);
+                panelContainer = containerGO.transform;
             }
 
-            // ── directly assign PartData into the EnginePart component ──
-            ep.partData = pd;
-
-            manifest.parts.Add(new EnginePartManifest.PartEntry
+            foreach (var go in scopedChildren)
             {
-                gameObjectName = go.name,
-                partData       = pd
-            });
-        }
+                string panelName = $"{go.name}_Panel";
+                if (panelContainer.Find(panelName) != null) continue;
 
-        // Mark root dirty so prefab saves the layer + component changes
-        EditorUtility.SetDirty(_engineModel);
-        Debug.Log($"[Setup] {addedParts} EnginePart components added, {createdPartData} PartData assets created.");
+                Transform partTransform = FindDeepChild(prefabRoot.transform, go.name);
 
-        // ── Step 3: Save manifest ─────────────────────────────────────────────
-        string manifestPath = $"{engineFolder}/{_engineName.Replace(" ", "")}Manifest.asset";
-        EnginePartManifest existingManifest = AssetDatabase.LoadAssetAtPath<EnginePartManifest>(manifestPath);
-        if (existingManifest != null)
-        {
-            foreach (var newEntry in manifest.parts)
-            {
-                bool found = false;
-                foreach (var e in existingManifest.parts)
-                    if (e.gameObjectName == newEntry.gameObjectName) { found = true; break; }
-                if (!found) existingManifest.parts.Add(newEntry);
+                Renderer partRend = partTransform != null
+                    ? partTransform.GetComponent<Renderer>()
+                    : go.GetComponent<Renderer>();
+                Vector3 partCenter = partRend != null ? partRend.bounds.center : engineCenter;
+
+                Vector3 outDir = partCenter - engineCenter;
+                if (outDir.sqrMagnitude < 0.0001f) outDir = Vector3.up;
+                outDir.Normalize();
+
+                Vector3 panelWorldPos = partCenter + outDir * autoOffset;
+
+                GameObject panelGO = _hoverPanelTemplate != null
+                    ? (GameObject)PrefabUtility.InstantiatePrefab(_hoverPanelTemplate)
+                    : BuildDefaultHoverPanel(go.name, panelWorldPos, partCenter);
+
+                panelGO.name = panelName;
+                panelGO.transform.SetParent(panelContainer, true);
+                panelGO.transform.position = panelWorldPos;
+
+                Vector3 faceDir = partCenter - panelWorldPos;
+                if (faceDir.sqrMagnitude > 0.0001f)
+                    panelGO.transform.rotation = Quaternion.LookRotation(faceDir.normalized);
+
+                var php = panelGO.GetComponent<PartHoverPanel>();
+                if (php == null) php = panelGO.AddComponent<PartHoverPanel>();
+
+                // Wire partAnchor -> part's own transform (no _Anchor child needed)
+                if (partTransform != null)
+                    php.partAnchor = partTransform;
+
+                EnginePart ep = partTransform != null
+                    ? partTransform.GetComponent<EnginePart>()
+                    : go.GetComponent<EnginePart>();
+                if (ep != null)
+                    ep.hoverPanel = panelGO;
+
+                string backupPath = $"{panelsFolder}/{SanitizeName(go.name)}_Panel.prefab";
+                if (!File.Exists(backupPath))
+                    PrefabUtility.SaveAsPrefabAsset(panelGO, backupPath);
+
+                createdPanels++;
             }
-            EditorUtility.SetDirty(existingManifest);
-            manifest = existingManifest;
+
+            Debug.Log($"[Setup] {createdPanels} hover panels created, positioned, and wired.");
         }
-        else
+        finally
         {
-            AssetDatabase.CreateAsset(manifest, manifestPath);
+            scope?.Dispose();
         }
 
-        // ── Step 4: Hover panel prefabs ───────────────────────────────────────
-        int createdPanels = 0;
-        foreach (var go in meshChildren)
-        {
-            string panelPath = $"{panelsFolder}/{SanitizeName(go.name)}_Panel.prefab";
-            if (File.Exists(panelPath)) continue;
-
-            GameObject panelGO = _hoverPanelTemplate != null
-                ? (GameObject)PrefabUtility.InstantiatePrefab(_hoverPanelTemplate)
-                : BuildDefaultHoverPanel(go.name);
-
-            panelGO.name = $"{go.name}_Panel";
-            if (panelGO.GetComponent<PartHoverPanel>() == null)
-                panelGO.AddComponent<PartHoverPanel>();
-
-            PrefabUtility.SaveAsPrefabAsset(panelGO, panelPath);
-            DestroyImmediate(panelGO);
-            createdPanels++;
-        }
-        Debug.Log($"[Setup] {createdPanels} hover panel prefabs created.");
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
 
         // ── Step 5: EngineData asset ──────────────────────────────────────────
-        string dataPath   = $"{engineFolder}/{_engineName.Replace(" ", "")}Data.asset";
+        string dataPath = $"{engineFolder}/{_engineName.Replace(" ", "")}Data.asset";
         EngineData engineData = AssetDatabase.LoadAssetAtPath<EngineData>(dataPath);
         if (engineData == null)
         {
             engineData = ScriptableObject.CreateInstance<EngineData>();
             AssetDatabase.CreateAsset(engineData, dataPath);
         }
-
         engineData.engineName     = _engineName;
         engineData.engineCategory = _engineCategory;
         engineData.partManifest   = manifest;
-
-        string prefabPath = AssetDatabase.GetAssetPath(_engineModel);
-        if (!string.IsNullOrEmpty(prefabPath))
+        if (!string.IsNullOrEmpty(prefabAssetPath))
             engineData.enginePrefab = _engineModel;
-
         EditorUtility.SetDirty(engineData);
 
-        // ── Step 6: Registry ──────────────────────────────────────────────────
+        // ── Step 6: Registry ───────────────────────────────────────────────
         if (_registry != null && !_registry.engines.Contains(engineData))
         {
             _registry.engines.Add(engineData);
@@ -248,7 +307,6 @@ public class EnginePartSetupTool : EditorWindow
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
 
-        // If it's a prefab asset, apply all changes
         if (isPrefabAsset)
             PrefabUtility.SavePrefabAsset(_engineModel);
 
@@ -260,13 +318,12 @@ public class EnginePartSetupTool : EditorWindow
             $"  • Layer '{EnginePartsLayerName}' (index {enginePartsLayer}) applied to all parts\n" +
             $"  • {addedParts} EnginePart components assigned\n" +
             $"  • {createdPartData} PartData assets created & wired\n" +
-            $"  • {createdPanels} hover panel prefabs created\n" +
+            $"  • {createdPanels} hover panels created, positioned & wired\n" +
             $"  • EngineData asset ready\n\n" +
             "Remaining steps:\n" +
             "1. Open Parts/ folder → fill description + drag audio into each PartData\n" +
             "2. Assign thumbnail in EngineData\n" +
-            "3. Set spawnPosition / spawnRotation in EngineData\n" +
-            "4. Wire hover panel prefabs to EnginePart.hoverPanel in the prefab",
+            "3. Set spawnPosition / spawnRotation in EngineData",
             "OK");
     }
 
@@ -305,6 +362,20 @@ public class EnginePartSetupTool : EditorWindow
         return -1; // no free slot
     }
 
+    // ── Deep child finder ────────────────────────────────────────────────────
+
+    /// <summary>Recursively searches all children for a GameObject with the given name.</summary>
+    static Transform FindDeepChild(Transform parent, string name)
+    {
+        foreach (Transform child in parent)
+        {
+            if (child.name == name) return child;
+            var result = FindDeepChild(child, name);
+            if (result != null) return result;
+        }
+        return null;
+    }
+
     // ── Mesh child collector ──────────────────────────────────────────────────
 
     List<GameObject> CollectMeshChildren(GameObject root)
@@ -319,9 +390,27 @@ public class EnginePartSetupTool : EditorWindow
         return result;
     }
 
+    // ── Engine bounds calculator ──────────────────────────────────────────────
+
+    /// <summary>
+    /// Returns the combined world-space bounds of all renderers on the instance.
+    /// Call on a temporarily instantiated copy of the prefab.
+    /// </summary>
+    static Bounds ComputeEngineBounds(GameObject instance)
+    {
+        var renderers = instance.GetComponentsInChildren<Renderer>(true);
+        var bounds    = new Bounds(instance.transform.position, Vector3.zero);
+        foreach (var r in renderers)
+            bounds.Encapsulate(r.bounds);
+        return bounds;
+    }
+
     // ── Default hover panel builder ───────────────────────────────────────────
 
-    GameObject BuildDefaultHoverPanel(string partName)
+    /// <summary>
+    /// Builds a world-space canvas panel placed at worldPos, facing lookTarget.
+    /// </summary>
+    GameObject BuildDefaultHoverPanel(string partName, Vector3 worldPos, Vector3 lookTarget)
     {
         var root   = new GameObject($"{partName}_Panel");
         var canvas = root.AddComponent<Canvas>();
@@ -355,6 +444,13 @@ public class EnginePartSetupTool : EditorWindow
         labelRt.offsetMax = new Vector2(-0.01f, -0.01f);
 
         root.transform.localScale = Vector3.one * 0.01f;
+
+        // Place and orient the panel
+        root.transform.position = worldPos;
+        Vector3 faceDir = lookTarget - worldPos;
+        if (faceDir.sqrMagnitude > 0.0001f)
+            root.transform.rotation = Quaternion.LookRotation(faceDir.normalized);
+
         return root;
     }
 

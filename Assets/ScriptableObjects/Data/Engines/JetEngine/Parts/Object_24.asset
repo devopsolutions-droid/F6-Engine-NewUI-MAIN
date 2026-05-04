@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_24
+  m_EditorClassIdentifier: 
+  partName: Clip (2)
+  description: The Clip (2) is a small, thin-flat metal component located at the
+    middle-center-rear of the engine, used to secure or retain other parts in place.
+    Made of mid-tone metal, this clip plays a crucial role in maintaining the engine's
+    structural integrity and preventing component misalignment or damage. Notably,
+    its small size and rear positioning require precise engineering to ensure reliable
+    retention without obstructing nearby components.
+  audioExplanation: {fileID: 0}

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_21
+  m_EditorClassIdentifier: 
+  partName: Cover Plate
+  description: The Cover Plate is a small, thin-flat metal component located at the
+    middle-center-rear of the engine, serving as a protective cover for internal
+    components. Made of mid-tone metal, this plate helps to prevent debris and contaminants
+    from entering the engine while also providing easy access for maintenance and
+    repairs. Notably, its small size and rear positioning make it a critical component
+    for ensuring the engine's overall durability.
+  audioExplanation: {fileID: 0}

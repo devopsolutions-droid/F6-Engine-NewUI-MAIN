@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_25
+  m_EditorClassIdentifier: 
+  partName: Exhaust Manifold (2)
+  description: The Exhaust Manifold (2) is a small, thin-flat metal component situated
+    at the middle-center-center of the engine, responsible for collecting and directing
+    exhaust gases away from the combustion chamber. Its dark metal finish suggests
+    a high-temperature resistant material, which is essential for withstanding the
+    intense heat generated during the exhaust process. Interestingly, the exhaust
+    manifold's design is optimized to minimize backpressure and maximize engine efficiency.
+  audioExplanation: {fileID: 0}
