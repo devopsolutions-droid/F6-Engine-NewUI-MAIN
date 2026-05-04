@@ -10,6 +10,7 @@ public class HomeSceneUIController : MonoBehaviour
     [Header("Buttons")]
     public Button startButton;
     public Button backButton;
+    public Button exitButton;
 
     [Header("Scroll")]
     public ScrollNavigator scrollNavigator;
@@ -35,6 +36,7 @@ public class HomeSceneUIController : MonoBehaviour
 
         startButton.onClick.AddListener(OnStartButtonClicked);
         backButton?.onClick.AddListener(OnBackButtonClicked);
+        exitButton?.onClick.AddListener(OnExitButtonClicked);
     }
 
     public void OnStartButtonClicked()
@@ -48,5 +50,14 @@ public class HomeSceneUIController : MonoBehaviour
     {
         scrollCanvas.SetActive(false);
         startUI.SetActive(true);
+    }
+
+    public void OnExitButtonClicked()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 }

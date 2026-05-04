@@ -8,10 +8,12 @@ using UnityEngine;
 public class HomePanelController : MonoBehaviour
 {
     [Header("Placement")]
-    [Tooltip("Distance in front of the player camera.")]
     public float distanceFromPlayer = 2.5f;
-    [Tooltip("Height offset relative to camera.")]
     public float heightOffset = -0.1f;
+
+    [Header("XR")]
+    [Tooltip("Drag the XR Origin root here. Its Y rotation is reset to 0 before the panel is placed so the camera always faces the panel.")]
+    public Transform xrOrigin;
 
     [Header("Float Animation")]
     public bool enableFloat = true;
@@ -23,6 +25,15 @@ public class HomePanelController : MonoBehaviour
 
     void Start()
     {
+        // Reset XR Origin Y rotation so the camera faces forward (0,0,0)
+        // before we place the panel in front of it
+        if (xrOrigin != null)
+        {
+            Vector3 euler = xrOrigin.eulerAngles;
+            euler.y = 0f;
+            xrOrigin.eulerAngles = euler;
+        }
+
         PlacePanel();
     }
 

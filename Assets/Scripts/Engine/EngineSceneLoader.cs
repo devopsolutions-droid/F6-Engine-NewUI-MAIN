@@ -34,8 +34,16 @@ public class EngineSceneLoader : MonoBehaviour
     [Header("Back Button")]
     public string homeSceneName = "HomeScene";
 
+    [Header("XR")]
+    [Tooltip("Drag the XR Origin (or XR Rig) root GameObject here. Its rotation is reset to 0,0,0 on every scene load.")]
+    public Transform xrOrigin;
+
     void Start()
     {
+        // Reset XR Origin rotation so the player always faces forward in the engine scene
+        if (xrOrigin != null)
+            xrOrigin.rotation = Quaternion.identity;
+
         EngineData toLoad = (sessionData != null && sessionData.HasSelection)
             ? sessionData.selectedEngine
             : fallbackEngine;
