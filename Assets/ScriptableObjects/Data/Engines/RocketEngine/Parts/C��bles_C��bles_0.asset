@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: "C\uFFFD\uFFFDbles_C\uFFFD\uFFFDbles_0"
+  m_EditorClassIdentifier: 
+  partName: Cylinder Head
+  description: The Cylinder Head is a critical component located at the top-center-center
+    of the rocket engine, made of a durable Cbles material, and features a complex
+    shape to accommodate the engine's combustion process. It plays a crucial role
+    in sealing the combustion chamber and facilitating the flow of gases. An interesting
+    detail is that the Cylinder Head's large size and complex geometry require precise
+    manufacturing to ensure optimal engine performance.
+  audioExplanation: {fileID: 0}
