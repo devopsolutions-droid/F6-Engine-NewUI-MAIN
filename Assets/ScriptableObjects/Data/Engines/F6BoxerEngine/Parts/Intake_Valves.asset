@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Intake_Valves
   m_EditorClassIdentifier: 
   partName: Intake Valves
-  description: Description for Intake Valves.
+  description: Intake valves control the flow of air or air-fuel mixture into the
+    combustion chamber, opening and closing at precise times to ensure efficient
+    engine performance.
   audioExplanation: {fileID: 0}

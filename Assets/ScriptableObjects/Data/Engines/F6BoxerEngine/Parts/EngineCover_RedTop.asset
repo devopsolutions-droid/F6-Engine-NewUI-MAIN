@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: EngineCover_RedTop
   m_EditorClassIdentifier: 
   partName: EngineCover RedTop
-  description: Description for EngineCover RedTop.
+  description: The timing cover protects the timing chain or belt and related components,
+    ensuring proper synchronization between the crankshaft and camshaft for smooth
+    engine operation.
   audioExplanation: {fileID: 0}

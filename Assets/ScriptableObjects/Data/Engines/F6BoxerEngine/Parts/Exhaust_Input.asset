@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Exhaust_Input
   m_EditorClassIdentifier: 
   partName: Exhaust Input
-  description: Description for Exhaust Input.
+  description: The exhaust input is the section where burned gases exit the engine
+    cylinders, directing them into the exhaust manifold for proper flow and emission
+    handling.
   audioExplanation: {fileID: 0}

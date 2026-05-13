@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Spark_plug_wires
   m_EditorClassIdentifier: 
   partName: Spark plug wires
-  description: Description for Spark plug wires.
+  description: These wires deliver electrical current from the ignition system to
+    the spark plugs, enabling ignition of the air-fuel mixture inside the engine
+    cylinders.
   audioExplanation: {fileID: 0}

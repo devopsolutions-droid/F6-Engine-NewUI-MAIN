@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_258
+  m_EditorClassIdentifier: 
+  partName: Intake Valve
+  description: The Intake Valve is a tiny, elongated component located at the top-center-front
+    of the engine, made of Material.001, responsible for controlling the flow of
+    air and fuel into the combustion chamber. Its precise operation is crucial, as
+    it enables the engine to draw in the optimal amount of air and fuel, and a notable
+    aspect is that it is designed to open and close rapidly, typically in a matter
+    of milliseconds. The intake valve's tiny size and elongated shape allow it to
+    fit within the engine's compact cylinder head.
+  audioExplanation: {fileID: 0}

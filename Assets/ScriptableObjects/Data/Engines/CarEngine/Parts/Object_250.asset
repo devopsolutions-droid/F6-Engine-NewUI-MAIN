@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_250
+  m_EditorClassIdentifier: 
+  partName: Spark Plug (5)
+  description: The Spark Plug (5) is a tiny, elongated component situated at the
+    top-right-rear of the engine, constructed from Material.001, responsible for
+    generating the high-voltage spark that ignites the fuel-air mixture. Its tiny
+    size belies its importance, as it enables the engine to run efficiently, and
+    a notable aspect is that it is designed to withstand the harsh conditions inside
+    the combustion chamber. The spark plug's location at the top-right-rear allows
+    for optimal spark delivery to the fuel-air mixture.
+  audioExplanation: {fileID: 0}

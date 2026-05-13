@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Red_Engine_Protector
   m_EditorClassIdentifier: 
   partName: Red Engine Protector
-  description: Description for Red Engine Protector.
+  description: The timing cover protects the timing chain or belt and related components,
+    ensuring proper synchronization between the crankshaft and camshaft for smooth
+    engine operation.
   audioExplanation: {fileID: 0}

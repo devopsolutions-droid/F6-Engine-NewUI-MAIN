@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_51
+  m_EditorClassIdentifier: 
+  partName: Right Rear Bolt 2
+  description: The Right Rear Bolt 2 is another tiny, complex-shaped component situated
+    at the bottom-right-rear of the engine, constructed from Material.001, which
+    provides supplementary support and reinforcement to the engine's rear section,
+    working in tandem with the Right Rear Bolt to distribute the engine's weight
+    and stresses evenly, and its compact design facilitates a secure connection with
+    adjacent components. The presence of this bolt underscores the importance of
+    redundancy in critical engine components, ensuring that the engine remains stable
+    and secure even in the event of component failure. Interestingly, the Right Rear
+    Bolt 2 is often subjected to unique stress patterns due to its position near
+    the engine's exhaust system, necessitating careful design and testing to ensure
+    reliability and durability.
+  audioExplanation: {fileID: 0}

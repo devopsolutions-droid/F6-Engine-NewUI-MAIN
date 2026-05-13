@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_186
+  m_EditorClassIdentifier: 
+  partName: Gasket (5)
+  description: The Gasket (5) is a thin, flat seal positioned at the bottom-center-front
+    of the engine, responsible for preventing fluid leaks and maintaining the engine's
+    internal pressure. Composed of Frame material, this gasket provides a reliable
+    barrier against leaks, ensuring the engine operates efficiently and effectively.
+    Notably, its thin design allows for a precise fit, minimizing the risk of leaks
+    and maximizing engine performance.
+  audioExplanation: {fileID: 0}

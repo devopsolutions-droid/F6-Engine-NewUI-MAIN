@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Piston
   m_EditorClassIdentifier: 
   partName: Piston
-  description: Description for Piston.
+  description: The piston moves up and down inside the cylinder, converting combustion
+    pressure into mechanical force that drives the crankshaft and powers the engine.
   audioExplanation: {fileID: 0}

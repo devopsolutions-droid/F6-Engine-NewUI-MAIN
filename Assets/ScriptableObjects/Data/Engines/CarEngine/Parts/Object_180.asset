@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_180
+  m_EditorClassIdentifier: 
+  partName: Intake Manifold Stud (2)
+  description: The Intake Manifold Stud (2) is a tiny, elongated component made of
+    Material.001, positioned at the top-center-front of the engine, responsible for
+    securing the intake manifold in place. Its small size and strategic location
+    make it essential for maintaining intake system integrity and preventing air
+    leaks. Interestingly, the Intake Manifold Stud (2) is designed with a fine thread
+    to ensure a precise connection.
+  audioExplanation: {fileID: 0}

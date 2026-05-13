@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_273
+  m_EditorClassIdentifier: 
+  partName: Lower Intake Manifold Gasket
+  description: The Lower Intake Manifold Gasket is a tiny, thin-flat component located
+    at the middle-center-front of the engine, sealing the lower section of the intake
+    manifold to prevent air and fuel leaks. Made of Material.006, this gasket is
+    essential for maintaining the engine's performance and efficiency. An interesting
+    detail about the Lower Intake Manifold Gasket is that its lower position allows
+    it to provide an additional layer of protection against leaks and damage to the
+    intake manifold.
+  audioExplanation: {fileID: 0}

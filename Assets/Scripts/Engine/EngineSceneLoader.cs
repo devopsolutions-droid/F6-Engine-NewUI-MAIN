@@ -40,6 +40,12 @@ public class EngineSceneLoader : MonoBehaviour
     [Header("Back Button")]
     public string homeSceneName = "HomeScene";
 
+    void Awake()
+    {
+        if (tabletUIController == null)
+            tabletUIController = FindFirstObjectByType<TabletUIController>();
+    }
+
     void Start()
     {
         EngineData toLoad = (sessionData != null && sessionData.HasSelection)

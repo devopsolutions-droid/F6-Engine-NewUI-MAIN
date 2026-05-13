@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Alternator
   m_EditorClassIdentifier: 
   partName: Alternator
-  description: Description for Alternator.
+  description: "The alternator converts mechanical energy from the engine into electrical
+    energy, powering the vehicle\u2019s electrical systems and continuously charging
+    the battery while the engine is running."
   audioExplanation: {fileID: 0}

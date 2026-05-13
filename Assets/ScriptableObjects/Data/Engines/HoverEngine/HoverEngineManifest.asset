@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd2eea37a43cd340b7c552abaee2a64, type: 3}
+  m_Name: HoverEngineManifest
+  m_EditorClassIdentifier: 
+  parts:
+  - gameObjectName: defaultMaterial
+    partData: {fileID: 11400000, guid: 6abc79c8d20031d4fb9fd4e51e04e270, type: 2}
+  - gameObjectName: defaultMaterial_0
+    partData: {fileID: 11400000, guid: 20296ed40fcd1c14283491eab21ef578, type: 2}
+  - gameObjectName: defaultMaterial_1
+    partData: {fileID: 11400000, guid: a4d3e99bb96d7d24e84760341384d5ce, type: 2}
+  - gameObjectName: defaultMaterial_2
+    partData: {fileID: 11400000, guid: d71c2c9ca48636143bbfbcc18df4e658, type: 2}
+  - gameObjectName: defaultMaterial_3
+    partData: {fileID: 11400000, guid: 62096461f8effa34099acc0686daae1a, type: 2}
+  - gameObjectName: defaultMaterial_4
+    partData: {fileID: 11400000, guid: 6ac6f28df74696d47a383f35cf534862, type: 2}
+  - gameObjectName: defaultMaterial_5
+    partData: {fileID: 11400000, guid: 6c57b95aea286404cb825ccebbe1cefe, type: 2}

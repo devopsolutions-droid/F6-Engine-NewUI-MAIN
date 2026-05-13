@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: defaultMaterial_2
+  m_EditorClassIdentifier: 
+  partName: Cylinder Head
+  description: The Cylinder Head, located at the middle-center-rear of the Hover
+    Engine, is a large and complex-shaped component that sits atop the engine's cylinders
+    and plays a crucial role in the combustion process. Made of standardSurface2
+    material, it provides a durable and heat-resistant interface between the cylinders
+    and the engine's valves. Notably, the Cylinder Head's design and material selection
+    have a significant impact on the engine's power output, efficiency, and emissions.
+  audioExplanation: {fileID: 0}

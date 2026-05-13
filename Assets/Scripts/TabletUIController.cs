@@ -10,8 +10,6 @@ using TMPro;
 ///   START Button            → OnStartClicked
 ///   X-Ray Button            → OnXRayClicked
 ///   X-Ray Button Reset      → OnXRayResetClicked
-///   Auto Explain Button     → OnAutoExplainClicked
-///   Auto Explain Button Off → OnAutoExplainOffClicked
 ///   Explode                 → OnExplodeClicked
 ///   Disassemble Button      → OnExplodeClicked
 ///   Default View            → OnDefaultViewClicked
@@ -25,7 +23,6 @@ public class TabletUIController : MonoBehaviour
     [Header("Scene Systems")]
     public EngineViewManager engineViewManager;
     public EngineInteractor  engineInteractor;
-    public AudioSource       engineAudioSource;
     public EngineData        currentEngineData;
 
     // ── Panels ────────────────────────────────────────────────────────────────
@@ -49,15 +46,11 @@ public class TabletUIController : MonoBehaviour
     public GameObject disassembleButtonGO;
     public GameObject assembleButtonGO;
 
-    [Header("Main Menu — Audio Buttons")]
-    public GameObject autoExplainButtonGO;
-    public GameObject autoExplainOffButtonGO;
-
     // ── Engine Display Area ───────────────────────────────────────────────────
     [Header("Engine Display Area")]
     public Image           engineDisplayImage;
 
-    [Tooltip("Always shows the engine name — never changes.")]
+    [Tooltip("Header on the tablet; set from EngineData.engineName when the scene loads.")]
     public TextMeshProUGUI engineNameText;
 
     [Tooltip("Shows engine description by default. Switches to part description on selection.")]
@@ -67,7 +60,6 @@ public class TabletUIController : MonoBehaviour
     public TextMeshProUGUI partNameText;
 
     // ── Internal ──────────────────────────────────────────────────────────────
-    private bool      _isExplaining;
     private Coroutine _loadingCoroutine;
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -103,15 +95,6 @@ public class TabletUIController : MonoBehaviour
         {
             engineInteractor.OnPartSelected -= HandlePartSelected;
             engineInteractor.OnPartHovered  -= HandlePartHovered;
-        }
-    }
-
-    void Update()
-    {
-        if (_isExplaining && engineAudioSource != null && !engineAudioSource.isPlaying)
-        {
-            _isExplaining = false;
-            RefreshButtonStates();
         }
     }
 
@@ -153,23 +136,6 @@ public class TabletUIController : MonoBehaviour
     public void OnDefaultViewClicked()
     {
         engineViewManager?.ActivateAssembledView();
-        RefreshButtonStates();
-    }
-
-    public void OnAutoExplainClicked()
-    {
-        if (_isExplaining) return;
-        _isExplaining = true;
-        if (engineAudioSource != null && !engineAudioSource.isPlaying)
-            engineAudioSource.Play();
-        RefreshButtonStates();
-    }
-
-    public void OnAutoExplainOffClicked()
-    {
-        _isExplaining = false;
-        if (engineAudioSource != null && engineAudioSource.isPlaying)
-            engineAudioSource.Stop();
         RefreshButtonStates();
     }
 
@@ -243,9 +209,6 @@ public class TabletUIController : MonoBehaviour
         if (disassembleButtonGO != null) disassembleButtonGO.SetActive(!explode);
         if (defaultViewButtonGO != null) defaultViewButtonGO.SetActive(explode);
         if (assembleButtonGO != null)    assembleButtonGO.SetActive(explode);
-
-        if (autoExplainButtonGO != null)    autoExplainButtonGO.SetActive(!_isExplaining);
-        if (autoExplainOffButtonGO != null) autoExplainOffButtonGO.SetActive(_isExplaining);
     }
 
     // ── Engine Display ────────────────────────────────────────────────────────

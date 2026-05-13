@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_222
+  m_EditorClassIdentifier: 
+  partName: IntakeManifoldBoltLeft
+  description: The IntakeManifoldBoltLeft is a tiny, elongated bolt situated at the
+    top-left-front of the engine, playing a vital role in securing the intake manifold
+    to the engine block. Its Material.001 composition provides excellent strength
+    and durability, while its small size allows it to fit into tight spaces. Notably,
+    the IntakeManifoldBoltLeft works in tandem with other bolts to ensure a secure
+    and leak-free seal.
+  audioExplanation: {fileID: 0}

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: defaultMaterial
+  m_EditorClassIdentifier: 
+  partName: Intake Manifold
+  description: The Intake Manifold, located at the top-left-rear of the Hover Engine,
+    is a complex-shaped component responsible for distributing air and fuel to the
+    engine's cylinders. Its medium size and standard surface material allow for efficient
+    airflow and durability. Interestingly, the Intake Manifold's design must be carefully
+    optimized to minimize pressure drops and maximize engine performance.
+  audioExplanation: {fileID: 0}

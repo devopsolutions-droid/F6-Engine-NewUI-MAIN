@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_178
+  m_EditorClassIdentifier: 
+  partName: Engine Block
+  description: The Engine Block is a large, complex component made of Frame material,
+    located at the middle-center-center of the engine, serving as the main structural
+    and functional element of the engine. Its size and shape provide a foundation
+    for the engine's cylinders, pistons, and crankshaft, while its material offers
+    strength and durability. Notably, the Engine Block is designed with a series
+    of passageways and chambers to facilitate coolant and oil circulation.
+  audioExplanation: {fileID: 0}

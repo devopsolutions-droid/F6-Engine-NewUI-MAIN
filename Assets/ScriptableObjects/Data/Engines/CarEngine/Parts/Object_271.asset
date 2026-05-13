@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_271
+  m_EditorClassIdentifier: 
+  partName: Right Intake Manifold Gasket
+  description: The Right Intake Manifold Gasket is a tiny, thin-flat component located
+    at the middle-right-front of the engine, sealing the intake manifold to prevent
+    air and fuel leaks. Made of Material.006, this gasket is essential for maintaining
+    the engine's performance and efficiency. An interesting detail about the Right
+    Intake Manifold Gasket is that its position on the right side of the engine allows
+    it to work in conjunction with the Center Intake Manifold Gasket to provide a
+    secure seal around the intake manifold.
+  audioExplanation: {fileID: 0}

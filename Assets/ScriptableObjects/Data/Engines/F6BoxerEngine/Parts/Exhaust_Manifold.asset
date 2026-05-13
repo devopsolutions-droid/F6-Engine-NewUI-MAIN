@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Exhaust_Manifold
   m_EditorClassIdentifier: 
   partName: Exhaust Manifold
-  description: Description for Exhaust Manifold.
+  description: The exhaust manifold collects gases from multiple cylinders and channels
+    them into a single pipe, improving efficiency and ensuring smoother exhaust flow
+    away from the engine.
   audioExplanation: {fileID: 0}

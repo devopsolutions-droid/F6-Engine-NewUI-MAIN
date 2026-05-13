@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_230
+  m_EditorClassIdentifier: 
+  partName: IntakeManifoldBoltCenterLeft (3)
+  description: The IntakeManifoldBoltCenterLeft (3) is a tiny, elongated bolt located
+    at the top-left-center of the engine, playing a crucial role in securing the
+    intake manifold to the engine block. Its Material.001 composition provides excellent
+    strength and durability, while its small size allows it to fit into tight spaces.
+    Notably, the IntakeManifoldBoltCenterLeft (3) is the third in a series of bolts
+    that work together to ensure a secure and stable intake manifold, highlighting
+    the engine's redundant design philosophy.
+  audioExplanation: {fileID: 0}

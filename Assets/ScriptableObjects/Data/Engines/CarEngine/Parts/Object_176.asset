@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_176
+  m_EditorClassIdentifier: 
+  partName: Exhaust Manifold Bolt (3)
+  description: The Exhaust Manifold Bolt (3) is a tiny, elongated component made
+    of Material.001, positioned at the bottom-left-front of the engine, playing a
+    critical role in securing the exhaust manifold in place. Its small size and strategic
+    location make it essential for maintaining exhaust system integrity and preventing
+    leaks. Interestingly, the Exhaust Manifold Bolt (3) is designed with a coarse
+    thread to ensure a secure connection.
+  audioExplanation: {fileID: 0}

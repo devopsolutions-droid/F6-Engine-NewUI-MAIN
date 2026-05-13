@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Engine_Cover
   m_EditorClassIdentifier: 
   partName: Engine Cover
-  description: Description for Engine Cover.
+  description: The engine cover protects internal components from dust, debris, and
+    damage while also reducing noise and improving the overall visual appearance
+    of the engine bay.
   audioExplanation: {fileID: 0}

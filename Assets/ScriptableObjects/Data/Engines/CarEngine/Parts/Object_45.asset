@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_45
+  m_EditorClassIdentifier: 
+  partName: Right Front Clip
+  description: The Right Front Clip is a tiny, complex-shaped component situated
+    at the bottom-right-front of the engine, constructed from Material.001, which
+    secures various engine components, such as hoses, wires, or tubes, keeping them
+    organized and preventing damage from abrasion or pinching, and its small size
+    enables it to fit in tight spaces without obstructing engine operation. The clip's
+    front position requires it to be designed with consideration for the engine's
+    intake system, ensuring that it does not interfere with airflow. The Right Front
+    Clip is often made from a durable material to withstand the engine's thermal
+    and vibrational stresses.
+  audioExplanation: {fileID: 0}

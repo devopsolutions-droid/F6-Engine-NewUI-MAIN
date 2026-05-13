@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_279
+  m_EditorClassIdentifier: 
+  partName: Top Front Stud
+  description: The Top Front Stud is a tiny, thin-flat stud situated at the top-center-front
+    of the engine, made of Material.006, which serves as a threaded fastener for
+    various components. This stud provides a secure mounting point for parts such
+    as the top front cover plate or sensors, and an interesting detail is that it
+    often features a specialized coating to prevent corrosion and ensure a reliable
+    connection. The Top Front Stud plays a critical role in maintaining the engine's
+    overall structure and performance.
+  audioExplanation: {fileID: 0}

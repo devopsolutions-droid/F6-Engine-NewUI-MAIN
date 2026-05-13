@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Engine_Red_Cover
   m_EditorClassIdentifier: 
   partName: Engine Red Cover
-  description: Description for Engine Red Cover.
+  description: This red top engine cover adds a sporty visual element while protecting
+    upper engine components, often used in performance vehicles to enhance both aesthetics
+    and component identification.
   audioExplanation: {fileID: 0}

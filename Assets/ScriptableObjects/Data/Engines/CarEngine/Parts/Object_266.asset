@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_266
+  m_EditorClassIdentifier: 
+  partName: Left Valve Cover Gasket (2)
+  description: The Left Valve Cover Gasket (2) is a tiny, thin-flat component positioned
+    at the top-left-center of the engine, sealing the valve cover to prevent oil
+    leaks. Made of Frame material, this gasket is essential for maintaining the engine's
+    performance and longevity. Notably, the Left Valve Cover Gasket (2) works in
+    conjunction with the Center Valve Cover Gasket to ensure a secure seal around
+    the valve cover.
+  audioExplanation: {fileID: 0}

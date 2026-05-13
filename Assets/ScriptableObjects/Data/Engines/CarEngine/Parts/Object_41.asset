@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_41
+  m_EditorClassIdentifier: 
+  partName: Left Rear Bolt 2
+  description: The Left Rear Bolt 2 is another tiny, complex-shaped component positioned
+    at the top-left-rear of the engine, fabricated from Material.001, which serves
+    as a supplementary fastener for the engine's rear section, providing additional
+    support and reinforcement to the existing bolts, and its complex shape facilitates
+    a secure connection with adjacent components. The presence of this bolt underscores
+    the importance of redundancy in critical engine components. Interestingly, the
+    Left Rear Bolt 2 is often overlooked during routine maintenance, despite its
+    vital role in ensuring the engine's overall stability.
+  audioExplanation: {fileID: 0}
