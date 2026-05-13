@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.InputSystem;
+using System;
 
 [RequireComponent(typeof(AudioSource))]
 public class EngineInteractor : MonoBehaviour
@@ -18,6 +19,35 @@ public class EngineInteractor : MonoBehaviour
 
     [Header("Movement Detection")]
     public float moveThreshold = 0.1f;
+
+    // ── Events for tablet to subscribe to ────────────────────────────────────
+    /// <summary>Fired when a part is selected (trigger pressed). Null = deselected.</summary>
+    public event Action<EnginePart> OnPartSelected;
+
+    /// <summary>Fired when the ray hovers over a part. Null = no hover.</summary>
+    public event Action<EnginePart> OnPartHovered;
+
+    /// <summary>True when a part is currently isolated via trigger press.</summary>
+    public bool HasActivePart => _activePart != null;
+
+    /// <summary>
+    /// Locks all engine interaction (hover + selection).
+    /// Called at scene start — unlocked only after the loading sequence completes.
+    /// </summary>
+    public bool InteractionEnabled { get; private set; } = false;
+
+    public void EnableInteraction()
+    {
+        InteractionEnabled = true;
+        Debug.Log("[EngineInteractor] Interaction ENABLED.");
+    }
+
+    public void DisableInteraction()
+    {
+        InteractionEnabled = false;
+        ClearHover();
+        Debug.Log("[EngineInteractor] Interaction DISABLED.");
+    }
 
     private static readonly Color HoverLineColor = new Color(1f, 0.65f, 0.3f);
     private XRInteractorLineVisual _lineVisual;
@@ -58,7 +88,9 @@ public class EngineInteractor : MonoBehaviour
         if (rayInteractor == null)   Debug.LogError("[EngineInteractor] rayInteractor is NOT assigned!");
         if (infoPanel == null)       Debug.LogError("[EngineInteractor] infoPanel is NOT assigned!");
 
-        _allParts = FindObjectsByType<EnginePart>(FindObjectsSortMode.None);
+        // Don't scan here — engine parts may still be inactive if EngineSceneLoader
+        // hasn't run yet. RefreshParts() is called by EngineSceneLoader via
+        // EngineViewManager.RefreshAfterLoad() once the engine is active.
 
         if (rayInteractor != null)
         {
@@ -73,14 +105,33 @@ public class EngineInteractor : MonoBehaviour
         _hoverLineColorGradient = g;
     }
 
+    /// <summary>
+    /// Called by EngineSceneLoader (via EngineViewManager.RefreshAfterLoad) after the
+    /// engine root is activated. Guarantees all EngineParts are awake before scanning.
+    /// </summary>
+    public void RefreshParts()
+    {
+        _allParts = FindObjectsByType<EnginePart>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+        Debug.Log($"[EngineInteractor] RefreshParts — found {_allParts.Length} EngineParts.");
+    }
+
     private bool IsMoving()
     {
         if (moveAction == null || moveAction.action == null) return false;
-        return moveAction.action.ReadValue<Vector2>().magnitude > moveThreshold;
+        try
+        {
+            return moveAction.action.ReadValue<Vector2>().magnitude > moveThreshold;
+        }
+        catch
+        {
+            return moveAction.action.ReadValue<float>() > moveThreshold;
+        }
     }
 
     void Update()
     {
+        if (!InteractionEnabled) return;
+
         if (_activePart != null || IsMoving()) { ClearHover(); return; }
 
         if (rayInteractor == null || !rayInteractor.gameObject.activeInHierarchy || !rayInteractor.enabled)
@@ -94,6 +145,18 @@ public class EngineInteractor : MonoBehaviour
         {
             var part = hit.collider.GetComponentInParent<EnginePart>();
 
+            // ── HOVER PANEL DEBUG ─────────────────────────────────────────────
+            // Uncomment the block below if panels aren't showing.
+            // It logs every frame while the ray is on a part — check the Console.
+            /*
+            Debug.Log($"[HoverDebug] Hit: '{hit.collider.gameObject.name}' " +
+                      $"layer={hit.collider.gameObject.layer} " +
+                      $"layerName={LayerMask.LayerToName(hit.collider.gameObject.layer)} | " +
+                      $"EnginePart found: {(part != null ? part.gameObject.name : "NULL ← GetComponentInParent failed!")} | " +
+                      $"hoverPanel: {(part != null ? (part.hoverPanel != null ? part.hoverPanel.name : "NULL ← not assigned in Inspector!") : "n/a")}");
+            */
+            // ─────────────────────────────────────────────────────────────────
+
             if (part != _pendingPart)
             {
                 _pendingPart = part;
@@ -103,15 +166,25 @@ public class EngineInteractor : MonoBehaviour
             if (_pendingPart != _stablePart && Time.time - _hoverChangeTime >= HoverDebounce)
             {
                 _stablePart?.SetHighlight(false);
-                _stablePart?.HidePanel();          // hide previous panel before switching
+                _stablePart?.HidePanel();
                 _stablePart = _pendingPart;
                 _stablePart?.SetHighlight(true);
                 SetLineColor(_stablePart != null);
 
                 if (_stablePart != null)
-                    _stablePart.ShowPanel();
+                {
+                    // Don't show hover panels while the engine is in exploded view
+                    if (!EngineViewManager.IsExplodedActive)
+                    {
+                        _stablePart.ShowPanel();
+                        Debug.Log($"[EngineInteractor] ShowPanel called on '{_stablePart.gameObject.name}' | " +
+                                  $"hoverPanel={((_stablePart.hoverPanel != null) ? _stablePart.hoverPanel.name + " → SetActive(true)" : "NULL ← panel not assigned!")}");
+                    }
+                }
                 else
                     _pendingPart?.HidePanel();
+
+                OnPartHovered?.Invoke(_stablePart);
             }
             else if (_stablePart != null)
             {
@@ -128,7 +201,10 @@ public class EngineInteractor : MonoBehaviour
             }
 
             if (_stablePart != null && Time.time - _hoverChangeTime >= HoverDebounce)
+            {
                 ClearHover();
+                OnPartHovered?.Invoke(null);
+            }
         }
     }
 
@@ -171,47 +247,80 @@ public class EngineInteractor : MonoBehaviour
 
     void OnSelect(InputAction.CallbackContext ctx)
     {
+        if (!InteractionEnabled) return;
+
         if (Time.time - _lastSelectTime < SelectCooldown) return;
         _lastSelectTime = Time.time;
 
-        // Block selection while X-Ray or Exploded View is active
-        if (EngineViewManager.IsXRayActive || EngineViewManager.IsExplodedActive) return;
+        // X-Ray: parts are transparent wireframes — selection makes no sense, block it
+        if (EngineViewManager.IsXRayActive) return;
 
         if (rayInteractor == null || !rayInteractor.gameObject.activeInHierarchy || !rayInteractor.enabled)
             return;
 
+        // ── Exploded View: audio + info only, no ghosting, no position changes ──
+        if (EngineViewManager.IsExplodedActive)
+        {
+            EnginePart target = GetCurrentRaycastPart();
+            if (target == null) return;
+
+            // Stop any currently playing explanation
+            _audioSource.Stop();
+
+            if (target.AudioClip != null)
+            {
+                _audioSource.clip = target.AudioClip;
+                _audioSource.Play();
+            }
+
+            infoPanel.Show(target);
+            OnPartSelected?.Invoke(target);
+            Debug.Log($"[EngineInteractor] Exploded audio play: {target.PartName}");
+            return;
+        }
+
+        // ── Normal mode: full isolation — ghost others, show panel ──────────────
+
         // toggle off — restore full engine view
         if (_activePart != null)
         {
-            _activePart.HidePanel();          // hide the selected part's panel on deselect
+            _activePart.HidePanel();
             _activePart = null;
             _audioSource.Stop();
             foreach (var p in _allParts) p.RestoreOriginal();
             infoPanel.Hide();
+            OnPartSelected?.Invoke(null);
             return;
         }
 
         // live check — ray must be on a part RIGHT NOW at the moment of the button press
-        EnginePart target = GetCurrentRaycastPart();
-        if (target == null)
+        EnginePart selected = GetCurrentRaycastPart();
+        if (selected == null)
         {
             Debug.LogWarning("[EngineInteractor] Ray is not on an engine part — ignoring select");
             return;
         }
 
-        _activePart = target;
+        _activePart = selected;
+
+        // Safety: if parts weren't scanned yet (race condition on Start), scan now
+        if (_allParts == null || _allParts.Length == 0)
+        {
+            _allParts = FindObjectsByType<EnginePart>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+            Debug.LogWarning($"[EngineInteractor] _allParts was empty at select-time — re-scanned, found {_allParts.Length}.");
+        }
 
         foreach (var p in _allParts)
         {
             if (p == _activePart)
             {
                 p.SetSelected();
-                p.ShowPanel();    // keep THIS part's panel visible
+                p.ShowPanel();
             }
             else
             {
                 p.SetGhost();
-                p.HidePanel();    // hide every other part's panel
+                p.HidePanel();
             }
         }
 
@@ -223,6 +332,7 @@ public class EngineInteractor : MonoBehaviour
         }
 
         infoPanel.Show(_activePart);
+        OnPartSelected?.Invoke(_activePart);
         Debug.Log($"[EngineInteractor] Isolated: {_activePart.PartName}");
     }
 }

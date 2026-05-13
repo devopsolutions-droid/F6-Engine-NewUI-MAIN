@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Gear_Material.007_0
+  m_EditorClassIdentifier: 
+  partName: Gear
+  description: The Gear is a tiny, thin-flat component located at the middle-center-front
+    of the engine, playing a crucial role in the transmission of power and torque.
+    Composed of Material.007, this gear provides a durable and wear-resistant surface,
+    enabling smooth and efficient power transfer. Interestingly, the gear's thin-flat
+    shape allows it to be mounted in compact spaces, making it an essential component
+    in the engine's overall design and functionality.
+  audioExplanation: {fileID: 8300000, guid: b282da4eeeadcf64eb76e4cb4b6ffe70, type: 3}

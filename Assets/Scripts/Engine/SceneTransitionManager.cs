@@ -4,8 +4,13 @@ using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Handles smooth fade transitions between scenes.
-/// Attach to a persistent GameObject in each scene.
-/// Uses a full-screen quad parented to the camera for VR compatibility.
+///
+/// IMPORTANT: Place this in the Home Scene (the first scene that loads).
+/// DontDestroyOnLoad keeps it alive across scene loads so the fade coroutine
+/// completes even after the originating scene is destroyed.
+///
+/// The fade quad is also marked DontDestroyOnLoad so it doesn't get
+/// destroyed along with the old scene mid-fade.
 /// </summary>
 public class SceneTransitionManager : MonoBehaviour
 {
@@ -16,15 +21,23 @@ public class SceneTransitionManager : MonoBehaviour
     public Color fadeColor = Color.black;
 
     private GameObject _fadeQuad;
-    private Material _fadeMat;
-    private bool _isFading;
+    private Material   _fadeMat;
+    private bool       _isFading;
 
     void Awake()
     {
-        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
+        if (Instance != null && Instance != this)
+        {
+            Debug.Log("[SceneTransitionManager] Duplicate — destroying.");
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
         DontDestroyOnLoad(gameObject);
         BuildFadeQuad();
+
+        Debug.Log($"[SceneTransitionManager] Initialized in '{gameObject.scene.name}'. Persisting across loads.");
     }
 
     void BuildFadeQuad()
@@ -33,8 +46,14 @@ public class SceneTransitionManager : MonoBehaviour
         _fadeQuad.name = "[FadeQuad]";
         Destroy(_fadeQuad.GetComponent<MeshCollider>());
 
-        _fadeMat = new Material(Shader.Find("Unlit/Color")) { color = new Color(fadeColor.r, fadeColor.g, fadeColor.b, 0f) };
-        // Enable transparency
+        // Quad must also persist — otherwise LoadSceneMode.Single destroys it
+        // mid-fade when the old scene is unloaded
+        DontDestroyOnLoad(_fadeQuad);
+
+        _fadeMat = new Material(Shader.Find("Unlit/Color"))
+        {
+            color = new Color(fadeColor.r, fadeColor.g, fadeColor.b, 0f)
+        };
         _fadeMat.SetFloat("_Mode", 2);
         _fadeMat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
         _fadeMat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
@@ -49,49 +68,73 @@ public class SceneTransitionManager : MonoBehaviour
     /// <summary>Load a scene by name with a fade transition.</summary>
     public void LoadScene(string sceneName)
     {
-        if (_isFading) return;
+        if (_isFading)
+        {
+            Debug.LogWarning("[SceneTransitionManager] Already fading — ignoring call.");
+            return;
+        }
         StartCoroutine(FadeAndLoad(sceneName));
     }
 
     IEnumerator FadeAndLoad(string sceneName)
     {
         _isFading = true;
+        Debug.Log($"[SceneTransitionManager] START: '{SceneManager.GetActiveScene().name}' → '{sceneName}'  frame={Time.frameCount}");
 
-        // Attach quad to camera
-        var cam = Camera.main;
-        if (cam != null)
-        {
-            _fadeQuad.transform.SetParent(cam.transform, false);
-            _fadeQuad.transform.localPosition = new Vector3(0f, 0f, cam.nearClipPlane + 0.01f);
-            _fadeQuad.transform.localRotation = Quaternion.identity;
-            _fadeQuad.transform.localScale = new Vector3(0.1f, 0.1f, 1f);
-        }
+        AttachQuadToCamera();
         _fadeQuad.SetActive(true);
 
-        // Fade out
+        // Fade to black
         yield return Fade(0f, 1f);
+        Debug.Log("[SceneTransitionManager] Faded out. Loading...");
 
-        var op = SceneManager.LoadSceneAsync(sceneName);
+        var op = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
         op.allowSceneActivation = false;
         while (op.progress < 0.9f) yield return null;
+
+        Debug.Log("[SceneTransitionManager] Scene ready. Activating...");
         op.allowSceneActivation = true;
-        yield return null; // wait one frame for scene to activate
 
-        // Re-attach to new camera
-        cam = Camera.main;
-        if (cam != null)
-        {
-            _fadeQuad.transform.SetParent(cam.transform, false);
-            _fadeQuad.transform.localPosition = new Vector3(0f, 0f, cam.nearClipPlane + 0.01f);
-            _fadeQuad.transform.localRotation = Quaternion.identity;
-            _fadeQuad.transform.localScale = new Vector3(0.1f, 0.1f, 1f);
-        }
+        // Frame +1: Awake() fires on new scene objects
+        yield return null;
+        Debug.Log($"[SceneTransitionManager] Frame+1 — scene='{SceneManager.GetActiveScene().name}'  isLoaded={SceneManager.GetActiveScene().isLoaded}");
 
-        // Fade in
+        // Frame +2: Start() + sceneLoaded event fire, LightingRestorer.OnSceneLoaded runs
+        yield return null;
+        Debug.Log($"[SceneTransitionManager] Frame+2 — isLoaded={SceneManager.GetActiveScene().isLoaded}");
+
+        // Frame +3: LightingRestorer's RestoreAfterFrame coroutine has completed
+        yield return null;
+        Debug.Log("[SceneTransitionManager] Frame+3 — lighting restore complete");
+
+        // Re-attach quad to new scene's camera before fading in
+        AttachQuadToCamera();
+
+        // Fade back in
         yield return Fade(1f, 0f);
 
         _fadeQuad.SetActive(false);
         _isFading = false;
+        Debug.Log($"[SceneTransitionManager] COMPLETE  frame={Time.frameCount}");
+    }
+
+    void AttachQuadToCamera()
+    {
+        // Camera.main may not work in XR — fall back to FindFirstObjectByType
+        var cam = Camera.main ?? FindFirstObjectByType<Camera>();
+
+        if (cam != null)
+        {
+            _fadeQuad.transform.SetParent(cam.transform, false);
+            _fadeQuad.transform.localPosition = new Vector3(0f, 0f, cam.nearClipPlane + 0.01f);
+            _fadeQuad.transform.localRotation = Quaternion.identity;
+            _fadeQuad.transform.localScale    = new Vector3(0.1f, 0.1f, 1f);
+            Debug.Log($"[SceneTransitionManager] Quad attached to '{cam.name}'");
+        }
+        else
+        {
+            Debug.LogWarning("[SceneTransitionManager] No camera found — quad not attached!");
+        }
     }
 
     IEnumerator Fade(float from, float to)

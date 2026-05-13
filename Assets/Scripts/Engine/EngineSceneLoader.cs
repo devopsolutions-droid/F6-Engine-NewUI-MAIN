@@ -6,6 +6,11 @@ public class EngineSceneEntry
 {
     public EngineData engineData;
     public GameObject sceneRoot;
+
+    [Tooltip("(Optional) The same engine with parts manually placed in their dismantled/exploded positions. " +
+             "Place it in the scene (inactive is fine). When assigned, the Explode button animates each part " +
+             "to its matching position here instead of auto-calculating. Parts matched by GameObject name.")]
+    public GameObject dismantledSceneRoot;
 }
 
 /// <summary>
@@ -26,6 +31,7 @@ public class EngineSceneLoader : MonoBehaviour
     public EngineViewManager engineViewManager;
     public EngineInteractor engineInteractor;
     public PartInfoPanel infoPanel;
+    public TabletUIController tabletUIController;
 
     [Header("Fallback")]
     [Tooltip("Used when entering the scene directly in Editor without a selection.")]
@@ -52,14 +58,24 @@ public class EngineSceneLoader : MonoBehaviour
 
     void ActivateEngine(EngineData selected)
     {
-        GameObject activeRoot = null;
+        GameObject activeRoot      = null;
+        GameObject dismantledRoot  = null;
 
         foreach (var entry in engineEntries)
         {
             if (entry.sceneRoot == null) continue;
             bool isSelected = entry.engineData == selected;
             entry.sceneRoot.SetActive(isSelected);
-            if (isSelected) activeRoot = entry.sceneRoot;
+
+            // Always keep dismantled root inactive — EngineViewManager reads positions from it
+            if (entry.dismantledSceneRoot != null)
+                entry.dismantledSceneRoot.SetActive(false);
+
+            if (isSelected)
+            {
+                activeRoot     = entry.sceneRoot;
+                dismantledRoot = entry.dismantledSceneRoot; // may be null — that's fine
+            }
         }
 
         if (activeRoot == null)
@@ -72,9 +88,17 @@ public class EngineSceneLoader : MonoBehaviour
             infoPanel.SetDefault(selected.engineName, selected.engineDescription);
 
         if (engineViewManager != null)
+        {
+            // Pass the dismantled scene root (or null) before refreshing
+            engineViewManager.dismantledSceneRoot = dismantledRoot;
             engineViewManager.RefreshAfterLoad();
+        }
 
-        Debug.Log($"[EngineSceneLoader] Activated: {selected.engineName}");
+        if (tabletUIController != null)
+            tabletUIController.SetEngineData(selected);
+
+        Debug.Log($"[EngineSceneLoader] Activated: {selected.engineName}" +
+                  (dismantledRoot != null ? $" | Dismantled root: {dismantledRoot.name}" : " | No dismantled root"));
     }
 
     /// <summary>Called by the Back button in the engine scene.</summary>

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Cylinder.003_Chrome.001_0
+  m_EditorClassIdentifier: 
+  partName: Exhaust Manifold Right
+  description: The Exhaust Manifold Right is a large, elongated component positioned
+    at the middle-center-center of the engine, tasked with collecting exhaust gases
+    from the cylinders and directing them towards the exhaust system. Made of Chrome.001,
+    its substantial size and strategic location enable it to efficiently collect
+    and expel exhaust gases from the right bank of cylinders. Notably, the Exhaust
+    Manifold Right's design and material help to reduce backpressure and minimize
+    heat transfer to surrounding components, while its larger size accommodates the
+    engine's high-performance requirements.
+  audioExplanation: {fileID: 8300000, guid: d754ac7ab0d271b458687633b7625293, type: 3}

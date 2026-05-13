@@ -623,7 +623,7 @@ public class EnginePart : MonoBehaviour
     [Range(0f, 4f)] public float glowIntensity = 2.5f;
 
     [Header("Ghost")]
-    [Range(0f, 1f)] public float ghostAlpha = 0.08f;
+    [Range(0f, 1f)] public float ghostAlpha = 0.2f;
     [Range(0f, 1f)] public float ghostFadeDuration = 0.25f;
 
     [Header("X-Ray View")]
@@ -787,6 +787,32 @@ public class EnginePart : MonoBehaviour
         _explodedLocalPos = _assembledLocalPos + localOffset;
     }
 
+    /// <summary>
+    /// Override the explode target with an explicit world-space position.
+    /// Used when a "Dismantled" prefab defines the exact resting position of each part.
+    /// Converts the world position to local space relative to this part's parent.
+    /// </summary>
+    public void SetExplodeWorldTarget(Vector3 worldPosition)
+    {
+        if (!_isInitialized) InitializePart();
+
+        _explodedLocalPos = transform.parent != null
+            ? transform.parent.InverseTransformPoint(worldPosition)
+            : worldPosition;
+    }
+
+    /// <summary>
+    /// Override the explode target with an explicit LOCAL-space position.
+    /// This is the preferred method when reading positions from a dismantled prefab,
+    /// because local positions are independent of where the root is placed in the scene.
+    /// The value is applied directly as transform.localPosition — no conversion needed.
+    /// </summary>
+    public void SetExplodeLocalTarget(Vector3 localPosition)
+    {
+        if (!_isInitialized) InitializePart();
+        _explodedLocalPos = localPosition;
+    }
+
     // ── Hover ────────────────────────────────────────────────────────────────
     public void SetHighlight(bool on)
     {
@@ -834,6 +860,7 @@ public class EnginePart : MonoBehaviour
             _renderers[i].enabled = true;
             Material restoredMat = new Material(_originalMaterialsBackup[i]);
             _renderers[i].materials = new Material[] { restoredMat };
+            // Keep _materials[i] in sync with the live renderer slot
             _materials[i] = _renderers[i].materials[0];
         }
         ShowOutline();
@@ -866,6 +893,16 @@ public class EnginePart : MonoBehaviour
         if (_renderers == null || _renderers.Length == 0) return;
 
         HideOutline();
+
+        // Re-sync _materials[] from the live renderers in case a prior SetSelected()
+        // or RestoreOriginal() rebuilt the material arrays and left _materials[] stale.
+        for (int i = 0; i < _renderers.Length; i++)
+        {
+            if (_renderers[i] == null) continue;
+            var mats = _renderers[i].materials;
+            if (mats != null && mats.Length > 0)
+                _materials[i] = mats[0];
+        }
 
         if (_ghostCoroutine != null) StopCoroutine(_ghostCoroutine);
 
@@ -914,11 +951,20 @@ public class EnginePart : MonoBehaviour
         foreach (var mat in _materials)
         {
             if (mat == null) continue;
+
+            // glTFast — primary property
             if (mat.HasProperty("_BaseColorFactor"))
             {
                 var c = mat.GetColor("_BaseColorFactor");
                 mat.SetColor("_BaseColorFactor", new Color(c.r, c.g, c.b, alpha));
             }
+            // Also set _BaseColor if present (some glTFast versions use this)
+            if (mat.HasProperty("_BaseColor"))
+            {
+                var c = mat.GetColor("_BaseColor");
+                mat.SetColor("_BaseColor", new Color(c.r, c.g, c.b, alpha));
+            }
+            // Standard shader fallback
             else if (mat.HasProperty("_Color"))
             {
                 var c = mat.GetColor("_Color");
@@ -1141,18 +1187,30 @@ public class EnginePart : MonoBehaviour
     {
         if (mat == null) return;
 
+        // ── glTFast / glTF PBR materials ──────────────────────────────────────
+        if (mat.HasProperty("_AlphaMode"))
+        {
+            mat.SetFloat("_AlphaMode", 1); // 1 = Blend
+
+            // Force blend state manually — glTFast bakes this at import
+            // so we must override it at runtime
+            mat.SetInt("_SrcBlend",  (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+            mat.SetInt("_DstBlend",  (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+            mat.SetInt("_ZWrite",    0);
+            mat.SetInt("_AlphaClip", 0);
+            mat.EnableKeyword("_ALPHABLEND_ON");
+            mat.renderQueue = 3000;
+            return;
+        }
+
+        // ── Standard / URP fallback ───────────────────────────────────────────
         mat.SetFloat("_Mode", 2);
-        mat.SetInt("_SrcBlend", (int)BlendMode.SrcAlpha);
-        mat.SetInt("_DstBlend", (int)BlendMode.OneMinusSrcAlpha);
+        mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+        mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
         mat.SetInt("_ZWrite", 0);
         mat.DisableKeyword("_ALPHATEST_ON");
         mat.EnableKeyword("_ALPHABLEND_ON");
         mat.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-        
-        // For glTF materials, also set _AlphaMode
-        if (mat.HasProperty("_AlphaMode"))
-            mat.SetFloat("_AlphaMode", 1);
-        
         mat.renderQueue = 3000;
     }
 }

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Cube.001_Material.003_0
+  m_EditorClassIdentifier: 
+  partName: Gasket
+  description: The Gasket is a tiny, thin-flat component positioned at the middle-center-front
+    of the engine, playing a vital role in sealing the engine's internal components.
+    Made of Material.003, its small size and strategic location enable it to prevent
+    leaks and maintain the engine's internal pressure. Notably, the Gasket's material
+    properties ensure a tight seal, even under high temperatures and pressures.
+  audioExplanation: {fileID: 8300000, guid: 248ac86e3606a204c963e34a186f73d8, type: 3}

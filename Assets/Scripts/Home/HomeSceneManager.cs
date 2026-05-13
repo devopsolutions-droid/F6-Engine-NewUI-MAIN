@@ -15,7 +15,7 @@ public class HomeSceneManager : MonoBehaviour
 
     [Header("Scene")]
     [Tooltip("Exact name of the engine view scene in Build Settings.")]
-    public string engineSceneName = "EngineViewScene";
+    public string engineSceneName = "Main Scene";
 
     [Header("Card Grid")]
     [Tooltip("Prefab with EngineCardUI component.")]

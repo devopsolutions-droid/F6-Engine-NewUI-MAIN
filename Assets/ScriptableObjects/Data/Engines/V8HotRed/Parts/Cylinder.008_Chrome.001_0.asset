@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Cylinder.008_Chrome.001_0
+  m_EditorClassIdentifier: 
+  partName: Clip
+  description: The Clip is a tiny, thin-flat fastener located at the middle-center-center
+    of the engine, used to secure hoses, wires, or other components in place. Composed
+    of Chrome.001, this clip provides a durable and corrosion-resistant hold, even
+    in harsh environments. Interestingly, the clip's simple design and small size
+    make it an easily replaceable component, reducing maintenance time and costs.
+  audioExplanation: {fileID: 8300000, guid: 7c1291c3e46a84b44878ac735d6ffd06, type: 3}

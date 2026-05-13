@@ -1,16 +1,20 @@
 using UnityEngine;
 using UnityEditor;
 using System.IO;
+using System.Collections.Generic;
+using System.Linq;
 
 /// <summary>
 /// Tools > Engine Remover
 ///
-/// Completely removes a selected engine from the project:
+/// Intelligently removes ALL engine-related assets from the project:
 ///   • Removes EngineData from EngineRegistry
 ///   • Deletes the entire ScriptableObjects/Data/Engines/<Name>/ folder
 ///     (PartData assets, HoverPanel prefabs, EngineData, Manifest)
-///   • Deletes the engine prefab from Assets/Prefabs/Engine Prefabs/
-///   • Optionally deletes the raw GLB from Assets/All Engines/
+///   • Searches and deletes ALL matching prefabs (regular + dismantled)
+///   • Searches and deletes ALL matching GLB files across the project
+///   • Deletes engine-specific subfolders (e.g., "F6 Engine extras")
+///   • Provides detailed preview before deletion
 ///
 /// Manual steps printed to Console after running:
 ///   • Remove the engine root GameObject from the Engine View Scene
@@ -20,16 +24,24 @@ public class EngineRemoverTool : EditorWindow
 {
     private EngineData     _engineData;
     private EngineRegistry _registry;
-    private bool           _deleteGlb     = false;
-    private bool           _deletePrefab  = true;
-    private string         _status        = "";
+    private bool           _deleteAllPrefabs = true;
+    private bool           _deleteAllGlbs    = true;
+    private string         _status           = "";
+    private Vector2        _scrollPos;
+
+    // Search results cache
+    private List<string> _foundPrefabs;
+    private List<string> _foundGlbs;
+    private List<string> _foundFolders;
 
     [MenuItem("Tools/Engine Remover")]
     public static void Open() => GetWindow<EngineRemoverTool>("Engine Remover");
 
     void OnGUI()
     {
-        GUILayout.Label("Engine Remover", EditorStyles.boldLabel);
+        _scrollPos = EditorGUILayout.BeginScrollView(_scrollPos);
+
+        GUILayout.Label("Smart Engine Remover", EditorStyles.boldLabel);
         EditorGUILayout.Space(4);
 
         _engineData = (EngineData)EditorGUILayout.ObjectField(
@@ -39,26 +51,76 @@ public class EngineRemoverTool : EditorWindow
             "Engine Registry", _registry, typeof(EngineRegistry), false);
 
         EditorGUILayout.Space(4);
-        _deletePrefab = EditorGUILayout.Toggle("Delete Engine Prefab", _deletePrefab);
-        _deleteGlb    = EditorGUILayout.Toggle("Delete Raw GLB File",  _deleteGlb);
+        _deleteAllPrefabs = EditorGUILayout.Toggle("Delete All Matching Prefabs", _deleteAllPrefabs);
+        _deleteAllGlbs    = EditorGUILayout.Toggle("Delete All Matching GLBs",    _deleteAllGlbs);
 
         EditorGUILayout.Space(6);
 
         // Preview what will be deleted
         if (_engineData != null)
         {
+            // Scan for all matching assets
+            ScanForAssets();
+
             string engineFolder = GetEngineFolder(_engineData);
-            string prefabPath   = _engineData.enginePrefab != null
-                ? AssetDatabase.GetAssetPath(_engineData.enginePrefab) : "—";
-            string glbPath      = FindGlbPath(_engineData);
 
             EditorGUILayout.HelpBox(
-                $"Will delete:\n" +
-                $"  • Registry entry: {_engineData.engineName}\n" +
-                $"  • Data folder:    {engineFolder ?? "not found"}\n" +
-                $"  • Prefab:         {(_deletePrefab ? prefabPath : "skipped")}\n" +
-                $"  • GLB:            {(_deleteGlb ? (glbPath ?? "not found") : "skipped")}",
+                $"Engine: {_engineData.engineName}\n" +
+                $"Prefab Reference: {(_engineData.enginePrefab != null ? _engineData.enginePrefab.name : "none")}\n\n" +
+                "The following will be PERMANENTLY DELETED:",
                 MessageType.Warning);
+
+            EditorGUILayout.Space(2);
+
+            // Registry
+            EditorGUILayout.LabelField("Registry Entry:", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField($"  • {_engineData.engineName} (from EngineRegistry)");
+
+            EditorGUILayout.Space(2);
+
+            // Data folder
+            EditorGUILayout.LabelField("Data Folder:", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField($"  • {engineFolder ?? "not found"}");
+
+            EditorGUILayout.Space(2);
+
+            // Prefabs
+            if (_deleteAllPrefabs && _foundPrefabs != null && _foundPrefabs.Count > 0)
+            {
+                EditorGUILayout.LabelField($"Prefabs ({_foundPrefabs.Count}):", EditorStyles.boldLabel);
+                foreach (var p in _foundPrefabs)
+                    EditorGUILayout.LabelField($"  • {p}");
+            }
+            else if (_deleteAllPrefabs)
+            {
+                EditorGUILayout.LabelField("Prefabs:", EditorStyles.boldLabel);
+                EditorGUILayout.LabelField("  • None found");
+            }
+
+            EditorGUILayout.Space(2);
+
+            // GLBs
+            if (_deleteAllGlbs && _foundGlbs != null && _foundGlbs.Count > 0)
+            {
+                EditorGUILayout.LabelField($"GLB Files ({_foundGlbs.Count}):", EditorStyles.boldLabel);
+                foreach (var g in _foundGlbs)
+                    EditorGUILayout.LabelField($"  • {g}");
+            }
+            else if (_deleteAllGlbs)
+            {
+                EditorGUILayout.LabelField("GLB Files:", EditorStyles.boldLabel);
+                EditorGUILayout.LabelField("  • None found");
+            }
+
+            EditorGUILayout.Space(2);
+
+            // Engine-specific folders
+            if (_foundFolders != null && _foundFolders.Count > 0)
+            {
+                EditorGUILayout.LabelField($"Engine-Specific Folders ({_foundFolders.Count}):", EditorStyles.boldLabel);
+                foreach (var f in _foundFolders)
+                    EditorGUILayout.LabelField($"  • {f}");
+            }
         }
 
         EditorGUILayout.Space(6);
@@ -68,9 +130,16 @@ public class EngineRemoverTool : EditorWindow
 
         if (GUILayout.Button("REMOVE ENGINE  (irreversible)", GUILayout.Height(40)))
         {
+            int totalAssets = 1 + // registry
+                              (_foundPrefabs?.Count ?? 0) +
+                              (_foundGlbs?.Count ?? 0) +
+                              (_foundFolders?.Count ?? 0) +
+                              1; // data folder
+
             if (EditorUtility.DisplayDialog("Confirm Removal",
-                $"This will permanently delete all assets for:\n\n\"{_engineData.engineName}\"\n\nThis cannot be undone.",
-                "Delete", "Cancel"))
+                $"This will permanently delete {totalAssets} assets for:\n\n\"{_engineData.engineName}\"\n\n" +
+                "This cannot be undone. Are you sure?",
+                "Delete Everything", "Cancel"))
             {
                 RunRemoval();
             }
@@ -87,110 +156,245 @@ public class EngineRemoverTool : EditorWindow
         EditorGUILayout.Space(4);
         EditorGUILayout.HelpBox(
             "After running, manually:\n" +
-            "  1. Open the Engine View Scene\n" +
-            "  2. Delete the engine root GameObject from the hierarchy\n" +
-            "  3. Remove its entry from EngineSceneLoader → Engine Entries list",
+            "  1. Open the Engine View Scene (Main Scene)\n" +
+            "  2. Delete the engine root GameObject(s) from the hierarchy\n" +
+            "  3. Delete the dismantled engine GameObject (if exists)\n" +
+            "  4. Select the EngineSceneLoader GameObject\n" +
+            "  5. Remove the engine's entry from the Engine Entries list",
             MessageType.Info);
+
+        EditorGUILayout.EndScrollView();
     }
 
     // ─────────────────────────────────────────────────────────────────────────
+
+    void ScanForAssets()
+    {
+        if (_engineData == null) return;
+
+        string engineName = _engineData.engineName;
+        string prefabName = _engineData.enginePrefab != null ? _engineData.enginePrefab.name : null;
+
+        // Generate search patterns
+        var searchPatterns = new List<string>();
+        searchPatterns.Add(engineName.Replace(" ", ""));
+        searchPatterns.Add(engineName.Replace(" ", "_"));
+        searchPatterns.Add(engineName);
+        if (prefabName != null)
+        {
+            searchPatterns.Add(prefabName.Replace(" ", ""));
+            searchPatterns.Add(prefabName.Replace(" ", "_"));
+            searchPatterns.Add(prefabName);
+        }
+        searchPatterns = searchPatterns.Distinct().ToList();
+
+        // Search for prefabs
+        _foundPrefabs = new List<string>();
+        if (_deleteAllPrefabs)
+        {
+            string[] prefabFolders = { "Assets/Prefabs", "Assets/VRRoom", "Assets" };
+            foreach (var folder in prefabFolders)
+            {
+                if (!Directory.Exists(folder)) continue;
+                _foundPrefabs.AddRange(FindMatchingAssets(folder, ".prefab", searchPatterns));
+            }
+        }
+
+        // Search for GLBs
+        _foundGlbs = new List<string>();
+        if (_deleteAllGlbs)
+        {
+            string[] glbFolders = { "Assets/All Engines", "Assets/Prefabs/Engine Prefabs", "Assets/VRRoom" };
+            foreach (var folder in glbFolders)
+            {
+                if (!Directory.Exists(folder)) continue;
+                _foundGlbs.AddRange(FindMatchingAssets(folder, ".glb", searchPatterns));
+            }
+        }
+
+        // Search for engine-specific folders (e.g., "F6 Engine extras")
+        _foundFolders = new List<string>();
+        string[] searchFolders = { "Assets/Prefabs/Engine Prefabs", "Assets/VRRoom" };
+        foreach (var folder in searchFolders)
+        {
+            if (!Directory.Exists(folder)) continue;
+            foreach (var dir in Directory.GetDirectories(folder))
+            {
+                string dirName = Path.GetFileName(dir);
+                foreach (var pattern in searchPatterns)
+                {
+                    if (dirName.IndexOf(pattern, System.StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        string unityPath = dir.Replace("\\", "/");
+                        if (!_foundFolders.Contains(unityPath))
+                            _foundFolders.Add(unityPath);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    List<string> FindMatchingAssets(string folder, string extension, List<string> patterns)
+    {
+        var results = new List<string>();
+        if (!Directory.Exists(folder)) return results;
+
+        string[] files = Directory.GetFiles(folder, $"*{extension}", SearchOption.AllDirectories);
+        foreach (var file in files)
+        {
+            string fileName = Path.GetFileNameWithoutExtension(file);
+            foreach (var pattern in patterns)
+            {
+                if (fileName.IndexOf(pattern, System.StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    string unityPath = file.Replace("\\", "/");
+                    if (!results.Contains(unityPath))
+                        results.Add(unityPath);
+                    break;
+                }
+            }
+        }
+        return results;
+    }
 
     void RunRemoval()
     {
         string engineName = _engineData.engineName;
         var    log        = new System.Text.StringBuilder();
-        log.AppendLine($"[EngineRemover] Starting removal of: {engineName}");
+        log.AppendLine($"[EngineRemover] Starting smart removal of: {engineName}");
+        log.AppendLine();
+
+        int deletedCount = 0;
 
         // ── Step 1: Remove from EngineRegistry ───────────────────────────────
         if (_registry.engines.Contains(_engineData))
         {
             _registry.engines.Remove(_engineData);
             EditorUtility.SetDirty(_registry);
-            log.AppendLine("  ✓ Removed from EngineRegistry");
+            log.AppendLine("✓ Removed from EngineRegistry");
+            deletedCount++;
         }
         else
         {
-            log.AppendLine("  ! EngineData was not found in EngineRegistry (skipped)");
+            log.AppendLine("! EngineData was not found in EngineRegistry (skipped)");
         }
 
-        // ── Step 2: Delete engine prefab ─────────────────────────────────────
-        if (_deletePrefab && _engineData.enginePrefab != null)
+        // ── Step 2: Delete all matching prefabs ──────────────────────────────
+        if (_deleteAllPrefabs && _foundPrefabs != null && _foundPrefabs.Count > 0)
         {
-            string prefabPath = AssetDatabase.GetAssetPath(_engineData.enginePrefab);
-            if (!string.IsNullOrEmpty(prefabPath))
+            log.AppendLine();
+            log.AppendLine($"Deleting {_foundPrefabs.Count} prefab(s):");
+            foreach (var prefabPath in _foundPrefabs)
             {
-                bool deleted1 = AssetDatabase.DeleteAsset(prefabPath);
-                if (deleted1)
-                    log.AppendLine($"  ✓ Deleted prefab: {prefabPath}");
+                if (AssetDatabase.DeleteAsset(prefabPath))
+                {
+                    log.AppendLine($"  ✓ {prefabPath}");
+                    deletedCount++;
+                }
                 else
-                    log.AppendLine($"  ! Failed to delete prefab: {prefabPath}");
+                {
+                    log.AppendLine($"  ✗ Failed: {prefabPath}");
+                }
             }
         }
-        else if (_deletePrefab)
-        {
-            log.AppendLine("  ! No prefab reference found on EngineData (skipped)");
-        }
 
-        // ── Step 3: Delete raw GLB ────────────────────────────────────────────
-        if (_deleteGlb)
+        // ── Step 3: Delete all matching GLBs ──────────────────────────────────
+        if (_deleteAllGlbs && _foundGlbs != null && _foundGlbs.Count > 0)
         {
-            string glbPath = FindGlbPath(_engineData);
-            if (!string.IsNullOrEmpty(glbPath))
+            log.AppendLine();
+            log.AppendLine($"Deleting {_foundGlbs.Count} GLB file(s):");
+            foreach (var glbPath in _foundGlbs)
             {
-                bool deleted2 = AssetDatabase.DeleteAsset(glbPath);
-                if (deleted2)
-                    log.AppendLine($"  ✓ Deleted GLB: {glbPath}");
+                if (AssetDatabase.DeleteAsset(glbPath))
+                {
+                    log.AppendLine($"  ✓ {glbPath}");
+                    deletedCount++;
+                }
                 else
-                    log.AppendLine($"  ! Failed to delete GLB: {glbPath}");
-            }
-            else
-            {
-                log.AppendLine("  ! GLB file not found (skipped)");
+                {
+                    log.AppendLine($"  ✗ Failed: {glbPath}");
+                }
             }
         }
 
-        // ── Step 4: Delete entire engine data folder ──────────────────────────
+        // ── Step 4: Delete engine-specific folders ────────────────────────────
+        if (_foundFolders != null && _foundFolders.Count > 0)
+        {
+            log.AppendLine();
+            log.AppendLine($"Deleting {_foundFolders.Count} engine-specific folder(s):");
+            foreach (var folderPath in _foundFolders)
+            {
+                if (AssetDatabase.DeleteAsset(folderPath))
+                {
+                    log.AppendLine($"  ✓ {folderPath}");
+                    deletedCount++;
+                }
+                else
+                {
+                    // Fallback
+                    FileUtil.DeleteFileOrDirectory(folderPath);
+                    FileUtil.DeleteFileOrDirectory(folderPath + ".meta");
+                    log.AppendLine($"  ✓ {folderPath} (via FileUtil)");
+                    deletedCount++;
+                }
+            }
+        }
+
+        // ── Step 5: Delete entire engine data folder ──────────────────────────
         string engineFolder = GetEngineFolder(_engineData);
         if (!string.IsNullOrEmpty(engineFolder) && Directory.Exists(engineFolder))
         {
-            // Use AssetDatabase to delete so Unity tracks it properly
+            log.AppendLine();
+            log.AppendLine("Deleting engine data folder:");
             string unityPath = engineFolder.Replace("\\", "/");
-            // Strip leading project path if needed
             if (unityPath.StartsWith(Application.dataPath.Replace("\\", "/")))
                 unityPath = "Assets" + unityPath.Substring(Application.dataPath.Length);
 
-            bool deleted = AssetDatabase.DeleteAsset(unityPath);
-            if (deleted)
-                log.AppendLine($"  ✓ Deleted data folder: {unityPath}");
+            if (AssetDatabase.DeleteAsset(unityPath))
+            {
+                log.AppendLine($"  ✓ {unityPath}");
+                deletedCount++;
+            }
             else
             {
-                // Fallback: delete via FileUtil
                 FileUtil.DeleteFileOrDirectory(engineFolder);
                 FileUtil.DeleteFileOrDirectory(engineFolder + ".meta");
-                log.AppendLine($"  ✓ Deleted data folder (via FileUtil): {engineFolder}");
+                log.AppendLine($"  ✓ {engineFolder} (via FileUtil)");
+                deletedCount++;
             }
         }
         else
         {
-            log.AppendLine($"  ! Data folder not found: {engineFolder ?? "null"}");
+            log.AppendLine();
+            log.AppendLine($"! Data folder not found: {engineFolder ?? "null"}");
         }
 
-        // ── Step 5: Save and refresh ──────────────────────────────────────────
+        // ── Step 6: Save and refresh ──────────────────────────────────────────
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
 
-        // ── Step 6: Manual steps reminder ────────────────────────────────────
+        // ── Step 7: Summary ───────────────────────────────────────────────────
         log.AppendLine();
-        log.AppendLine("  ── MANUAL STEPS REQUIRED ──────────────────────────────");
-        log.AppendLine($"  1. Open the Engine View Scene");
+        log.AppendLine("═══════════════════════════════════════════════════════");
+        log.AppendLine($"✓ REMOVAL COMPLETE: {deletedCount} assets deleted");
+        log.AppendLine("═══════════════════════════════════════════════════════");
+        log.AppendLine();
+        log.AppendLine("MANUAL STEPS REQUIRED:");
+        log.AppendLine($"  1. Open the Engine View Scene (Main Scene)");
         log.AppendLine($"  2. Find and DELETE the '{engineName}' root GameObject in the hierarchy");
-        log.AppendLine($"  3. Select the EngineSceneLoader GameObject");
-        log.AppendLine($"  4. Remove the '{engineName}' entry from the Engine Entries list");
+        log.AppendLine($"  3. Find and DELETE the '{engineName} Dismantled' GameObject (if exists)");
+        log.AppendLine($"  4. Select the EngineSceneLoader GameObject");
+        log.AppendLine($"  5. Remove the '{engineName}' entry from the Engine Entries list");
+        log.AppendLine($"     (both sceneRoot and dismantledSceneRoot references)");
 
         Debug.Log(log.ToString());
 
-        _status = $"✓ Done — {engineName} removed.\n\nSee Console for manual scene steps.";
+        _status = $"✓ Complete — {deletedCount} assets deleted.\n\nSee Console for manual scene steps.";
         _engineData = null;
+        _foundPrefabs = null;
+        _foundGlbs = null;
+        _foundFolders = null;
         Repaint();
     }
 
@@ -206,33 +410,5 @@ public class EngineRemoverTool : EditorWindow
         string assetPath = AssetDatabase.GetAssetPath(data);
         if (string.IsNullOrEmpty(assetPath)) return null;
         return Path.GetDirectoryName(assetPath).Replace("\\", "/");
-    }
-
-    /// <summary>
-    /// Searches Assets/All Engines/ for a GLB whose name matches the engine prefab name.
-    /// </summary>
-    static string FindGlbPath(EngineData data)
-    {
-        string searchFolder = "Assets/All Engines";
-        if (!Directory.Exists(searchFolder)) return null;
-
-        // Try matching by prefab name first
-        string prefabName = data.enginePrefab != null ? data.enginePrefab.name : null;
-        string engineName = data.engineName;
-
-        string[] guids = AssetDatabase.FindAssets("t:Object", new[] { searchFolder });
-        foreach (var guid in guids)
-        {
-            string path = AssetDatabase.GUIDToAssetPath(guid);
-            if (!path.EndsWith(".glb", System.StringComparison.OrdinalIgnoreCase)) continue;
-
-            string fileName = Path.GetFileNameWithoutExtension(path);
-            if (prefabName != null && fileName.Equals(prefabName, System.StringComparison.OrdinalIgnoreCase))
-                return path;
-            if (fileName.Equals(engineName, System.StringComparison.OrdinalIgnoreCase))
-                return path;
-        }
-
-        return null;
     }
 }

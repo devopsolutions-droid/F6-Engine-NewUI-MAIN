@@ -2,16 +2,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UltimateClean;
 
 /// <summary>
-/// Auto-wires every button in the scroll panel to its EngineData from the registry.
+/// Wires pre-placed buttons in the scroll panel to their EngineData from the registry.
+/// You handle all layout/sizing in the Inspector — this script only wires the clicks and labels.
 /// 
-/// Setup (one-time, works for any number of models):
-///   1. Add this component to any GameObject in the scene
-///   2. Assign EngineRegistry and SessionData in Inspector
-///   3. Assign the Content transform (parent of all buttons)
-///   4. Each button must have a child TextMeshProUGUI for the label (auto-set)
-///   5. To add a new model: create EngineData asset, add to EngineRegistry — done
+/// Setup:
+///   1. Place your buttons manually under buttonContainer (Content)
+///   2. Assign engineRegistry, sessionData, buttonContainer
+///   3. Buttons are wired in order: first button = first engine in registry, etc.
 /// </summary>
 public class EngineButtonWirer : MonoBehaviour
 {
@@ -20,21 +20,21 @@ public class EngineButtonWirer : MonoBehaviour
     public EngineSessionData sessionData;
 
     [Header("Scene")]
-    [Tooltip("Name of the engine view scene in Build Settings.")]
-    public string engineSceneName = "SampleScene";
+    [Tooltip("Exact name of the engine view scene in Build Settings.")]
+    public string engineSceneName = "Main Scene";
 
     [Header("Scroll Panel")]
-    [Tooltip("The Content transform that contains all the buttons.")]
+    [Tooltip("The Content transform that contains all your buttons.")]
     public Transform buttonContainer;
 
     [Header("Optional")]
-    [Tooltip("If assigned, sets button thumbnail image. Button must have a child Image named 'Thumbnail'.")]
+    [Tooltip("Auto-set button thumbnail if button has a child Image named 'Thumbnail'.")]
     public bool setThumbnails = true;
 
     void Start()
     {
         if (engineRegistry == null) { Debug.LogError("[EngineButtonWirer] EngineRegistry not assigned!"); return; }
-        if (sessionData == null)    { Debug.LogError("[EngineButtonWirer] SessionData not assigned!"); return; }
+        if (sessionData    == null) { Debug.LogError("[EngineButtonWirer] SessionData not assigned!");    return; }
         if (buttonContainer == null){ Debug.LogError("[EngineButtonWirer] ButtonContainer not assigned!"); return; }
 
         WireButtons();
@@ -42,47 +42,62 @@ public class EngineButtonWirer : MonoBehaviour
 
     void WireButtons()
     {
-        // Collect all active buttons in the container
-        var buttons = new List<Button>();
+        // Collect all direct children that have either Button or CleanButton
+        var buttonObjects = new List<GameObject>();
         foreach (Transform child in buttonContainer)
         {
-            var btn = child.GetComponent<Button>();
-            if (btn != null) buttons.Add(btn);
+            if (child.GetComponent<Button>() != null ||
+                child.GetComponent<CleanButton>() != null)
+                buttonObjects.Add(child.gameObject);
         }
 
         int engineCount = engineRegistry.Count;
-        Debug.Log($"[EngineButtonWirer] Wiring {engineCount} engines to {buttons.Count} buttons.");
+        Debug.Log($"[EngineButtonWirer] {engineCount} engines, {buttonObjects.Count} buttons found.");
 
-        for (int i = 0; i < buttons.Count; i++)
+        for (int i = 0; i < buttonObjects.Count; i++)
         {
             if (i >= engineCount)
             {
-                // No engine for this button — hide it
-                buttons[i].gameObject.SetActive(false);
+                buttonObjects[i].SetActive(false);
                 continue;
             }
 
             EngineData data = engineRegistry.Get(i);
-            Button btn = buttons[i];
+            GameObject btnGO = buttonObjects[i];
 
             // Set label
-            var label = btn.GetComponentInChildren<TextMeshProUGUI>();
-            if (label != null)
-                label.text = data.engineName;
+            var label = btnGO.transform.Find("Engine Name")?.GetComponent<TextMeshProUGUI>()
+                     ?? btnGO.GetComponentInChildren<TextMeshProUGUI>();
+            if (label != null) label.text = data.engineName;
 
-            // Set thumbnail if available
+            // Set thumbnail
             if (setThumbnails && data.thumbnail != null)
             {
-                var img = btn.transform.Find("Thumbnail")?.GetComponent<Image>();
+                var img = (btnGO.transform.Find("Engine Image")
+                        ?? btnGO.transform.Find("Thumbnail"))
+                        ?.GetComponent<Image>();
                 if (img != null) img.sprite = data.thumbnail;
             }
 
-            // Wire click — capture by value
+            // Wire click — add an EngineButtonClickHandler component that listens via pointer
             EngineData captured = data;
-            btn.onClick.RemoveAllListeners();
-            btn.onClick.AddListener(() => OnEngineSelected(captured));
 
-            Debug.Log($"[EngineButtonWirer] Button[{i}] wired to '{data.engineName}'");
+            // Remove any existing handler first
+            var existing = btnGO.GetComponent<EngineButtonClickHandler>();
+            if (existing != null) Destroy(existing);
+
+            var handler = btnGO.AddComponent<EngineButtonClickHandler>();
+            handler.Init(captured, sessionData, engineSceneName);
+
+            // Also wire standard Button if present
+            var stdBtn = btnGO.GetComponent<Button>();
+            if (stdBtn != null)
+            {
+                stdBtn.onClick.RemoveAllListeners();
+                stdBtn.onClick.AddListener(() => OnEngineSelected(captured));
+            }
+
+            Debug.Log($"[EngineButtonWirer] Button[{i}] → '{data.engineName}'");
         }
     }
 
