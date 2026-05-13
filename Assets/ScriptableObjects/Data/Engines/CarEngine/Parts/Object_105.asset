@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_105
+  m_EditorClassIdentifier: 
+  partName: Exhaust Manifold Stud (2)
+  description: The Exhaust Manifold Stud (2) is a tiny, elongated stud located at
+    the middle-left-front of the engine, serving as a threaded fastener for the exhaust
+    manifold. Its primary purpose is to provide a secure mounting point for the exhaust
+    manifold, enabling efficient exhaust gas flow and reducing the risk of leaks.
+    Interestingly, the stud's material, Material.001, is chosen for its high strength-to-weight
+    ratio, allowing it to withstand extreme temperatures and pressures.
+  audioExplanation: {fileID: 0}

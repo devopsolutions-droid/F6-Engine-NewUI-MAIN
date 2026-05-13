@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_107
+  m_EditorClassIdentifier: 
+  partName: Valve Cover Gasket
+  description: The Valve Cover Gasket is a small, thin-flat gasket positioned at
+    the top-center-center of the engine, sealing the valve cover to the cylinder
+    head. Its primary function is to prevent oil leaks and maintain a clean engine
+    environment, ensuring proper valve operation and engine performance. Notably,
+    the gasket's material, Frame, is designed to provide a durable, long-lasting
+    seal, even in the presence of high temperatures and pressures.
+  audioExplanation: {fileID: 0}

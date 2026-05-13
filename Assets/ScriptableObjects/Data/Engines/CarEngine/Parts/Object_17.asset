@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_17
+  m_EditorClassIdentifier: 
+  partName: Oil Pan Bolt
+  description: The Oil Pan Bolt is a tiny, complex-shaped component located at the
+    bottom-left-front of the engine, made of Material.001, and is responsible for
+    securing the oil pan to the engine block. Its primary function is to prevent
+    oil leaks and maintain the integrity of the engine's lubrication system, and
+    its material composition provides the necessary strength and corrosion resistance.
+    Notably, the Oil Pan Bolt is often designed with a specialized thread pattern
+    or coating to enhance its sealing properties and prevent damage from oil and
+    other contaminants.
+  audioExplanation: {fileID: 0}

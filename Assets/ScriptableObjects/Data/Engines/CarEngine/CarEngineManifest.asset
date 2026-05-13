@@ -1,0 +1,335 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd2eea37a43cd340b7c552abaee2a64, type: 3}
+  m_Name: CarEngineManifest
+  m_EditorClassIdentifier: 
+  parts:
+  - gameObjectName: Object_5
+    partData: {fileID: 11400000, guid: 16d6da199a4136545ad2e5b57104bf3b, type: 2}
+  - gameObjectName: Object_7
+    partData: {fileID: 11400000, guid: a689520e48da1f24e9df873fa49111ba, type: 2}
+  - gameObjectName: Object_9
+    partData: {fileID: 11400000, guid: 9e4bde01dab50fc4e903126c899f5b6c, type: 2}
+  - gameObjectName: Object_11
+    partData: {fileID: 11400000, guid: 03e099b81c176be4388baa9bd59ef8c2, type: 2}
+  - gameObjectName: Object_13
+    partData: {fileID: 11400000, guid: d3820fcf53c150047916cec58ed693bb, type: 2}
+  - gameObjectName: Object_15
+    partData: {fileID: 11400000, guid: e4e030c8898e2844db14d99ec9b77f94, type: 2}
+  - gameObjectName: Object_17
+    partData: {fileID: 11400000, guid: 233102ee6cec0604596fab2bb412cc5b, type: 2}
+  - gameObjectName: Object_19
+    partData: {fileID: 11400000, guid: 56af51bd4578f6f41ab3edcaf1addf23, type: 2}
+  - gameObjectName: Object_21
+    partData: {fileID: 11400000, guid: 0ca6cb7e2e2b1df459974cdb0352b460, type: 2}
+  - gameObjectName: Object_23
+    partData: {fileID: 11400000, guid: faf39221847870f40bd2239eb74df384, type: 2}
+  - gameObjectName: Object_25
+    partData: {fileID: 11400000, guid: 90e41e2276c84ae4bb00c7675de3e50d, type: 2}
+  - gameObjectName: Object_27
+    partData: {fileID: 11400000, guid: 7ba7c36a2c3d0154e96df9ef2063cab8, type: 2}
+  - gameObjectName: Object_29
+    partData: {fileID: 11400000, guid: ce1c4d76e2619fb4c8474b84fe800c0a, type: 2}
+  - gameObjectName: Object_31
+    partData: {fileID: 11400000, guid: 2da51e323bfdd7d4caa956ecd69aba69, type: 2}
+  - gameObjectName: Object_33
+    partData: {fileID: 11400000, guid: 1282aa690e48c7a4088b4fa6f49421da, type: 2}
+  - gameObjectName: Object_35
+    partData: {fileID: 11400000, guid: 69c1829ebdc438c4489f0bdea95df63a, type: 2}
+  - gameObjectName: Object_37
+    partData: {fileID: 11400000, guid: f7ec103bce46d084da506bb962b5cbec, type: 2}
+  - gameObjectName: Object_39
+    partData: {fileID: 11400000, guid: 5a5440070c5f79041bcf18664e1367ce, type: 2}
+  - gameObjectName: Object_41
+    partData: {fileID: 11400000, guid: 40c2189edca4b7044869da19d7ab2eea, type: 2}
+  - gameObjectName: Object_43
+    partData: {fileID: 11400000, guid: b2b7ac9f4678c26409c5649687473778, type: 2}
+  - gameObjectName: Object_45
+    partData: {fileID: 11400000, guid: 21393255cf9a1b6498b85bb6066976de, type: 2}
+  - gameObjectName: Object_47
+    partData: {fileID: 11400000, guid: 81b11c1bc0ae21c4ba15c7c252b93cc7, type: 2}
+  - gameObjectName: Object_49
+    partData: {fileID: 11400000, guid: 91b74f9686ecc954f94eca5c89cf2787, type: 2}
+  - gameObjectName: Object_51
+    partData: {fileID: 11400000, guid: 614c39a81bd876040b9e4a204de8a48c, type: 2}
+  - gameObjectName: Object_53
+    partData: {fileID: 11400000, guid: baf494906d644b340964722bc10cd859, type: 2}
+  - gameObjectName: Object_55
+    partData: {fileID: 11400000, guid: c51e688e2cc23cc4d9254cf1deb4d7d1, type: 2}
+  - gameObjectName: Object_57
+    partData: {fileID: 11400000, guid: 8b16d473b6da4a94199cd8c91c72484d, type: 2}
+  - gameObjectName: Object_59
+    partData: {fileID: 11400000, guid: c5a19cb76e22a6f40b70625a568506ca, type: 2}
+  - gameObjectName: Object_61
+    partData: {fileID: 11400000, guid: f2f32cd25b3502746bda5aa38ac24334, type: 2}
+  - gameObjectName: Object_63
+    partData: {fileID: 11400000, guid: 3ac24d32b1e780643bcfdf4bc986090c, type: 2}
+  - gameObjectName: Object_65
+    partData: {fileID: 11400000, guid: 8a0ddcf0677e1934fa34125d84791bce, type: 2}
+  - gameObjectName: Object_67
+    partData: {fileID: 11400000, guid: dbab944d1b703df4da95919fb1d4fa2f, type: 2}
+  - gameObjectName: Object_69
+    partData: {fileID: 11400000, guid: 55627223d1892594db496d1fd7be009f, type: 2}
+  - gameObjectName: Object_71
+    partData: {fileID: 11400000, guid: 453dc013a8278884f9b2e3ea624a1ba2, type: 2}
+  - gameObjectName: Object_73
+    partData: {fileID: 11400000, guid: ded24b4441b18ab4cbf0d869ecb60aeb, type: 2}
+  - gameObjectName: Object_75
+    partData: {fileID: 11400000, guid: ced75f06e8407784aa34287c82c06d77, type: 2}
+  - gameObjectName: Object_77
+    partData: {fileID: 11400000, guid: d45b9bfa385ec964fa3bf445d164ed8f, type: 2}
+  - gameObjectName: Object_79
+    partData: {fileID: 11400000, guid: 2a5d32b9b116b324d933eadc80b3d960, type: 2}
+  - gameObjectName: Object_81
+    partData: {fileID: 11400000, guid: 2737d29708265f64d96e0b2be7f8299f, type: 2}
+  - gameObjectName: Object_83
+    partData: {fileID: 11400000, guid: 9017e2ed9d196e94090f430893425721, type: 2}
+  - gameObjectName: Object_85
+    partData: {fileID: 11400000, guid: 9479b51b97b2dfa459cb55e527d647b5, type: 2}
+  - gameObjectName: Object_87
+    partData: {fileID: 11400000, guid: 980bac56082236241b91362d1ce67881, type: 2}
+  - gameObjectName: Object_89
+    partData: {fileID: 11400000, guid: c1e0bfce9c12af14da818715660a19a8, type: 2}
+  - gameObjectName: Object_91
+    partData: {fileID: 11400000, guid: 9b6a38896a3903741a1d925a8f387154, type: 2}
+  - gameObjectName: Object_93
+    partData: {fileID: 11400000, guid: a0b44ea02977a804ca3597e234798259, type: 2}
+  - gameObjectName: Object_95
+    partData: {fileID: 11400000, guid: 9bf973d21ed4ad34188d468ad4138e7b, type: 2}
+  - gameObjectName: Object_97
+    partData: {fileID: 11400000, guid: 0eccf5ebccb15634cab23d2aa4ea3732, type: 2}
+  - gameObjectName: Object_99
+    partData: {fileID: 11400000, guid: 659f660de14b9bd478a432929fca2a95, type: 2}
+  - gameObjectName: Object_101
+    partData: {fileID: 11400000, guid: 2e6ffeee133e81044870e5af1f588e63, type: 2}
+  - gameObjectName: Object_103
+    partData: {fileID: 11400000, guid: 2d27d88f78153a54bb1810ffab909e04, type: 2}
+  - gameObjectName: Object_105
+    partData: {fileID: 11400000, guid: f63bb476ef1bb7f46acac0e8dcfbda25, type: 2}
+  - gameObjectName: Object_107
+    partData: {fileID: 11400000, guid: e5db9dbbad30ca6439b562cf0dcf7f57, type: 2}
+  - gameObjectName: Object_109
+    partData: {fileID: 11400000, guid: d9e35ab370a3d5241acb6a65ea69626c, type: 2}
+  - gameObjectName: Object_111
+    partData: {fileID: 11400000, guid: 425441ca33d5e2745982bfa45c500387, type: 2}
+  - gameObjectName: Object_112
+    partData: {fileID: 11400000, guid: 1eab375af5e3b404db50bb73e50493d9, type: 2}
+  - gameObjectName: Object_114
+    partData: {fileID: 11400000, guid: eb1932a21eaa7734d83dadf6b08b1dd1, type: 2}
+  - gameObjectName: Object_116
+    partData: {fileID: 11400000, guid: 4283456e4f9761343ba107d705af5f01, type: 2}
+  - gameObjectName: Object_117
+    partData: {fileID: 11400000, guid: 66a04e628d50a08429ec45fb3a88f7d1, type: 2}
+  - gameObjectName: Object_119
+    partData: {fileID: 11400000, guid: 4a225f50fd6a0c644a67fa029f7de9e0, type: 2}
+  - gameObjectName: Object_121
+    partData: {fileID: 11400000, guid: 34315ae5d3ebd6c438f77f8cf06f8cfd, type: 2}
+  - gameObjectName: Object_122
+    partData: {fileID: 11400000, guid: bcda453c3193b8b4ca929a15fd358b8d, type: 2}
+  - gameObjectName: Object_124
+    partData: {fileID: 11400000, guid: 7ae116c583d36b446bd568076c024517, type: 2}
+  - gameObjectName: Object_125
+    partData: {fileID: 11400000, guid: ad01d5c5a38080249993f113213444d7, type: 2}
+  - gameObjectName: Object_127
+    partData: {fileID: 11400000, guid: 41792d75cb054b04b80b83ea07ea3de8, type: 2}
+  - gameObjectName: Object_128
+    partData: {fileID: 11400000, guid: 7ca5123354bd6e34da9b17a25f201a96, type: 2}
+  - gameObjectName: Object_130
+    partData: {fileID: 11400000, guid: 9d8689868800b4244b4050d40fad48f8, type: 2}
+  - gameObjectName: Object_131
+    partData: {fileID: 11400000, guid: ed0b3ac74a169904c9330c0f32d84d02, type: 2}
+  - gameObjectName: Object_133
+    partData: {fileID: 11400000, guid: f118ef0f8c3f0d04491f461c01b03e56, type: 2}
+  - gameObjectName: Object_134
+    partData: {fileID: 11400000, guid: d036b9fcca516844fa1693f63be15a19, type: 2}
+  - gameObjectName: Object_136
+    partData: {fileID: 11400000, guid: d008b7f81aa1932418d0bf7afb0b70b7, type: 2}
+  - gameObjectName: Object_137
+    partData: {fileID: 11400000, guid: 97e6b3ea14f9d16459bcf975f2105acf, type: 2}
+  - gameObjectName: Object_139
+    partData: {fileID: 11400000, guid: 5c1c11f7b9bbde145ba4d3663f8b67de, type: 2}
+  - gameObjectName: Object_141
+    partData: {fileID: 11400000, guid: 21610c9484441154f9fc138004d46174, type: 2}
+  - gameObjectName: Object_142
+    partData: {fileID: 11400000, guid: 44aabe30ae2363c42b66126b084f0530, type: 2}
+  - gameObjectName: Object_144
+    partData: {fileID: 11400000, guid: 1eaaadf8fcceece48bf55396f8323c5e, type: 2}
+  - gameObjectName: Object_145
+    partData: {fileID: 11400000, guid: 8f5fa612600aad94089ef3cd247b81d6, type: 2}
+  - gameObjectName: Object_147
+    partData: {fileID: 11400000, guid: ca085cb964a49e74baa02084471d84a8, type: 2}
+  - gameObjectName: Object_148
+    partData: {fileID: 11400000, guid: 881ce319dba8a274683a8559375c2376, type: 2}
+  - gameObjectName: Object_150
+    partData: {fileID: 11400000, guid: bca12e9bcdcc9de4798fd319be757ab9, type: 2}
+  - gameObjectName: Object_151
+    partData: {fileID: 11400000, guid: df1e92e7eb65c4244a02162af042eccc, type: 2}
+  - gameObjectName: Object_153
+    partData: {fileID: 11400000, guid: 494fc2ca6cddde14188e85889efc62b2, type: 2}
+  - gameObjectName: Object_154
+    partData: {fileID: 11400000, guid: 79e622e316d596c4ebdb3290c7d68679, type: 2}
+  - gameObjectName: Object_156
+    partData: {fileID: 11400000, guid: 89b1e1af9b450084b995c391198de906, type: 2}
+  - gameObjectName: Object_158
+    partData: {fileID: 11400000, guid: df5567b781bfd2b409d7daa11a3ae8ba, type: 2}
+  - gameObjectName: Object_160
+    partData: {fileID: 11400000, guid: 546781a2fead8fe44afe73402f10c1d6, type: 2}
+  - gameObjectName: Object_162
+    partData: {fileID: 11400000, guid: c19bfe17880498440a8b0b5566e41f00, type: 2}
+  - gameObjectName: Object_164
+    partData: {fileID: 11400000, guid: 619b86fe7b512fd45bc44c5e962a0654, type: 2}
+  - gameObjectName: Object_166
+    partData: {fileID: 11400000, guid: 8aae08937ca52194e892af59b5868ccd, type: 2}
+  - gameObjectName: Object_168
+    partData: {fileID: 11400000, guid: f5def7898c3f3a642b5416a44a03b504, type: 2}
+  - gameObjectName: Object_170
+    partData: {fileID: 11400000, guid: 6a872102d638f0248bbaae1c16cea96a, type: 2}
+  - gameObjectName: Object_172
+    partData: {fileID: 11400000, guid: 4a17d955a781ee542aedf8ec1c47fe9a, type: 2}
+  - gameObjectName: Object_174
+    partData: {fileID: 11400000, guid: 73e860e5fbace454e89377b47894ee89, type: 2}
+  - gameObjectName: Object_176
+    partData: {fileID: 11400000, guid: 55538acb9c219c14a8d98b17cfb67a4d, type: 2}
+  - gameObjectName: Object_178
+    partData: {fileID: 11400000, guid: 93b19c4ac45e2bc41b7845304faceb42, type: 2}
+  - gameObjectName: Object_180
+    partData: {fileID: 11400000, guid: 5e9c26763801fe842af4d5fa0d7c8d88, type: 2}
+  - gameObjectName: Object_182
+    partData: {fileID: 11400000, guid: 703e68511cfae4644b69051b2a797eca, type: 2}
+  - gameObjectName: Object_184
+    partData: {fileID: 11400000, guid: 42553c7a2e1e6e9498a7386a8ae304d2, type: 2}
+  - gameObjectName: Object_186
+    partData: {fileID: 11400000, guid: 5c8e87851cf398b4a96d3bbdf6fc2455, type: 2}
+  - gameObjectName: Object_188
+    partData: {fileID: 11400000, guid: 51020f7c977cebc4fb1bb763ca502d01, type: 2}
+  - gameObjectName: Object_190
+    partData: {fileID: 11400000, guid: 6b6498eae5cbbce44a73bac3ea86a18d, type: 2}
+  - gameObjectName: Object_192
+    partData: {fileID: 11400000, guid: abd2db9ae5f39094695aa5ced1f2ed7b, type: 2}
+  - gameObjectName: Object_194
+    partData: {fileID: 11400000, guid: 6c7fb38729ade2541b891e594c4a9a94, type: 2}
+  - gameObjectName: Object_196
+    partData: {fileID: 11400000, guid: 8602afc7ae6db2e48a2fa1b547f1f623, type: 2}
+  - gameObjectName: Object_198
+    partData: {fileID: 11400000, guid: 48189c8ec7295544e85f696415001190, type: 2}
+  - gameObjectName: Object_200
+    partData: {fileID: 11400000, guid: 242b838dbfd24ae499837a6b75dd4fd8, type: 2}
+  - gameObjectName: Object_202
+    partData: {fileID: 11400000, guid: b263a832dbcec034f9a42457062ac94b, type: 2}
+  - gameObjectName: Object_204
+    partData: {fileID: 11400000, guid: bdc4375e76cca144bb3546e3bc53d484, type: 2}
+  - gameObjectName: Object_206
+    partData: {fileID: 11400000, guid: d02e0efd87f373f49b6569c5456a30ff, type: 2}
+  - gameObjectName: Object_208
+    partData: {fileID: 11400000, guid: 521564b9e4a5a53498bad087b66ce885, type: 2}
+  - gameObjectName: Object_210
+    partData: {fileID: 11400000, guid: 18f92b7e7cb33a0408efc28c9ed970aa, type: 2}
+  - gameObjectName: Object_212
+    partData: {fileID: 11400000, guid: b56daf14759644c438a00582ae57eefa, type: 2}
+  - gameObjectName: Object_214
+    partData: {fileID: 11400000, guid: ed8ab6ab9dcdd1e46b0f888c6c7c7f42, type: 2}
+  - gameObjectName: Object_216
+    partData: {fileID: 11400000, guid: dd86798cda2c3844fa94c5a084670235, type: 2}
+  - gameObjectName: Object_218
+    partData: {fileID: 11400000, guid: b4edbbebc3db90541bb8250322b108ac, type: 2}
+  - gameObjectName: Object_220
+    partData: {fileID: 11400000, guid: adfcf8343d51c084294658983dc18b2a, type: 2}
+  - gameObjectName: Object_222
+    partData: {fileID: 11400000, guid: f799a0d0c0cfa2742b8a3206e6181224, type: 2}
+  - gameObjectName: Object_224
+    partData: {fileID: 11400000, guid: 20d17231813597644964add97c32007d, type: 2}
+  - gameObjectName: Object_226
+    partData: {fileID: 11400000, guid: cca1bced3148b8442a3286f778d5abcb, type: 2}
+  - gameObjectName: Object_228
+    partData: {fileID: 11400000, guid: f85de8e4438afa34a91c210b0a13369f, type: 2}
+  - gameObjectName: Object_230
+    partData: {fileID: 11400000, guid: fe04ed57acba94b4e97c56757667510f, type: 2}
+  - gameObjectName: Object_232
+    partData: {fileID: 11400000, guid: 6f5aa7b1d7e9f28498f46bdd39525778, type: 2}
+  - gameObjectName: Object_234
+    partData: {fileID: 11400000, guid: 09442af55a54de147bb3d8012674161f, type: 2}
+  - gameObjectName: Object_236
+    partData: {fileID: 11400000, guid: 22b0d744427d3734699fabda36901ac7, type: 2}
+  - gameObjectName: Object_238
+    partData: {fileID: 11400000, guid: 998b356564463264cb8de692cf19c31e, type: 2}
+  - gameObjectName: Object_240
+    partData: {fileID: 11400000, guid: 92d39ce86ba82c842b07001925fe2318, type: 2}
+  - gameObjectName: Object_242
+    partData: {fileID: 11400000, guid: c44a2e62047caa4458b7ad38fdaff261, type: 2}
+  - gameObjectName: Object_244
+    partData: {fileID: 11400000, guid: a4e889f4b26c74b46bb46d1eaeb6be2a, type: 2}
+  - gameObjectName: Object_246
+    partData: {fileID: 11400000, guid: e33036ea476c1504f9c0ef7a36188772, type: 2}
+  - gameObjectName: Object_248
+    partData: {fileID: 11400000, guid: b7b24fc0d4817e744b71c01803f62a21, type: 2}
+  - gameObjectName: Object_250
+    partData: {fileID: 11400000, guid: cae765cc8b37b4240a7ab2082fc99c27, type: 2}
+  - gameObjectName: Object_252
+    partData: {fileID: 11400000, guid: d51349406739a36459fd3d285f8be5eb, type: 2}
+  - gameObjectName: Object_254
+    partData: {fileID: 11400000, guid: 592404608e7676d4783a77971614154b, type: 2}
+  - gameObjectName: Object_256
+    partData: {fileID: 11400000, guid: f61f817550250dc4a95363baf3b75b6c, type: 2}
+  - gameObjectName: Object_258
+    partData: {fileID: 11400000, guid: 9ec81937a99d3ec47bceeb457d1568f3, type: 2}
+  - gameObjectName: Object_260
+    partData: {fileID: 11400000, guid: cd73c59c670093c4f99d5d0effcb102d, type: 2}
+  - gameObjectName: Object_262
+    partData: {fileID: 11400000, guid: c60479f162fa8434080d7b8259101448, type: 2}
+  - gameObjectName: Object_264
+    partData: {fileID: 11400000, guid: 5159ae63c932abb49af4e97540abefd9, type: 2}
+  - gameObjectName: Object_266
+    partData: {fileID: 11400000, guid: ec033e6b7dd2ffa4a9ebbb9a9b6a9e8b, type: 2}
+  - gameObjectName: Object_268
+    partData: {fileID: 11400000, guid: 00229492464cd47468dbeb04eaf5e2f9, type: 2}
+  - gameObjectName: Object_270
+    partData: {fileID: 11400000, guid: 7dbb345f672916e4ba706cbf89e6241f, type: 2}
+  - gameObjectName: Object_271
+    partData: {fileID: 11400000, guid: 41ccb3e7b320e2b46938f9a2c8506176, type: 2}
+  - gameObjectName: Object_272
+    partData: {fileID: 11400000, guid: b30cb0b10b923a54994512a26e7e8417, type: 2}
+  - gameObjectName: Object_273
+    partData: {fileID: 11400000, guid: 98acd60352cedb244be660836b9277f1, type: 2}
+  - gameObjectName: Object_274
+    partData: {fileID: 11400000, guid: bdfee7f2e19e24f4e9818211247a40a8, type: 2}
+  - gameObjectName: Object_275
+    partData: {fileID: 11400000, guid: 6c536333718a793488ad4a100f8e8609, type: 2}
+  - gameObjectName: Object_276
+    partData: {fileID: 11400000, guid: 1ca9c17223f54f640a78f9714936f6fa, type: 2}
+  - gameObjectName: Object_277
+    partData: {fileID: 11400000, guid: 62c438716ceb7c84fbcf22aa1f5087d3, type: 2}
+  - gameObjectName: Object_278
+    partData: {fileID: 11400000, guid: 11401626c9c59da428c360182eca9735, type: 2}
+  - gameObjectName: Object_279
+    partData: {fileID: 11400000, guid: d3bb6e043601e1342a20cc09c016eca5, type: 2}
+  - gameObjectName: Object_280
+    partData: {fileID: 11400000, guid: 82cb8d2aedeec684689dd9c2dd1974ce, type: 2}
+  - gameObjectName: Object_281
+    partData: {fileID: 11400000, guid: 61310564bc75bba459762d83e4cf09c3, type: 2}
+  - gameObjectName: Object_282
+    partData: {fileID: 11400000, guid: dbb2eabc770321f45acbd3ce8e621f80, type: 2}
+  - gameObjectName: Object_283
+    partData: {fileID: 11400000, guid: ffe029358cf0e3c43ac67f40707c6555, type: 2}
+  - gameObjectName: Object_284
+    partData: {fileID: 11400000, guid: f901d207f98329440aa7394f6c55c043, type: 2}
+  - gameObjectName: Object_286
+    partData: {fileID: 11400000, guid: 9b0fadeebaf4da349b826805119f0e4b, type: 2}
+  - gameObjectName: Object_288
+    partData: {fileID: 11400000, guid: 25c3090939c4c264aa3d137082877fee, type: 2}
+  - gameObjectName: Object_290
+    partData: {fileID: 11400000, guid: f4652387a8401f94b89188b88452b340, type: 2}
+  - gameObjectName: Object_292
+    partData: {fileID: 11400000, guid: d1cb717f96883d34583ffd413e41b38a, type: 2}
+  - gameObjectName: Object_294
+    partData: {fileID: 11400000, guid: 45d89a06c148f42478bd03dc5942aa69, type: 2}
+  - gameObjectName: Object_296
+    partData: {fileID: 11400000, guid: 2c31fa8f9d8c254458ec81fdcd115858, type: 2}

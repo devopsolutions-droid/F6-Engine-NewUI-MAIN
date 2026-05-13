@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_145
+  m_EditorClassIdentifier: 
+  partName: Fuel Injector (2)
+  description: The Fuel Injector (2) is another tiny, elongated fuel injector located
+    at the top-center-center of the engine, which works in tandem with the first
+    fuel injector to provide a balanced fuel supply. Constructed from Material.002,
+    this part is vital for maintaining optimal engine performance, and its tiny size
+    allows for precise fuel metering. Notably, the fuel injector's elongated shape
+    enables it to be positioned close to the intake valves for improved fuel atomization.
+  audioExplanation: {fileID: 0}

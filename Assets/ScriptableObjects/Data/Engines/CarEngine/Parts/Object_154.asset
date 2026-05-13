@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_154
+  m_EditorClassIdentifier: 
+  partName: Rear Bolt
+  description: The Rear Bolt is a tiny, elongated component positioned at the top-center-rear
+    of the engine, responsible for securing various engine components in place. Made
+    of Material.002, it provides the necessary strength and stability to withstand
+    the engine's operational stresses. Notably, the Rear Bolt's elongated shape enables
+    it to distribute the load evenly, preventing damage to surrounding components.
+  audioExplanation: {fileID: 0}

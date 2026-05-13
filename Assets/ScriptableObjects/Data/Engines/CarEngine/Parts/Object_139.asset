@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_139
+  m_EditorClassIdentifier: 
+  partName: Mounting Bolt (2)
+  description: The Mounting Bolt (2) is a tiny, compact fastener positioned at the
+    top-center-rear of the engine, constructed from Material.005, responsible for
+    securing the engine to the vehicle's chassis, providing a stable and secure connection,
+    and its compact shape enables efficient use of space. The Mounting Bolt (2) is
+    designed to withstand significant stress and strain, ensuring the engine remains
+    securely attached to the chassis. Notably, the Mounting Bolt (2) is designed
+    to be easily removable and reusable, reducing maintenance time and costs.
+  audioExplanation: {fileID: 0}

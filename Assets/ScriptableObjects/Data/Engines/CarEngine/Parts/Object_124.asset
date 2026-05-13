@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_124
+  m_EditorClassIdentifier: 
+  partName: Mounting Bolt
+  description: The Mounting Bolt is a complex-shaped, tiny fastener situated at the
+    top-right-center of the engine, responsible for securing the engine to its mounts
+    or other components. Fabricated from Material.001, it withstands significant
+    stresses and vibrations. Notably, its complex shape enables it to distribute
+    loads evenly, ensuring a stable engine mounting system.
+  audioExplanation: {fileID: 0}

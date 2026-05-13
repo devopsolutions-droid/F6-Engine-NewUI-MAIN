@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_128
+  m_EditorClassIdentifier: 
+  partName: Bolt (7)
+  description: The Bolt (7) is a tiny, compact fastener located at the top-center-center
+    of the engine, made of Material.002, which plays a crucial role in securing various
+    components together, ensuring the engine's structural integrity, and its compact
+    shape allows for efficient use of space. Its small size belies its importance,
+    as it helps to maintain the engine's overall stability. Interestingly, the Bolt
+    (7) is designed to withstand high torque forces.
+  audioExplanation: {fileID: 0}

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Object_144
+  m_EditorClassIdentifier: 
+  partName: Ignition Coil
+  description: The Ignition Coil is a complex-shaped component situated at the top-center-center
+    of the engine, responsible for generating the high voltage needed to create a
+    spark in the spark plug. Made from Material.001, this tiny part is essential
+    for initiating combustion, and its central location allows for efficient energy
+    transfer. Interestingly, the ignition coil's complex shape helps to optimize
+    its magnetic field and increase spark energy.
+  audioExplanation: {fileID: 0}
