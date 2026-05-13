@@ -55,13 +55,6 @@ out/
 # Don't ignore Asset meta data
 !/[Aa]ssets/**/*.meta
 
-# Uncomment this line if you wish to strictly match the unitypackage export behavior
-# and remove all meta files from the repository
-# [Aa]ssets/**/*.meta
-
-# If you would like to adopt FileID v2 format in a new project, uncomment the following line
-# *.asset -text
-
 # Rider
 .idea/
 Assets/Plugins/Editor/JetBrains*
@@ -90,3 +83,6 @@ Thumbs.db
 /Temp/
 /Logs/
 /UserSettings/
+
+# ── Large binary assets — tracked via Git LFS ──────────────────────────────
+# Run: git lfs track "*.glb" etc. to register these in .gitattributes
