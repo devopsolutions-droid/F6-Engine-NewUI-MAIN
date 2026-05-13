@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: V8HotRedData
   m_EditorClassIdentifier: 
   engineName: V8 Hot Red
-  engineDescription: Engine description.
+  engineDescription: "A V8 hot-rod style engine places eight cylinders in two banks angled in a V, usually with a single crankshaft and a compact vee for high displacement in a relatively short block. Large bore and stroke combinations favor abundant torque and a muscular exhaust note.\n\nIt converts fuel-air charge into strong low-end and mid-range torque ideal for quick launches, highway passing, and sustained high output when cooled and fueled correctly.\n\nYou will see this family in American muscle cars, classic pickups, drag-racing builds, and performance restomods—this model highlights the hardware enthusiasts upgrade first: induction, exhaust, cooling, and ignition."
   engineCategory: Engine
   thumbnail: {fileID: 21300000, guid: 0885aa39bb38e1840b01ee16cd3dfc6b, type: 3}
   enginePrefab: {fileID: 0}

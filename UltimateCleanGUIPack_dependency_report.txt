@@ -1,0 +1,128 @@
+﻿Total pack GUIDs: 7704
+External refs: 143
+Kept: 517
+Removable: 7187
+
+=== KEEP (first 80) ===
+004fd5f28ae6742e7aa1f1eba397cee8  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Game Scene\Icons\Cup Semi Round.png
+00c21c5bee3ed48498ba6c589e808968  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\SciFi\Prefabs\UI Elements\Popup\Base\Popup Base.prefab
+00c45300f951d40259ffe2999dc78b88  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Game Scene\Icons\Health - Heart.png
+01731ed89faf0407c8b7cebbdd03c8a8  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Home Scene\Icons\Skills.png
+020338e8b6cbd48e9b54983e5e46df0e  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Animations\Buttons\Zoom In\Zoom In\Button - Zoom In.overrideController
+0253b5826c0ae4b048252a5bcd3bf34e  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\SciFi\Prefabs\UI Elements\Slider\Basic - Gradient\Slider - Basic - Gradient - Green.prefab
+02f6c84cfb22b4d39a88a6360ae3ab60  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Animations\Effects\Fading (Alpha)\Canvas Group\Fade - Canvas Group.controller
+039304d6e2bc142f68ecf51388465664  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\SciFi\Prefabs\UI Elements\Popup\Bottom Bar\Bottom Bar - Straight.prefab
+03ae7ac8b6fcf4ae4965d0a33053ad12  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Animations\Slider\Handle Zoom\Pressed.anim
+03b95aba420884268ac5986fab925964  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Animations\Popups\Zoom\Popup Zoom.controller
+0478bc0b1fe2d46e3aa7d3ddfb6ce855  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Popups\Coins Shop\Icons\Coins3.png
+04867a6e099494e349dd5dab1178c904  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Animations\Notifications\Slide Right\Close.anim
+060775497d94443d288764f45d99ef01  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Home Scene\Icons\User.png
+06bed3a3186ec4edfb8c4ea6f70252d5  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\SciFi\Prefabs\UI Elements\Scrollbar\Scrollbar - Horizontal.prefab
+06c6be61f0dbd4e3cb3237729d9019ac  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Prefabs\Spinner\Dark (Light Color)\Spinner - Doble Half Circle.prefab
+06edc75731d9a4b4f826080041be28a7  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Logos\Ultimate Clean - Text.png
+070c56156bccf435ea2c77ee9b3e2f3f  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Icons\Basic\Plus - Semi Rounded.png
+0732228dd78df4702827d80d843b6578  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Popups\Chat\Icons\Microphone Mute.png
+0774c04f2aca444cd9a7be2eac3b48ec  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Popups\Level\Icons UI\Star - Sharp.png
+07aed49c3e7b24256b79a173f94fc90d  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Animations\Spinner\Dots\DotLoading6.overrideController
+08b21a5c0723e41c293613e9d37f9902  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sounds\Button RollOver Soft.wav
+08c8ae0074b0846589d0acae5ebb0761  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\SciFi\Prefabs\Popup Demos\Landscape\SciFi - Landscape - Level.prefab
+0973e2c86cfe04509baef129e51272c2  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Animations\Popups\Fade\Close.anim
+09df586b8769f49cca067f34d8709ec6  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Game Scene\Icons\Coin Polygon.png
+0a3b9a9c591894a16a6be8d7b388a418  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\SciFi\Prefabs\Popup Demos\Universal\SciFi - Help.prefab
+0bc3150e4d7d04697bfe65410fe0ebdc  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\SciFi\Prefabs\UI Elements\Slider\Basic - Gradient\Slider - Basic - Gradient - Purple.prefab
+0c767bf09de0f4626ad51c41493791df  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Popups\Inventory\Icons UI\Body Border.png
+0d1199d132d814b00a58abefea9f4357  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Game Scene\Icons\Arrow.png
+0d397c47ba72840da881ab9dffb08985  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Animations\Popups\Pop\Close.anim
+0e3fe11d142a5481bb5ab5d6bc8a174b  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\SciFi\Prefabs\UI Elements\Button With Icon\Filled\IconButton - Filled - Medium Blue.prefab
+0e9387647acbf4fb7a2a677d721dab72  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Popups\Trophies\Icons\Running.png
+0edc89eb013f6447e8de0a8093a63ad5  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Animations\Effects\Graph (Statistic Popup)\GraphScaleEnter6.anim
+0f3a6a3b6b6d144e98451ddc01bb7859  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Animations\Popups\Fade\Open.anim
+0f3c2296594fc4414a266da51f0abb6f  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Animations\Slider\Handle Zoom\Handle Zoom.overrideController
+0f40f0d4d51574f348be9a4a545bd404  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Avatars\Girl 6.png
+0f500c18cb33647b98e86ed6275fb0d5  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Popups\Coins Shop\Icons\Coins6.png
+0fb1da01b345a411c84b6367fc0c2e69  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sounds\Pop.wav
+101e14c87bc8945d2afc0921eb0dbf65  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Shapes\Straight\Straight - 400ppu.png
+10a28841dd604479a9a26f49268c1885  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Icons\Arrows\ArrowHeadLeft.png
+1324a7b79a8db4423a43a918b38a37bd  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\Modern Dark\Fonts\Roboto-Medium SDF.asset
+140b0042badab446ba228a005e92d46b  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\SciFi\Prefabs\UI Elements\Input Field\List\Input List Group (With Icons).prefab
+141bbf364a3b24a4793d0edfed81f04b  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\Modern Dark\Prefabs\UI Elements\Button With Icon And Text\Filled With Text\IconButton - Filled With Text - Teal.prefab
+15abc1bdbe56f480baf05b728882ca96  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sounds\Close (Rollover).wav
+16419d063ba34496e983e2e558bc36b8  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Game Scene\Icons\Map.png
+168a058713b614fdc993c0d632b750bb  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Scripts\Core\InfoPopup.cs
+16f6a3fed81a74ce2ace7f777dab3927  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Animations\Effects\Graph (Statistic Popup)\GraphScaleEnter7.anim
+1732bf2d08390434e8ecb77c54eda73e  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Game Scene\Icons\Crown.png
+174c3c1f3ed174afbbf1ff2c0fc3520b  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Popups\Coins Shop\Icons\CoinsChest.png
+17749b9a121e644918932030961889ac  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Animations\Spinner\Dots2\LoadingSpinDot3.overrideController
+177b648fc61444316aba5a59427918c4  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\SciFi\Prefabs\UI Elements\Background\Background - Dark (Blue).prefab
+18933cebb3dcb4f979edf2f89d726a20  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Avatars\Boy 3.png
+18e21156f4e2845d0983ff3aed932ca8  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Game Scene\Icons\Double Axe.png
+195596be3a91049b197e3ed88a80585a  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Popups\Skills\Icons Abilities Flat\Vitality.png
+197043ab37b484cb8bb30aaaed6a84af  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Popups\Quests\Icons\Diamond.png
+1af5f1e83fbee4dc9945322f94220a07  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Animations\Effects\Graph (Statistic Popup)\GraphScaleEnter4.anim
+1bc87606727a6453ea6c5e184fa35d45  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Scripts\Core\ButtonWithSound.cs
+1d9fd7b06c5f649e7855ec7d7209a9a1  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Popups\Inventory\Icons\UnicornIcon.png
+1f1375efd67014e99bedc67dca917e88  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Animations\Notifications\Slide Right\Notification_SlideRight.overrideController
+1f3bcf0b71d564e9ab8eab3579fb59fa  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Logos\Ultimate - Icon.png
+1fb5ca5bd9b6c431b9ac8e22d62e4060  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\SciFi\Prefabs\Popup Demos\Landscape\SciFi - Landscape - Settings.prefab
+2001fe473026940f4b565bac88947087  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\SciFi\Prefabs\UI Elements\Slider\Clamped - Gradient\Slider - Clamped (Whole Number) - Gradient - Green.prefab
+206ae7b7e586143a1b0e3a58e1f40ce6  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Popups\Equipment\Icons\BowAndArrow.png
+2119d10b3585c4d7f9525507c96fc90f  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Popups\Info Help\IconsFlat\HeartIcon.png
+21d2dd36629bf406daad2064370e68fe  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sounds\Button.wav
+2249bdd93c9d04e8c914f4f72267b196  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Prefabs\Demo\Navigation\Navigation Bar - Landscape.prefab
+22ba9b7eb0a27480a96d8a71ecb574f2  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Animations\Spinner\Dots2\LoadingSpinDotEnter3.anim
+22cc4ff91c34449419641ae3ef4253a2  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Spinner\Semicircle.png
+22e10afce3f1341e38a4b35ad88b78a5  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Animations\Spinner\Dots\DotLoading2.overrideController
+231a2193a637c4645a99b679c3db5260  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Scripts\Core\ToggleWithLabel.cs
+23292efc080624dca9746fa0a448c0e7  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Icons\Basic\Globe Outline.png
+235cfd00b5fa2483ebfb73689ed8bccb  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Popups\Trophies\Icons\Magic.png
+2402d20bf92b34310b5463cfa800a2b9  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Animations\Buttons\Zoom In\Zoom In - Strong\Highlighted.anim
+24542c3a5acfd4ecb80c92b847b05357  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Popups\Skills\Icons Flat\SnakeIcon.png
+2504fb231d8744732a5c3afb837351b1  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Popups\Map\Icons UI\MapIcon.png
+25748c8ea9f7d4d258c97eb62f6e24d9  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Popups\Trophies\Icons\GuardianAngel.png
+25ea41acdb6c94fa9abca8bf281fe6d8  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Icons\Arrows\ArrowHeadDown.png
+2652c4088e9b84f57a29fda15ddfab9b  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Animations\Effects\Graph (Statistic Popup)\GraphScaleEnter1.anim
+26fd24b0f56ab4c66b6ff61c9278ab39  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Animations\Spinner\Dots2\LoadingSpinDotEnter2.anim
+2819e20fc0eba454c9fa711b7149b13b  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Animations\Buttons\Zoom In\Zoom In\Disabled.anim
+28c4044bd27b14eb697fedd18bea43f2  Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Popups\Skills\Icons Flat\SpiralIcon.png
+
+=== REMOVE (first 40) ===
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Popups\Trophies\Icons UI\Lock polygon.png
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Popups\Trophies\Icons Colored
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\Classic\Prefabs\UI Elements\Progress Bar\Rectangular\Colors\Progress Bar - Colors - Blue.prefab
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Animations\Slider\Handle\Handle.overrideController
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sources\Icons Colored\PSD\Bell.psd
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\Minimalist\Prefabs\UI Elements\Button With Icon And Text\Credits
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Prefabs\Spinner\Dark (Light Color)
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\Modern Dark\Prefabs\UI Elements\Button With Icon\Filled\IconButton - Filled - Orange.prefab
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Popups\Profile\Icons\Photo.png
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\Modern Light\Prefabs\UI Elements\Button With Icon\Credits\Basic\Button - Filled With Border And Text (Credits) - Coins.prefab
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Icons Colored\Plants\Leaves x3 Green.png
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\Modern Dark\Sources\Portrait.psd
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\Modern Light\Prefabs\UI Elements\Button With Icon\Filled\IconButton - Filled - Purple.prefab
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Icons\Party\Balloons.png
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Icons Colored\Magic\Rainbow.png
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\Classic\Prefabs\UI Elements\Button With Icon\Polygon\Filled With Outline\IconButton - Filled With Outline - Yellow.prefab
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Animations\Buttons\Zoom In\Login (Demo)\Highlighted.anim
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Shapes\Polygon\Polygon
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sources\Icons\SVG\GuardianAngelIcon.svg
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Popups\Inventory\Icons Colored\Double Axe.png
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\Dark\Prefabs\UI Elements\Button\Gradient\Button - Gradient - Dark.prefab
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\Dark\Prefabs\UI Elements\Button With Icon And Text\Left Icon - Filled\IconButton - Filled With Text - Purple.prefab
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\Round Light\Prefabs\UI Elements\Button With Icon And Text\Filled With Text
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\Classic\Prefabs\UI Elements\Button\Outline (Filled Rollover)\Button - Outline (Filled Rollover) - Light.prefab
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\Round Light\Prefabs\UI Elements\Slider\Basic\Basic (Colored Handle)\Slider - Basic (Colored Handle) - Indigo.prefab
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sources\Icons\PSD\GiftUploadIcon.psd
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Prefabs\Spinner\Light (Dark Color)\Spinner - Doble Half Circle.prefab
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Icons\Basic\Magnet.png
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sources\Icons\PSD\Lens - Zoom Out.psd
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\Round Dark\Prefabs\Popup Demos\Landscape
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\Minimalist\Prefabs\UI Elements\Slider\Handle with Value\Slider - Center (Percent Number - Visible on Rollover).prefab
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sources\Icons Colored\PSD\GiftRedIcon.psd
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\Round Light\Prefabs\UI Elements\Button With Icon\Rounded\Filled\IconButton - Filled - Red.prefab
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sources\Icons\PNG\HelicopterIcon.png
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\Classic\Prefabs\UI Elements\Button\Outline (Filled Rollover)\Button - Outline (Filled Rollover) - Red.prefab
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\Classic\Prefabs\Popup Demos\Portrait\Classic - Portrait - Inventory.prefab
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\Round Light\Prefabs\UI Elements\Button With Icon\Rounded\Outline\IconButton - Outline - Pink.prefab
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Common\Sprites\Demo\Popups\End Game\Icons UI\FailIcon.png
+Assets\Room Assets\UI Assets\UltimateCleanGUIPack\Themes\Modern Light\Prefabs\UI Elements\Slider\Basic\Gradient\Slider - Gradient - Yellow.prefab

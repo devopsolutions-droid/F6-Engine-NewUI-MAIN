@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HoverEngineData
   m_EditorClassIdentifier: 
   engineName: Hover Engine
-  engineDescription: Engine description.
+  engineDescription: "This hover-engine concept bundles lift and thrust hardware—often ducted fans, radial compressors, or turbojet-style stages—into a compact power module suited for near-ground flight or vectored thrust experiments.\n\nIt produces high-volume airflow or hot gas to create lift and propulsion so a platform can clear obstacles, transition, and maneuver without wheels touching terrain.\n\nSimilar technologies inspire personal air vehicles, unmanned logistics prototypes, and sci-fi inspired trainers; here it is simplified for VR exploration of how power connects to ducts, bearings, and mounts."
   engineCategory: Engine
   thumbnail: {fileID: 21300000, guid: 342e7f09d2dc3654f860b9e61764bd47, type: 3}
   enginePrefab: {fileID: 0}

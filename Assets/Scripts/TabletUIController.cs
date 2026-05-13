@@ -53,7 +53,7 @@ public class TabletUIController : MonoBehaviour
     [Tooltip("Header on the tablet; set from EngineData.engineName when the scene loads.")]
     public TextMeshProUGUI engineNameText;
 
-    [Tooltip("Shows engine description by default. Switches to part description on selection.")]
+    [Tooltip("Engine overview from EngineData (what it is, role, typical use). Switches to part description on hover/select.")]
     public TextMeshProUGUI engineDescriptionText;
 
     [Tooltip("Shows selected part name. Empty by default.")]
@@ -188,6 +188,9 @@ public class TabletUIController : MonoBehaviour
         if (loadingScreenPanel != null) loadingScreenPanel.SetActive(false);
         if (mainMenuPanel != null)      mainMenuPanel.SetActive(true);
 
+        // Tablet was hidden during loading — refresh engine copy so TMP layout is correct
+        PopulateEngineDisplay();
+
         // Unlock all engine interactions now that loading is complete
         engineInteractor?.EnableInteraction();
         engineViewManager?.EnableViewButtons();
@@ -221,7 +224,10 @@ public class TabletUIController : MonoBehaviour
             engineNameText.text = currentEngineData.engineName;
 
         if (engineDescriptionText != null)
-            engineDescriptionText.text = currentEngineData.engineDescription;
+        {
+            engineDescriptionText.text = currentEngineData.engineDescription ?? "";
+            engineDescriptionText.ForceMeshUpdate(true);
+        }
 
         if (partNameText != null)
             partNameText.text = "";

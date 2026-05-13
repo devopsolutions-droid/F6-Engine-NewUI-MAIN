@@ -8,7 +8,9 @@ public class EngineData : ScriptableObject
 {
     [Header("Identity")]
     public string engineName = "Engine Name";
-    [TextArea(2, 4)]
+
+    [TextArea(5, 12)]
+    [Tooltip("Shown on the tablet under the engine name. Summarize: what this engine is, what it does, and where it is typically used (2–5 short paragraphs).")]
     public string engineDescription = "Engine description.";
     public string engineCategory = "General";
 

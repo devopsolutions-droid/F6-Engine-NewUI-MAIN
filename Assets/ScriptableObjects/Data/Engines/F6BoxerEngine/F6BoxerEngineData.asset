@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: F6BoxerEngineData
   m_EditorClassIdentifier: 
   engineName: F6 Boxer Engine
-  engineDescription: Engine description.
+  engineDescription: "The F6 boxer (flat-six) is a six-cylinder internal combustion engine with two opposed banks of three cylinders. Pistons on opposite banks move toward each other like a boxing match, which gives excellent primary balance and a low, wide package that drops the vehicle center of gravity.\n\nIt burns fuel and air in the cylinders, converting chemical energy into torque at the crankshaft that turns the flywheel and transmission to move the wheels—or a propeller in aircraft derivatives.\n\nThis layout is famous in the Porsche 911 lineage and many Subaru performance models; similar boxer sixes also appear in light aircraft and kit-car builds. In this simulation you can explore how the major assemblies work together."
   engineCategory: Engine
   thumbnail: {fileID: 0}
   enginePrefab: {fileID: 0}

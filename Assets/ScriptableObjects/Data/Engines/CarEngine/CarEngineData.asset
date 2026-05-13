@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a9260857feccf34e9dedd9a180b4b5c, type: 3}
   m_Name: CarEngineData
   m_EditorClassIdentifier: 
-  engineName: car engine
-  engineDescription: Engine description.
+  engineName: Car Engine
+  engineDescription: "This exhibit represents a typical modern automobile piston engine—often an inline four or V-shaped six or eight in production cars. It is a four-stroke powerplant: intake, compression, power, and exhaust, timed by valvetrain and controlled by engine management.\n\nIts job is to turn gasoline or diesel into rotary motion at the crankshaft, multiply torque through the transmission, and deliver reliable power for acceleration, cruising, and accessories.\n\nBillions of similar engines power sedans, SUVs, light trucks, and hybrids worldwide; understanding its major parts helps with maintenance, diagnostics, and appreciating how everyday mobility works."
   engineCategory: Engine
   thumbnail: {fileID: 21300000, guid: e8f56d1b81c1f1e47ae9c4d19b2c5ee0, type: 3}
   enginePrefab: {fileID: 0}

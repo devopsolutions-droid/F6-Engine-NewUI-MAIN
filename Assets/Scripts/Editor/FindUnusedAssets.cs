@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -15,10 +16,13 @@ public class FindUnusedAssets : EditorWindow
 {
     private static readonly string[] ModelExtensions = { ".glb", ".fbx", ".obj", ".gltf" };
     private static readonly string[] LargeExtensions = { ".glb", ".fbx", ".obj", ".gltf", ".mp4", ".mp3", ".wav", ".png", ".jpg", ".exr", ".psd" };
+    private const string RecycleBinRoot = "ProjectSettings/UnusedAssetsRecycleBin";
+    private const string RecycleBinManifest = "ProjectSettings/UnusedAssetsRecycleBin/manifest.txt";
 
     private Vector2 _scroll;
     private List<string> _unusedPaths = new();
     private List<string> _unusedLargePaths = new();
+    private readonly List<DeletedEntry> _deletedEntries = new();
     private bool _scanned = false;
     private bool _showLarge = false;
 
@@ -26,6 +30,11 @@ public class FindUnusedAssets : EditorWindow
     public static void ShowWindow()
     {
         GetWindow<FindUnusedAssets>("Unused Assets");
+    }
+
+    void OnEnable()
+    {
+        LoadDeletedManifest();
     }
 
     void OnGUI()
@@ -59,6 +68,26 @@ public class FindUnusedAssets : EditorWindow
                 SaveToFile(list);
 
             GUILayout.Space(5);
+            GUILayout.BeginHorizontal();
+            GUI.enabled = list.Count > 0;
+            if (GUILayout.Button("Delete All Listed (Move to Recycle Bin)", GUILayout.Height(24)))
+                DeleteAllListed(list);
+            GUI.enabled = true;
+
+            GUI.enabled = _deletedEntries.Count > 0;
+            if (GUILayout.Button("Restore Last Deleted", GUILayout.Height(24)))
+                RestoreLastDeleted();
+            if (GUILayout.Button("Restore All From Recycle Bin", GUILayout.Height(24)))
+                RestoreAllDeleted();
+            if (GUILayout.Button("Empty Recycle Bin", GUILayout.Height(24)))
+                EmptyRecycleBin();
+            GUI.enabled = true;
+            GUILayout.EndHorizontal();
+
+            if (_deletedEntries.Count > 0)
+                GUILayout.Label($"Recycle Bin items: {_deletedEntries.Count}", EditorStyles.miniLabel);
+
+            GUILayout.Space(5);
             _scroll = GUILayout.BeginScrollView(_scroll);
             foreach (var path in list)
             {
@@ -66,8 +95,13 @@ public class FindUnusedAssets : EditorWindow
                 GUILayout.Label(path, GUILayout.ExpandWidth(true));
                 if (GUILayout.Button("Ping", GUILayout.Width(45)))
                 {
-                    var obj = AssetDatabase.LoadAssetAtPath<Object>(path);
+                    var obj = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(path);
                     EditorGUIUtility.PingObject(obj);
+                }
+                if (GUILayout.Button("Delete", GUILayout.Width(60)))
+                {
+                    DeleteToRecycleBin(path);
+                    GUIUtility.ExitGUI();
                 }
                 GUILayout.EndHorizontal();
             }
@@ -170,5 +204,279 @@ public class FindUnusedAssets : EditorWindow
         File.WriteAllText("Assets/UnusedAssets.txt", output);
         AssetDatabase.Refresh();
         Debug.Log("[FindUnusedAssets] Saved to Assets/UnusedAssets.txt");
+    }
+
+    void DeleteAllListed(List<string> list)
+    {
+        if (!EditorUtility.DisplayDialog(
+                "Delete all listed assets?",
+                $"This will move {list.Count} assets (and their .meta files) to:\n{RecycleBinRoot}\n\nYou can restore them later.",
+                "Move to Recycle Bin",
+                "Cancel"))
+            return;
+
+        int moved = 0;
+        // Iterate over a copy, because original list is modified after each delete.
+        foreach (var path in list.ToList())
+        {
+            if (DeleteToRecycleBin(path, false))
+                moved++;
+        }
+
+        AssetDatabase.Refresh();
+        SaveDeletedManifest();
+        Debug.Log($"[FindUnusedAssets] Moved {moved} assets to recycle bin.");
+    }
+
+    bool DeleteToRecycleBin(string assetPath, bool refreshAfter = true)
+    {
+        string projectRoot = Directory.GetCurrentDirectory().Replace("\\", "/");
+        string sourceAbs = Path.GetFullPath(Path.Combine(projectRoot, assetPath));
+        if (!File.Exists(sourceAbs))
+            return false;
+
+        Directory.CreateDirectory(RecycleBinRoot);
+
+        string stamp = DateTime.Now.ToString("yyyyMMdd_HHmmss_fff");
+        string guid = AssetDatabase.AssetPathToGUID(assetPath);
+        string bucket = string.IsNullOrEmpty(guid) ? "noguid" : guid;
+        string relNoAssets = assetPath.StartsWith("Assets/") ? assetPath.Substring("Assets/".Length) : assetPath;
+        string recycleFolder = Path.Combine(RecycleBinRoot, $"{stamp}_{bucket}");
+
+        string destAssetAbs = Path.Combine(recycleFolder, relNoAssets);
+        string sourceMetaAbs = sourceAbs + ".meta";
+        string destMetaAbs = destAssetAbs + ".meta";
+
+        try
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(destAssetAbs) ?? recycleFolder);
+            File.Move(sourceAbs, destAssetAbs);
+            if (File.Exists(sourceMetaAbs))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(destMetaAbs) ?? recycleFolder);
+                File.Move(sourceMetaAbs, destMetaAbs);
+            }
+
+            _deletedEntries.Add(new DeletedEntry
+            {
+                originalAssetPath = assetPath,
+                recycleAssetPath = destAssetAbs.Replace("\\", "/"),
+                deletedAtIso = DateTime.Now.ToString("O")
+            });
+            SaveDeletedManifest();
+
+            _unusedPaths.Remove(assetPath);
+            _unusedLargePaths.Remove(assetPath);
+
+            if (refreshAfter)
+                AssetDatabase.Refresh();
+
+            return true;
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"[FindUnusedAssets] Failed to move '{assetPath}' to recycle bin: {e.Message}");
+            return false;
+        }
+    }
+
+    void RestoreLastDeleted()
+    {
+        if (_deletedEntries.Count == 0)
+            return;
+
+        var entry = _deletedEntries[_deletedEntries.Count - 1];
+        if (RestoreEntry(entry))
+        {
+            _deletedEntries.RemoveAt(_deletedEntries.Count - 1);
+            SaveDeletedManifest();
+            AssetDatabase.Refresh();
+        }
+    }
+
+    void RestoreAllDeleted()
+    {
+        if (_deletedEntries.Count == 0)
+            return;
+
+        int restored = 0;
+        // Restore newest first.
+        for (int i = _deletedEntries.Count - 1; i >= 0; i--)
+        {
+            if (RestoreEntry(_deletedEntries[i]))
+            {
+                _deletedEntries.RemoveAt(i);
+                restored++;
+            }
+        }
+
+        SaveDeletedManifest();
+        AssetDatabase.Refresh();
+        Debug.Log($"[FindUnusedAssets] Restored {restored} assets from recycle bin.");
+    }
+
+    void EmptyRecycleBin()
+    {
+        if (_deletedEntries.Count == 0)
+            return;
+
+        if (!EditorUtility.DisplayDialog(
+                "Empty recycle bin?",
+                $"This will permanently delete {_deletedEntries.Count} recycled asset entries.\n\nThis action cannot be undone.",
+                "Empty Recycle Bin",
+                "Cancel"))
+            return;
+
+        try
+        {
+            if (Directory.Exists(RecycleBinRoot))
+                Directory.Delete(RecycleBinRoot, true);
+
+            Directory.CreateDirectory(RecycleBinRoot);
+            _deletedEntries.Clear();
+            SaveDeletedManifest();
+            AssetDatabase.Refresh();
+            Debug.Log("[FindUnusedAssets] Recycle bin emptied.");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"[FindUnusedAssets] Failed to empty recycle bin: {e.Message}");
+        }
+    }
+
+    bool RestoreEntry(DeletedEntry entry)
+    {
+        string projectRoot = Directory.GetCurrentDirectory().Replace("\\", "/");
+        string targetAssetAbs = Path.GetFullPath(Path.Combine(projectRoot, entry.originalAssetPath));
+        string sourceAssetAbs = entry.recycleAssetPath.Replace("\\", "/");
+
+        if (!File.Exists(sourceAssetAbs))
+        {
+            Debug.LogWarning($"[FindUnusedAssets] Recycle file missing, skipping restore: {entry.originalAssetPath}");
+            return false;
+        }
+
+        try
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(targetAssetAbs) ?? projectRoot);
+
+            if (File.Exists(targetAssetAbs))
+            {
+                Debug.LogWarning($"[FindUnusedAssets] Target already exists, skipping: {entry.originalAssetPath}");
+                return false;
+            }
+
+            File.Move(sourceAssetAbs, targetAssetAbs);
+
+            string sourceMetaAbs = sourceAssetAbs + ".meta";
+            string targetMetaAbs = targetAssetAbs + ".meta";
+            if (File.Exists(sourceMetaAbs))
+            {
+                if (File.Exists(targetMetaAbs))
+                    File.Delete(targetMetaAbs);
+                File.Move(sourceMetaAbs, targetMetaAbs);
+            }
+
+            // Try to clean empty recycle directories.
+            var recycleDir = Path.GetDirectoryName(sourceAssetAbs);
+            if (!string.IsNullOrEmpty(recycleDir) && Directory.Exists(recycleDir))
+            {
+                if (!Directory.EnumerateFileSystemEntries(recycleDir).Any())
+                    Directory.Delete(recycleDir, false);
+            }
+
+            return true;
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"[FindUnusedAssets] Failed to restore '{entry.originalAssetPath}': {e.Message}");
+            return false;
+        }
+    }
+
+    void SaveDeletedManifest()
+    {
+        Directory.CreateDirectory(RecycleBinRoot);
+        var lines = _deletedEntries
+            .Select(e => $"{Escape(e.originalAssetPath)}|{Escape(e.recycleAssetPath)}|{Escape(e.deletedAtIso)}");
+        File.WriteAllLines(RecycleBinManifest, lines);
+    }
+
+    void LoadDeletedManifest()
+    {
+        _deletedEntries.Clear();
+        if (!File.Exists(RecycleBinManifest))
+            return;
+
+        foreach (var line in File.ReadAllLines(RecycleBinManifest))
+        {
+            if (string.IsNullOrWhiteSpace(line))
+                continue;
+
+            var parts = SplitEscaped(line, '|');
+            if (parts.Count < 2)
+                continue;
+
+            _deletedEntries.Add(new DeletedEntry
+            {
+                originalAssetPath = Unescape(parts[0]),
+                recycleAssetPath = Unescape(parts[1]),
+                deletedAtIso = parts.Count > 2 ? Unescape(parts[2]) : ""
+            });
+        }
+    }
+
+    static string Escape(string value)
+    {
+        return (value ?? "")
+            .Replace("\\", "\\\\")
+            .Replace("|", "\\|")
+            .Replace("\n", "\\n");
+    }
+
+    static string Unescape(string value)
+    {
+        return (value ?? "")
+            .Replace("\\n", "\n")
+            .Replace("\\|", "|")
+            .Replace("\\\\", "\\");
+    }
+
+    static List<string> SplitEscaped(string input, char separator)
+    {
+        var parts = new List<string>();
+        var current = "";
+        bool escape = false;
+        foreach (char c in input)
+        {
+            if (escape)
+            {
+                current += c;
+                escape = false;
+                continue;
+            }
+            if (c == '\\')
+            {
+                escape = true;
+                current += c;
+                continue;
+            }
+            if (c == separator)
+            {
+                parts.Add(current);
+                current = "";
+                continue;
+            }
+            current += c;
+        }
+        parts.Add(current);
+        return parts;
+    }
+
+    class DeletedEntry
+    {
+        public string originalAssetPath;
+        public string recycleAssetPath;
+        public string deletedAtIso;
     }
 }
