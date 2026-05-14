@@ -22,6 +22,12 @@ public class EngineViewManager : MonoBehaviour
     [Tooltip("Drag your Assemble (reset) button here.")]
     public GameObject assembleButton;
 
+    [Header("Button References - Grab Mode")]
+    [Tooltip("Drag your Grab Engine button here.")]
+    public GameObject grabButton;
+    [Tooltip("Drag your Reassemble button here (same as Assemble, or separate).")]
+    public GameObject reassembleButton;
+
     [Header("Exploded View Settings")]
     [Tooltip("Assign the root engine GameObject. Used to calculate the explosion center.")]
     public Transform engineRoot;
@@ -46,15 +52,20 @@ public class EngineViewManager : MonoBehaviour
     /// <summary>True while Exploded View mode is active. EngineInteractor reads this to block selection.</summary>
     public static bool IsExplodedActive { get; private set; } = false;
 
+    /// <summary>True while Grab mode is active. EngineGrabManager reads this to enable/disable grabbing.</summary>
+    public static bool IsGrabModeActive { get; private set; } = false;
+
     /// <summary>
     /// Hides all view-mode buttons. Called at scene start until the loading sequence completes.
     /// </summary>
     public void DisableViewButtons()
     {
-        if (xrayButton != null)      xrayButton.SetActive(false);
-        if (xrayResetButton != null) xrayResetButton.SetActive(false);
-        if (explodeButton != null)   explodeButton.SetActive(false);
-        if (assembleButton != null)  assembleButton.SetActive(false);
+        if (xrayButton != null)            xrayButton.SetActive(false);
+        if (xrayResetButton != null)       xrayResetButton.SetActive(false);
+        if (explodeButton != null)         explodeButton.SetActive(false);
+        if (assembleButton != null)        assembleButton.SetActive(false);
+        if (grabButton != null)            grabButton.SetActive(false);
+        if (reassembleButton != null)      reassembleButton.SetActive(false);
     }
 
     /// <summary>
@@ -63,10 +74,12 @@ public class EngineViewManager : MonoBehaviour
     /// </summary>
     public void EnableViewButtons()
     {
-        if (xrayButton != null)      xrayButton.SetActive(true);
-        if (xrayResetButton != null) xrayResetButton.SetActive(false);
-        if (explodeButton != null)   explodeButton.SetActive(true);
-        if (assembleButton != null)  assembleButton.SetActive(false);
+        if (xrayButton != null)            xrayButton.SetActive(true);
+        if (xrayResetButton != null)       xrayResetButton.SetActive(false);
+        if (explodeButton != null)         explodeButton.SetActive(true);
+        if (assembleButton != null)        assembleButton.SetActive(false);
+        if (grabButton != null)            grabButton.SetActive(true);
+        if (reassembleButton != null)      reassembleButton.SetActive(false);
     }
 
     void Start()
@@ -305,6 +318,7 @@ public class EngineViewManager : MonoBehaviour
         }
 
         IsExplodedActive = false;
+        IsGrabModeActive = false;
         Debug.Log("[EngineViewManager] Exploded View OFF");
 
         foreach (var part in _allParts)
@@ -315,6 +329,105 @@ public class EngineViewManager : MonoBehaviour
 
         if (explodeButton != null)  explodeButton.SetActive(true);
         if (assembleButton != null) assembleButton.SetActive(false);
+        if (grabButton != null)     grabButton.SetActive(true);
+        if (reassembleButton != null) reassembleButton.SetActive(false);
+    }
+
+    // ── Grab Mode ─────────────────────────────────────────────────────────────
+
+    /// <summary>
+    /// Activates Grab Mode — parts can be freely moved by the player.
+    /// Link to your "Grab Engine" button.
+    /// </summary>
+    public void ActivateGrabMode()
+    {
+        EnsureParts();
+        if (_allParts == null || _allParts.Length == 0)
+        {
+            Debug.LogError("[EngineViewManager] No parts available!");
+            return;
+        }
+
+        // Clear other modes
+        if (IsXRayActive)
+        {
+            IsXRayActive = false;
+            foreach (var part in _allParts)
+            {
+                if (part == null) continue;
+                part.RestoreOriginal();
+            }
+        }
+
+        if (IsExplodedActive)
+        {
+            IsExplodedActive = false;
+            foreach (var part in _allParts)
+            {
+                if (part == null) continue;
+                part.AnimateToAssembled(0f);  // snap back instantly
+            }
+        }
+
+        IsGrabModeActive = true;
+        Debug.Log("[EngineViewManager] Grab Mode ACTIVATED");
+
+        // Restore original look so parts are visible and grabbable
+        foreach (var part in _allParts)
+        {
+            if (part == null) continue;
+            part.RestoreOriginal();
+            part.HidePanel();  // Hide hover panels in grab mode
+        }
+
+        // Disable EngineInteractor so hover/selection doesn't interfere
+        if (engineInteractor != null)
+            engineInteractor.DisableInteraction();
+
+        // Swap buttons — Grab disappears, Reassemble appears
+        if (grabButton != null)       grabButton.SetActive(false);
+        if (reassembleButton != null) reassembleButton.SetActive(true);
+        if (explodeButton != null)    explodeButton.SetActive(false);
+        if (assembleButton != null)   assembleButton.SetActive(false);
+        if (xrayButton != null)       xrayButton.SetActive(false);
+        if (xrayResetButton != null)  xrayResetButton.SetActive(false);
+    }
+
+    /// <summary>
+    /// Exits Grab Mode and reassembles the engine.
+    /// Link to your "Reassemble" button.
+    /// </summary>
+    public void DeactivateGrabMode()
+    {
+        EnsureParts();
+        if (_allParts == null || _allParts.Length == 0)
+        {
+            Debug.LogError("[EngineViewManager] No parts available!");
+            return;
+        }
+
+        IsGrabModeActive = false;
+        Debug.Log("[EngineViewManager] Grab Mode DEACTIVATED — reassembling");
+
+        // Snap all parts back to their original positions
+        foreach (var part in _allParts)
+        {
+            if (part == null) continue;
+            part.AnimateToAssembled(explodeDuration);
+            part.RestoreOriginal();  // Clear any highlight/outline
+        }
+
+        // Re-enable EngineInteractor
+        if (engineInteractor != null)
+            engineInteractor.EnableInteraction();
+
+        // Swap buttons — Reassemble disappears, Grab appears
+        if (grabButton != null)       grabButton.SetActive(true);
+        if (reassembleButton != null) reassembleButton.SetActive(false);
+        if (explodeButton != null)    explodeButton.SetActive(true);
+        if (assembleButton != null)   assembleButton.SetActive(false);
+        if (xrayButton != null)       xrayButton.SetActive(true);
+        if (xrayResetButton != null)  xrayResetButton.SetActive(false);
     }
 
     /// <summary>

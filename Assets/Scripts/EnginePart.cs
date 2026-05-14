@@ -615,8 +615,11 @@ public class EnginePart : MonoBehaviour
     public GameObject hoverPanel;
 
     [Header("Hover Highlight")]
+    [Tooltip("Emissive tint applied to the mesh on hover. Set intensity to 0 to show outline-only (recommended).")]
     public Color highlightColor = new Color(1f, 0.6f, 0f, 1f);
-    [Range(0f, 1f)] public float highlightIntensity = 0.4f;
+    [Range(0f, 1f)]
+    [Tooltip("Set to 0 for a clean outline-only hover with no colour tint on the mesh.")]
+    public float highlightIntensity = 0f;   // 0 = outline only, matches reference image
 
     [Header("Selection Glow")]
     public Color glowColor = new Color(0f, 0.8f, 1f, 1f); // cyan-blue
@@ -632,9 +635,12 @@ public class EnginePart : MonoBehaviour
     [Range(0f, 4f)] public float xrayGlowIntensity = 1.0f;
 
     [Header("Outline")]
-    public OutlineColorPreset outlineColorPreset = OutlineColorPreset.Custom;
-    public Color outlineColor = Color.red;
-    [Range(0.5f, 5f)] public float outlineWidth = 1.5f;
+    [Tooltip("Red matches the reference image. Switch to Custom to pick your own colour.")]
+    public OutlineColorPreset outlineColorPreset = OutlineColorPreset.Red;
+    public Color outlineColor = new Color(1f, 0.08f, 0.08f, 1f);   // used when preset = Custom
+    [Range(0.5f, 8f)]
+    [Tooltip("Pixel width of the outline. 2–3 px looks correct at typical VR viewing distance.")]
+    public float outlineWidth = 2.5f;
 
     [Header("Exploded View")]
     [Tooltip("Preset position for organized explosion layout.")]
@@ -821,21 +827,29 @@ public class EnginePart : MonoBehaviour
 
         if (on)
         {
-            // Refresh outline mat properties in case Inspector values changed
+            // Refresh outline material properties in case Inspector values changed at runtime
             if (_outlineMat != null)
             {
                 _outlineMat.SetColor("_OutlineColor", ActiveOutlineColor);
                 _outlineMat.SetFloat("_OutlineWidth",  outlineWidth);
             }
-            foreach (var mat in _materials)
+
+            // Only apply emissive tint when intensity > 0.
+            // Default is 0 — outline-only hover matches the reference image exactly.
+            if (highlightIntensity > 0f)
             {
-                if (mat == null) continue;
-                ApplyGlowToMat(mat, highlightColor, highlightIntensity);
+                foreach (var mat in _materials)
+                {
+                    if (mat == null) continue;
+                    ApplyGlowToMat(mat, highlightColor, highlightIntensity);
+                }
             }
+
             ShowOutline();
         }
         else
         {
+            // Clear any emissive tint that may have been applied
             foreach (var mat in _materials)
             {
                 if (mat == null) continue;
