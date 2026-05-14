@@ -3814,7 +3814,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &204729072
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3835,7 +3835,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -0.7927965, y: 0.67995334}
-  m_SizeDelta: {x: 695.186, y: 583.4003}
+  m_SizeDelta: {x: 652.98, y: 583.4003}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!82 &204729077
 AudioSource:
@@ -4026,8 +4026,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0.54, y: -0.614}
-  m_SizeDelta: {x: 295.29, y: 417.6}
+  m_AnchoredPosition: {x: 0.54, y: -0.61}
+  m_SizeDelta: {x: 295.29, y: 440.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &210885411
 MonoBehaviour:
@@ -7080,8 +7080,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0.5400009, y: -0.29200035}
-  m_SizeDelta: {x: 295.29, y: 150.5}
+  m_AnchoredPosition: {x: 0.54, y: -0.601}
+  m_SizeDelta: {x: 295.29, y: 440.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &397991298
 MonoBehaviour:
@@ -19335,9 +19335,9 @@ RectTransform:
   - {fileID: 1873837991}
   - {fileID: 811667613}
   - {fileID: 210885410}
-  - {fileID: 204729072}
   - {fileID: 124893004}
   - {fileID: 120889402}
+  - {fileID: 204729072}
   m_Father: {fileID: 375519373}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -33006,8 +33006,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0.54, y: -0.657}
-  m_SizeDelta: {x: 295.29, y: 150.5}
+  m_AnchoredPosition: {x: 0.54, y: -0.605}
+  m_SizeDelta: {x: 295.29, y: 440.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1873837992
 MonoBehaviour:
@@ -33067,9 +33067,9 @@ MonoBehaviour:
   onClicked:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4186628226025054914}
-        m_TargetAssemblyTypeName: TabletUIController, Assembly-CSharp
-        m_MethodName: OnDefaultViewClicked
+      - m_Target: {fileID: 1934940471}
+        m_TargetAssemblyTypeName: EngineViewManager, Assembly-CSharp
+        m_MethodName: DeactivateGrabMode
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -34038,7 +34038,7 @@ MonoBehaviour:
   xrayButton: {fileID: 1588217899}
   xrayResetButton: {fileID: 397991296}
   explodeButton: {fileID: 694751620}
-  assembleButton: {fileID: 1873837990}
+  defaultViewButton: {fileID: 1873837990}
   grabButton: {fileID: 811667612}
   reassembleButton: {fileID: 210885409}
   engineRoot: {fileID: 5071626726482345477}
@@ -69918,12 +69918,6 @@ MonoBehaviour:
   startButtonGO: {fileID: 4508986744300006600}
   progressBarGO: {fileID: 1398405179884597287}
   loadingDuration: 6
-  xrayButtonGO: {fileID: 1588217899}
-  xrayResetButtonGO: {fileID: 397991296}
-  explodeButtonGO: {fileID: 694751620}
-  defaultViewButtonGO: {fileID: 1873837990}
-  disassembleButtonGO: {fileID: 811667612}
-  assembleButtonGO: {fileID: 210885409}
   engineDisplayImage: {fileID: 2079976952}
   engineNameText: {fileID: 392179630}
   engineDescriptionText: {fileID: 78676641}

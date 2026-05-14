@@ -37,15 +37,6 @@ public class TabletUIController : MonoBehaviour
     [Tooltip("How long the loading bar runs before the main menu appears and interactions unlock.")]
     public float      loadingDuration = 6f;
 
-    // ── Main Menu Button GameObjects ──────────────────────────────────────────
-    [Header("Main Menu — View Buttons")]
-    public GameObject xrayButtonGO;
-    public GameObject xrayResetButtonGO;
-    public GameObject explodeButtonGO;
-    public GameObject defaultViewButtonGO;
-    public GameObject disassembleButtonGO;
-    public GameObject assembleButtonGO;
-
     // ── Engine Display Area ───────────────────────────────────────────────────
     [Header("Engine Display Area")]
     public Image           engineDisplayImage;
@@ -75,8 +66,6 @@ public class TabletUIController : MonoBehaviour
             engineInteractor.OnPartSelected += HandlePartSelected;
             engineInteractor.OnPartHovered  += HandlePartHovered;
         }
-
-        RefreshButtonStates();
 
         // Wait one frame for EngineSceneLoader to call SetEngineData()
         // before populating the display
@@ -118,25 +107,31 @@ public class TabletUIController : MonoBehaviour
     public void OnXRayClicked()
     {
         engineViewManager?.ActivateXRayView();
-        RefreshButtonStates();
     }
 
     public void OnXRayResetClicked()
     {
         engineViewManager?.ActivateDefaultView();
-        RefreshButtonStates();
     }
 
     public void OnExplodeClicked()
     {
         engineViewManager?.ActivateExplodedView();
-        RefreshButtonStates();
     }
 
     public void OnDefaultViewClicked()
     {
-        engineViewManager?.ActivateAssembledView();
-        RefreshButtonStates();
+        engineViewManager?.ActivateDefaultView();
+    }
+
+    public void OnGrabClicked()
+    {
+        engineViewManager?.ActivateGrabMode();
+    }
+
+    public void OnReassembleClicked()
+    {
+        engineViewManager?.DeactivateGrabMode();
     }
 
     public void OnExitClicked()
@@ -199,20 +194,8 @@ public class TabletUIController : MonoBehaviour
     }
 
     // ── Button State Sync ─────────────────────────────────────────────────────
-
-    void RefreshButtonStates()
-    {
-        bool xray    = EngineViewManager.IsXRayActive;
-        bool explode = EngineViewManager.IsExplodedActive;
-
-        if (xrayButtonGO != null)        xrayButtonGO.SetActive(!xray);
-        if (xrayResetButtonGO != null)   xrayResetButtonGO.SetActive(xray);
-
-        if (explodeButtonGO != null)     explodeButtonGO.SetActive(!explode);
-        if (disassembleButtonGO != null) disassembleButtonGO.SetActive(!explode);
-        if (defaultViewButtonGO != null) defaultViewButtonGO.SetActive(explode);
-        if (assembleButtonGO != null)    assembleButtonGO.SetActive(explode);
-    }
+    // Button visibility is now controlled entirely by EngineViewManager.cs
+    // No button state management here.
 
     // ── Engine Display ────────────────────────────────────────────────────────
 

@@ -638,9 +638,9 @@ public class EnginePart : MonoBehaviour
     [Tooltip("Red matches the reference image. Switch to Custom to pick your own colour.")]
     public OutlineColorPreset outlineColorPreset = OutlineColorPreset.Red;
     public Color outlineColor = new Color(1f, 0.08f, 0.08f, 1f);   // used when preset = Custom
-    [Range(0.5f, 8f)]
-    [Tooltip("Pixel width of the outline. 2–3 px looks correct at typical VR viewing distance.")]
-    public float outlineWidth = 2.5f;
+    [Range(1f, 10f)]
+    [Tooltip("Pixel width of the outline. 3–5 px looks solid and clean at typical VR viewing distance.")]
+    public float outlineWidth = 3.5f;
 
     [Header("Exploded View")]
     [Tooltip("Preset position for organized explosion layout.")]
