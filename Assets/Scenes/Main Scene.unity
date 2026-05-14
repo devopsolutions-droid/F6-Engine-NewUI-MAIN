@@ -3341,6 +3341,7 @@ GameObject:
   - component: {fileID: 204729081}
   - component: {fileID: 204729080}
   - component: {fileID: 204729077}
+  - component: {fileID: 204729082}
   m_Layer: 5
   m_Name: 'Engine Info Display '
   m_TagString: Untagged
@@ -3504,6 +3505,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 204729071}
   m_CullTransparentMesh: 0
+--- !u!225 &204729082
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204729071}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &210885409
 GameObject:
   m_ObjectHideFlags: 0
