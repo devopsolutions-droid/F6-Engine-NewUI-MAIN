@@ -51,8 +51,9 @@ public class AddGrabControllerTool : EditorWindow
             "Already has EnginePartGrabController? Skipped — safe to re-run.\n\n" +
             "After running:\n" +
             "  1. Add ONE EngineGrabManager to your scene\n" +
-            "  2. Assign XRRayInteractor + grab InputAction in its Inspector\n" +
-            "  3. Set the EngineParts LayerMask to match your layer",
+            "  2. Assign XRRayInteractor + grab trigger in its Inspector\n" +
+            "  3. Assign depth thumbstick (same Move action as EngineInteractor)\n" +
+            "  4. Set the EngineParts LayerMask to match your layer",
             MessageType.Info);
     }
 
@@ -135,7 +136,8 @@ public class AddGrabControllerTool : EditorWindow
             "Rigidbody + XRGrabInteractable removed from any parts that had them\n" +
             "(they caused the whole engine to move as one piece).\n\n" +
             "Next: add ONE EngineGrabManager to your scene and assign\n" +
-            "the XRRayInteractor + grab InputAction in its Inspector.\n\n" +
+            "the XRRayInteractor, grab trigger, and depth thumbstick (Move action)\n" +
+            "in its Inspector.\n\n" +
             "You can Ctrl+Z to undo the entire batch.";
 
         Debug.Log($"[AddGrabController] {msg}");

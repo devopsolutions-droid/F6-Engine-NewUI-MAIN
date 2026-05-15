@@ -3,18 +3,16 @@ using UnityEngine;
 /// <summary>
 /// Free-placement grab for a single engine part.
 ///
-/// Behaviour (exactly what was asked for):
+/// Behaviour:
 ///   • Ray hovers over part      → red outline on (ONLY outline, no audio/panel)
-///   • Trigger PRESSED           → this part is "grabbed" — it does NOT jump,
-///                                  does NOT rotate, stays at its current depth
-///   • Controller moves          → part follows the ray hit point in world space,
-///                                  position only, rotation never changes
+///   • Trigger PRESSED           → this part is "grabbed" — it does NOT jump or rotate
+///   • Controller moves          → X/Y follow the ray; Z is controlled by thumbstick
 ///   • Only ONE part at a time   → grabbing a new part auto-releases the previous
 ///   • Trigger RELEASED          → part stays exactly where it was left
 ///
 /// In Grab Mode:
 ///   - Only outline shows on hover (no hover panel, no audio, no glow)
-///   - Part moves smoothly with the ray
+///   - Part moves smoothly with the ray on X/Y and the joystick on Z
 ///   - No other features active
 /// </summary>
 [RequireComponent(typeof(EnginePart))]

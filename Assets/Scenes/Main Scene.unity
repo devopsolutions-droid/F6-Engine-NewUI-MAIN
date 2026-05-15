@@ -12348,10 +12348,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rayInteractor: {fileID: 1098886763}
   grabAction: {fileID: 187161793506945269, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  depthAction: {fileID: 6972639530819350904, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   enginePartsLayer:
     serializedVersion: 2
     m_Bits: 8
   followSpeed: 0.35
+  depthMoveSpeed: 3
+  depthStickHand: 2
+  depthStickAxis: 1
+  invertDepthAxis: 1
+  depthInputDeadzone: 0.08
+  disableLocomotionWhileGrabbing: 1
 --- !u!1 &699497913 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4404132217879412267, guid: ef2787abbfd43eb478b0c48620f4e67b, type: 3}
