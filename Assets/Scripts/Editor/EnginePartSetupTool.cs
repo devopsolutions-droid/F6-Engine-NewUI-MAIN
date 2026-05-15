@@ -20,6 +20,7 @@ public class EnginePartSetupTool : EditorWindow
     private string         _engineName     = "New Engine";
     private string         _engineCategory = "General";
     private string         _savePath       = "Assets/ScriptableObjects/Data/Engines";
+    private bool           _addGrabController = true;  // New: option to add grab controller
 
     [MenuItem("Tools/Engine Part Setup")]
     public static void Open() => GetWindow<EnginePartSetupTool>("Engine Part Setup");
@@ -42,6 +43,9 @@ public class EnginePartSetupTool : EditorWindow
 
         _savePath = EditorGUILayout.TextField("Save Path", _savePath);
 
+        EditorGUILayout.Space(4);
+        _addGrabController = EditorGUILayout.Toggle("Add Grab Controller to All Parts", _addGrabController);
+
         EditorGUILayout.Space(10);
 
         GUI.enabled = _engineModel != null;
@@ -56,6 +60,8 @@ public class EnginePartSetupTool : EditorWindow
             "  • Sets every mesh child to EngineParts layer\n" +
             "  • Adds MeshCollider (convex) to every mesh child\n" +
             "  • Assigns EnginePart component to every mesh child\n" +
+            "  • Sets outline to solid RED (3.5px width) for clean hover effect\n" +
+            "  • Optionally adds EnginePartGrabController for grab mode\n" +
             "  • Creates a PartData asset per part AND wires it into EnginePart\n" +
             "  • Creates EnginePartManifest\n" +
             "  • Creates EngineData asset\n\n" +
@@ -139,7 +145,9 @@ public class EnginePartSetupTool : EditorWindow
                     addedParts++;
                 }
 
-                ep.outlineColorPreset = palette[paletteIndex % palette.Length];
+                // Apply outline settings: Red color with 3.5px width for solid appearance
+                ep.outlineColorPreset = OutlineColorPreset.Red;
+                ep.outlineWidth = 3.5f;
                 paletteIndex++;
 
                 string safeName  = SanitizeName(go.name);
@@ -167,6 +175,41 @@ public class EnginePartSetupTool : EditorWindow
             }
 
             Debug.Log($"[Setup] {addedParts} EnginePart components added, {createdPartData} PartData assets created.");
+
+            // ── Add Grab Controller (optional) ─────────────────────────────────
+            int addedGrabControllers = 0;
+            if (_addGrabController)
+            {
+                foreach (var go in scopedChildren)
+                {
+                    if (go == null) continue;
+
+                    // Remove stale Rigidbody — it causes whole-engine grab
+                    var rb = go.GetComponent<Rigidbody>();
+                    if (rb != null)
+                    {
+                        DestroyImmediate(rb);
+                        Debug.Log($"[Setup] Removed Rigidbody from '{go.name}' (would cause whole-engine grab).");
+                    }
+
+                    // Remove stale XRGrabInteractable for the same reason
+                    var xrGrab = go.GetComponent<UnityEngine.XR.Interaction.Toolkit.XRGrabInteractable>();
+                    if (xrGrab != null)
+                    {
+                        DestroyImmediate(xrGrab);
+                        Debug.Log($"[Setup] Removed XRGrabInteractable from '{go.name}'.");
+                    }
+
+                    // Add EnginePartGrabController
+                    var grab = go.GetComponent<EnginePartGrabController>();
+                    if (grab == null)
+                    {
+                        go.AddComponent<EnginePartGrabController>();
+                        addedGrabControllers++;
+                    }
+                }
+                Debug.Log($"[Setup] {addedGrabControllers} EnginePartGrabController components added.");
+            }
 
             // ── Save manifest ─────────────────────────────────────────────────
             string manifestPath = $"{engineFolder}/{_engineName.Replace(" ", "")}Manifest.asset";
@@ -229,6 +272,8 @@ public class EnginePartSetupTool : EditorWindow
             $"Engine: {_engineName}\n\n" +
             $"  • Layer '{EnginePartsLayerName}' applied to all parts\n" +
             $"  • {addedParts} EnginePart components assigned\n" +
+            $"  • Outline set to solid RED (3.5px) for all parts\n" +
+            $"  • {(_addGrabController ? "EnginePartGrabController added to all parts" : "Grab controller NOT added (disabled in options)")}\n" +
             $"  • {createdPartData} PartData assets created & wired\n" +
             $"  • EngineData asset ready\n\n" +
             "Remaining steps:\n" +
