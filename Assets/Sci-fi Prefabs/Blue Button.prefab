@@ -106,7 +106,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 758634988703671025, guid: cc5405b4f9048456085e4f41b438d6af, type: 3}
       propertyPath: m_Name
-      value: Button - Single Player Variant
+      value: Blue Button
       objectReference: {fileID: 0}
     - target: {fileID: 758634988703671028, guid: cc5405b4f9048456085e4f41b438d6af, type: 3}
       propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.size

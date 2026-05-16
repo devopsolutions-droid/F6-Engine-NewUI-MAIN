@@ -142,7 +142,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8973458861682474034, guid: d41208f999c82954181ba3e9d1ef13f8, type: 3}
       propertyPath: m_Name
-      value: Purple Panel 2 Variant
+      value: Purple Panel- Engine Button 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

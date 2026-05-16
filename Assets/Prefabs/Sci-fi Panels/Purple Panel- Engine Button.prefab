@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 340366353453407035, guid: 0cb52281f2726454cba5e8123d1c4a03, type: 3}
       propertyPath: m_Name
-      value: Purple Panel Variant
+      value: Purple Panel- Engine Button
       objectReference: {fileID: 0}
     - target: {fileID: 2122582673253955931, guid: 0cb52281f2726454cba5e8123d1c4a03, type: 3}
       propertyPath: m_Pivot.x

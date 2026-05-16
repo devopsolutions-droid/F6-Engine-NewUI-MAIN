@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ade8508f9cb7c1d439cf94e9cada134b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hand: {fileID: 8485252708769392029}
+  hand: {fileID: 0}
   speed: 2
   flySpeed: 1
   useLocal: 1
@@ -312,7 +312,7 @@ PrefabInstance:
     - target: {fileID: 6876478601354298033, guid: 035aaa70c735c164bbf1a8760fad9f76, type: 3}
       propertyPath: primaryHand
       value: 
-      objectReference: {fileID: 8485252708769392029}
+      objectReference: {fileID: 0}
     - target: {fileID: 6876478601354298033, guid: 035aaa70c735c164bbf1a8760fad9f76, type: 3}
       propertyPath: secondaryHand
       value: 
@@ -695,7 +695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 245bee9b113e7144cb3549484bae2a0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hand: {fileID: 8485252708769392029}
+  hand: {fileID: 0}
   grabButton: 0
   grabAxis: 2
   squeezeAxis: 1
@@ -712,7 +712,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a19d3478546e174ba4693f363a23073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hand: {fileID: 8485252708769392029}
+  hand: {fileID: 0}
   handProjection: {fileID: 0}
   handProjectionVisuals: []
   speed: 15
@@ -735,17 +735,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9153324134324409639, guid: 386242486c5972145be957989b61c7df, type: 3}
   m_PrefabInstance: {fileID: 752848654044326426}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8485252708769392029 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9201711370266972039, guid: 386242486c5972145be957989b61c7df, type: 3}
-  m_PrefabInstance: {fileID: 752848654044326426}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8285031958625374484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9413d460e98076241a1f46c91201217d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &752848654335196642
 PrefabInstance:
   m_ObjectHideFlags: 0

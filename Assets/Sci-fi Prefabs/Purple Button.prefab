@@ -106,7 +106,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 758634988703671025, guid: 58d3bb42098954644a2626323fb9b23b, type: 3}
       propertyPath: m_Name
-      value: Button - Multiplayer Variant
+      value: Purple Button
       objectReference: {fileID: 0}
     - target: {fileID: 758634988703671028, guid: 58d3bb42098954644a2626323fb9b23b, type: 3}
       propertyPath: onClicked.m_PersistentCalls.m_Calls.Array.size
