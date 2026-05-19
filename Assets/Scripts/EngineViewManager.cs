@@ -12,6 +12,8 @@ public class EngineViewManager : MonoBehaviour
     public GameObject defaultViewButton;
     public GameObject grabButton;
     public GameObject reassembleButton;
+    public GameObject showWorkingButton;
+    public GameObject stopShowWorkingButton;
 
     [Header("Exploded View Settings")]
     public Transform engineRoot;
@@ -23,10 +25,12 @@ public class EngineViewManager : MonoBehaviour
 
     [Header("References")]
     public EngineInteractor engineInteractor;
+    public SimplePartExplorer simplePartExplorer;
 
     public static bool IsXRayActive { get; private set; } = false;
     public static bool IsExplodedActive { get; private set; } = false;
     public static bool IsGrabModeActive { get; private set; } = false;
+    public static bool IsShowWorkingActive { get; private set; } = false;
 
     void Start()
     {
@@ -102,6 +106,8 @@ public class EngineViewManager : MonoBehaviour
         if (explodeButton != null)      explodeButton.SetActive(false);
         if (grabButton != null)         grabButton.SetActive(false);
         if (reassembleButton != null)   reassembleButton.SetActive(false);
+        if (showWorkingButton != null)  showWorkingButton.SetActive(false);
+        if (stopShowWorkingButton != null) stopShowWorkingButton.SetActive(false);
     }
 
     public void EnableViewButtons()
@@ -112,19 +118,26 @@ public class EngineViewManager : MonoBehaviour
         if (explodeButton != null)      explodeButton.SetActive(true);
         if (grabButton != null)         grabButton.SetActive(true);
         if (reassembleButton != null)   reassembleButton.SetActive(false);
+        if (showWorkingButton != null)  showWorkingButton.SetActive(true);
+        if (stopShowWorkingButton != null) stopShowWorkingButton.SetActive(false);
     }
 
     public void ActivateDefaultView()
     {
+        Debug.Log("[EngineViewManager] ActivateDefaultView() called");
         EnsureParts();
-        if (_allParts == null || _allParts.Length == 0) return;
 
         IsXRayActive = false;
         IsExplodedActive = false;
         IsGrabModeActive = false;
 
-        foreach (var part in _allParts)
-            if (part != null) part.RestoreOriginal();
+        StopShowWorkingIfActive();
+
+        if (_allParts != null)
+        {
+            foreach (var part in _allParts)
+                if (part != null) part.RestoreOriginal();
+        }
 
         if (engineInteractor != null) engineInteractor.EnableInteraction();
 
@@ -134,12 +147,19 @@ public class EngineViewManager : MonoBehaviour
         if (explodeButton != null)      explodeButton.SetActive(true);
         if (grabButton != null)         grabButton.SetActive(true);
         if (reassembleButton != null)   reassembleButton.SetActive(false);
+        if (showWorkingButton != null)  showWorkingButton.SetActive(true);
+        if (stopShowWorkingButton != null) stopShowWorkingButton.SetActive(false);
     }
 
     public void ActivateXRayView()
     {
+        Debug.Log("[EngineViewManager] ActivateXRayView() called");
         EnsureParts();
-        if (_allParts == null || _allParts.Length == 0) return;
+        if (_allParts == null || _allParts.Length == 0)
+        {
+            Debug.LogWarning("[EngineViewManager] Cannot enter X-Ray: No EngineParts found.");
+            return;
+        }
 
         if (IsExplodedActive)
         {
@@ -147,6 +167,8 @@ public class EngineViewManager : MonoBehaviour
             foreach (var part in _allParts)
                 if (part != null) part.AnimateToAssembled(0f);
         }
+
+        StopShowWorkingIfActive();
 
         IsXRayActive = true;
         foreach (var part in _allParts)
@@ -158,12 +180,13 @@ public class EngineViewManager : MonoBehaviour
         if (grabButton != null)         grabButton.SetActive(false);
         if (defaultViewButton != null)  defaultViewButton.SetActive(false);
         if (reassembleButton != null)   reassembleButton.SetActive(false);
+        if (showWorkingButton != null)  showWorkingButton.SetActive(false);
+        if (stopShowWorkingButton != null) stopShowWorkingButton.SetActive(false);
         
         // Show ONLY Xray Reset button
         if (xrayResetButton != null)
         {
             xrayResetButton.SetActive(true);
-            Debug.Log("[EngineViewManager] Xray Reset button activated");
         }
         else
         {
@@ -173,8 +196,13 @@ public class EngineViewManager : MonoBehaviour
 
     public void ActivateExplodedView()
     {
+        Debug.Log("[EngineViewManager] ActivateExplodedView() called");
         EnsureParts();
-        if (_allParts == null || _allParts.Length == 0) return;
+        if (_allParts == null || _allParts.Length == 0)
+        {
+            Debug.LogWarning("[EngineViewManager] Cannot enter Exploded View: No EngineParts found.");
+            return;
+        }
 
         if (IsXRayActive)
         {
@@ -182,6 +210,8 @@ public class EngineViewManager : MonoBehaviour
             foreach (var part in _allParts)
                 if (part != null) part.RestoreOriginal();
         }
+
+        StopShowWorkingIfActive();
 
         IsExplodedActive = true;
         IsGrabModeActive = false;
@@ -204,6 +234,8 @@ public class EngineViewManager : MonoBehaviour
         if (explodeButton != null)      explodeButton.SetActive(false);
         if (grabButton != null)         grabButton.SetActive(false);
         if (reassembleButton != null)   reassembleButton.SetActive(false);
+        if (showWorkingButton != null)  showWorkingButton.SetActive(false);
+        if (stopShowWorkingButton != null) stopShowWorkingButton.SetActive(false);
         
         // Show ONLY Default View button
         if (defaultViewButton != null)  defaultViewButton.SetActive(true);
@@ -211,8 +243,13 @@ public class EngineViewManager : MonoBehaviour
 
     public void ActivateGrabMode()
     {
+        Debug.Log("[EngineViewManager] ActivateGrabMode() called");
         EnsureParts();
-        if (_allParts == null || _allParts.Length == 0) return;
+        if (_allParts == null || _allParts.Length == 0)
+        {
+            Debug.LogWarning("[EngineViewManager] Cannot enter Grab Mode: No EngineParts found.");
+            return;
+        }
 
         if (IsXRayActive)
         {
@@ -227,6 +264,8 @@ public class EngineViewManager : MonoBehaviour
             foreach (var part in _allParts)
                 if (part != null) part.AnimateToAssembled(0f);
         }
+
+        StopShowWorkingIfActive();
 
         IsGrabModeActive = true;
 
@@ -247,10 +286,13 @@ public class EngineViewManager : MonoBehaviour
         if (explodeButton != null)      explodeButton.SetActive(false);
         if (grabButton != null)         grabButton.SetActive(false);
         if (reassembleButton != null)   reassembleButton.SetActive(true);
+        if (showWorkingButton != null)  showWorkingButton.SetActive(false);
+        if (stopShowWorkingButton != null) stopShowWorkingButton.SetActive(false);
     }
 
     public void DeactivateGrabMode()
     {
+        Debug.Log("[EngineViewManager] DeactivateGrabMode() called");
         EnsureParts();
         if (_allParts == null || _allParts.Length == 0) return;
 
@@ -267,6 +309,89 @@ public class EngineViewManager : MonoBehaviour
         if (explodeButton != null)      explodeButton.SetActive(true);
         if (grabButton != null)         grabButton.SetActive(true);
         if (reassembleButton != null)   reassembleButton.SetActive(false);
+        if (showWorkingButton != null)  showWorkingButton.SetActive(true);
+        if (stopShowWorkingButton != null) stopShowWorkingButton.SetActive(false);
+    }
+
+    public void ActivateShowWorkingView()
+    {
+        Debug.Log("[EngineViewManager] ActivateShowWorkingView() called");
+        EnsureParts();
+
+        if (IsXRayActive)
+        {
+            IsXRayActive = false;
+            if (_allParts != null)
+            {
+                foreach (var part in _allParts)
+                    if (part != null) part.RestoreOriginal();
+            }
+        }
+
+        if (IsExplodedActive)
+        {
+            IsExplodedActive = false;
+            if (_allParts != null)
+            {
+                foreach (var part in _allParts)
+                    if (part != null) part.AnimateToAssembled(0f);
+            }
+        }
+
+        if (IsGrabModeActive)
+        {
+            IsGrabModeActive = false;
+        }
+
+        IsShowWorkingActive = true;
+
+        // Hide other buttons
+        if (xrayButton != null)         xrayButton.SetActive(false);
+        if (xrayResetButton != null)    xrayResetButton.SetActive(false);
+        if (explodeButton != null)      explodeButton.SetActive(false);
+        if (grabButton != null)         grabButton.SetActive(false);
+        if (reassembleButton != null)   reassembleButton.SetActive(false);
+        if (showWorkingButton != null)  showWorkingButton.SetActive(false);
+        if (defaultViewButton != null)  defaultViewButton.SetActive(false);
+        
+        // Show ONLY the Stop Show Working button/panel
+        if (stopShowWorkingButton != null)
+        {
+            stopShowWorkingButton.SetActive(true);
+            Debug.Log("[EngineViewManager] stopShowWorkingButton set to ACTIVE.");
+        }
+        else
+        {
+            Debug.LogWarning("[EngineViewManager] stopShowWorkingButton reference is missing (NULL) in the inspector!");
+        }
+
+        if (simplePartExplorer == null)
+            simplePartExplorer = FindFirstObjectByType<SimplePartExplorer>();
+
+        if (simplePartExplorer != null)
+        {
+            Debug.Log("[EngineViewManager] Triggering simplePartExplorer.StartExplorer().");
+            simplePartExplorer.StartExplorer();
+        }
+        else
+        {
+            Debug.LogError("[EngineViewManager] simplePartExplorer reference is missing in the scene!");
+        }
+    }
+
+    private void StopShowWorkingIfActive()
+    {
+        if (IsShowWorkingActive)
+        {
+            IsShowWorkingActive = false;
+            if (simplePartExplorer == null)
+                simplePartExplorer = FindFirstObjectByType<SimplePartExplorer>();
+            if (simplePartExplorer != null)
+            {
+                Debug.Log("[EngineViewManager] Stopping simplePartExplorer.");
+                simplePartExplorer.StopExplorer();
+            }
+        }
     }
 
     void EnsureParts()
@@ -282,6 +407,7 @@ public class EngineViewManager : MonoBehaviour
         IsXRayActive = false;
         IsExplodedActive = false;
         IsGrabModeActive = false;
+        IsShowWorkingActive = false;
 
         RefreshParts();
 

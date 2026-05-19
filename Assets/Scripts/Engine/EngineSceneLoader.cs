@@ -27,6 +27,9 @@ public class EngineSceneLoader : MonoBehaviour
     [Tooltip("Pair each EngineData asset with its pre-placed root GameObject in this scene.")]
     public EngineSceneEntry[] engineEntries;
 
+    public EngineData ActiveEngineData { get; private set; }
+    public GameObject ActiveEngineRoot { get; private set; }
+
     [Header("Scene References")]
     public EngineViewManager engineViewManager;
     public EngineInteractor engineInteractor;
@@ -64,6 +67,7 @@ public class EngineSceneLoader : MonoBehaviour
 
     void ActivateEngine(EngineData selected)
     {
+        ActiveEngineData = selected;
         GameObject activeRoot      = null;
         GameObject dismantledRoot  = null;
 
@@ -83,6 +87,8 @@ public class EngineSceneLoader : MonoBehaviour
                 dismantledRoot = entry.dismantledSceneRoot; // may be null — that's fine
             }
         }
+
+        ActiveEngineRoot = activeRoot;
 
         if (activeRoot == null)
         {

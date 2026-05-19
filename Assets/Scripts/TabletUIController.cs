@@ -134,6 +134,40 @@ public class TabletUIController : MonoBehaviour
         engineViewManager?.DeactivateGrabMode();
     }
 
+    public void OnShowWorkingClicked()
+    {
+        Debug.Log("[TabletUIController] OnShowWorkingClicked() called");
+        if (engineViewManager == null)
+            Debug.LogError("[TabletUIController] engineViewManager reference is missing (NULL)!");
+        engineViewManager?.ActivateShowWorkingView();
+    }
+
+    public void OnNextClicked()
+    {
+        Debug.Log("[TabletUIController] OnNextClicked() called");
+        var explorer = FindFirstObjectByType<SimplePartExplorer>();
+        if (explorer == null)
+            Debug.LogError("[TabletUIController] SimplePartExplorer not found in scene!");
+        explorer?.NextPart();
+    }
+
+    public void OnPreviousClicked()
+    {
+        Debug.Log("[TabletUIController] OnPreviousClicked() called");
+        var explorer = FindFirstObjectByType<SimplePartExplorer>();
+        if (explorer == null)
+            Debug.LogError("[TabletUIController] SimplePartExplorer not found in scene!");
+        explorer?.PreviousPart();
+    }
+
+    public void OnStopShowWorkingClicked()
+    {
+        Debug.Log("[TabletUIController] OnStopShowWorkingClicked() called");
+        if (engineViewManager == null)
+            Debug.LogError("[TabletUIController] engineViewManager reference is missing (NULL)!");
+        engineViewManager?.ActivateDefaultView();
+    }
+
     public void OnExitClicked()
     {
 #if UNITY_EDITOR
