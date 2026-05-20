@@ -26,6 +26,7 @@ public class EngineViewManager : MonoBehaviour
     [Header("References")]
     public EngineInteractor engineInteractor;
     public SimplePartExplorer simplePartExplorer;
+    public XRayPulseController xrayPulseController;
 
     public static bool IsXRayActive { get; private set; } = false;
     public static bool IsExplodedActive { get; private set; } = false;
@@ -131,6 +132,8 @@ public class EngineViewManager : MonoBehaviour
         IsExplodedActive = false;
         IsGrabModeActive = false;
 
+        if (xrayPulseController != null) xrayPulseController.Deactivate();
+
         StopShowWorkingIfActive();
 
         if (_allParts != null)
@@ -169,10 +172,15 @@ public class EngineViewManager : MonoBehaviour
         }
 
         StopShowWorkingIfActive();
+        if (xrayPulseController != null) xrayPulseController.Deactivate();
 
         IsXRayActive = true;
         foreach (var part in _allParts)
             if (part != null) part.SetXRayView();
+
+        // Start scanline pulse animation
+        if (xrayPulseController != null)
+            xrayPulseController.Activate(_allParts);
 
         // Hide ALL buttons
         if (xrayButton != null)         xrayButton.SetActive(false);
@@ -207,6 +215,7 @@ public class EngineViewManager : MonoBehaviour
         if (IsXRayActive)
         {
             IsXRayActive = false;
+            if (xrayPulseController != null) xrayPulseController.Deactivate();
             foreach (var part in _allParts)
                 if (part != null) part.RestoreOriginal();
         }
@@ -254,6 +263,7 @@ public class EngineViewManager : MonoBehaviour
         if (IsXRayActive)
         {
             IsXRayActive = false;
+            if (xrayPulseController != null) xrayPulseController.Deactivate();
             foreach (var part in _allParts)
                 if (part != null) part.RestoreOriginal();
         }
@@ -321,6 +331,7 @@ public class EngineViewManager : MonoBehaviour
         if (IsXRayActive)
         {
             IsXRayActive = false;
+            if (xrayPulseController != null) xrayPulseController.Deactivate();
             if (_allParts != null)
             {
                 foreach (var part in _allParts)
