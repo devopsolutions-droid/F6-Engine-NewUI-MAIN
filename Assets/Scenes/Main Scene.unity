@@ -814,6 +814,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 6
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.0354
@@ -2346,6 +2349,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 6
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.0354
@@ -5273,6 +5279,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 6
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.0354
@@ -6981,6 +6990,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 6
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.0354
@@ -7038,6 +7050,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 6
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.0354
@@ -8879,6 +8894,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 4
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 1.5
@@ -10013,6 +10031,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 6
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.0354
@@ -10070,6 +10091,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 6
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.0354
@@ -11946,6 +11970,141 @@ Transform:
   m_Children: []
   m_Father: {fileID: 227331874}
   m_LocalEulerAnglesHint: {x: 0, y: 75.32, z: 0}
+--- !u!1001 &613585198
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1938849804}
+    m_Modifications:
+    - target: {fileID: 830936123252725085, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 830936123252725085, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 12.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 830936123252725085, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 12.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 2331905886444053371, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2331905886444053371, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 20.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 2331905886444053371, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 3914201465261252716, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_Name
+      value: Rocket Engine Dismanteled
+      objectReference: {fileID: 0}
+    - target: {fileID: 3914201465261252716, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402789607075592918, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.20000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402789607075592918, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.4099997
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402789607075592918, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402789607075592918, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.4200001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402789607075592918, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402789607075592918, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402789607075592918, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402789607075592918, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402789607075592918, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402789607075592918, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402789607075592918, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6418749589820465634, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 6418749589820465634, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 12.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6418749589820465634, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 20.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6976604374106128595, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 6976604374106128595, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 12.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6976604374106128595, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -18.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 7006765059614222403, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 7006765059614222403, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 12.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 7006765059614222403, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -9.32
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+--- !u!4 &613585199 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4402789607075592918, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+  m_PrefabInstance: {fileID: 613585198}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &613585200 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3914201465261252716, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+  m_PrefabInstance: {fileID: 613585198}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &615715069 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2944077274440764346, guid: 6306ec84ec46f004992ab862dbea8e9b, type: 3}
@@ -12959,6 +13118,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 6
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.0354
@@ -13538,6 +13700,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 6
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.0354
@@ -14691,6 +14856,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 8
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 1.5
@@ -14790,6 +14958,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.5
@@ -14823,6 +14994,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.05
@@ -16902,6 +17076,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 6
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.0354
@@ -18503,6 +18680,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.05
@@ -18536,6 +18716,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.05
@@ -18993,6 +19176,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 1
   outlineColor: {r: 1, g: 0.08, b: 0.08, a: 1}
   outlineWidth: 3.5
@@ -19764,6 +19950,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 5
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 1.5
@@ -20108,6 +20297,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 6
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.0354
@@ -22157,6 +22349,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 6
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.0354
@@ -22483,6 +22678,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 6
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.0354
@@ -22732,6 +22930,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 6
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.0354
@@ -22794,6 +22995,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 10
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 1.5
@@ -25452,6 +25656,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 6
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.0354
@@ -25970,6 +26177,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 1
   outlineColor: {r: 1, g: 0.08, b: 0.08, a: 1}
   outlineWidth: 3.5
@@ -34298,6 +34508,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 6
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.0354
@@ -34649,6 +34862,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 6
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.0354
@@ -35696,6 +35912,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 6
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.0354
@@ -36005,6 +36224,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 6
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.0354
@@ -37508,6 +37730,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 6
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.0354
@@ -37633,6 +37858,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 6
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.0354
@@ -37716,6 +37944,9 @@ MonoBehaviour:
   - engineData: {fileID: 11400000, guid: 9f07fea4ce8e43f48b0aade52f8031f6, type: 2}
     sceneRoot: {fileID: 3990441190099768686}
     dismantledSceneRoot: {fileID: 661496154}
+  - engineData: {fileID: 11400000, guid: e42cb1e3ae5d8ab4ab14197d1b5aa31e, type: 2}
+    sceneRoot: {fileID: 3021646698936931630}
+    dismantledSceneRoot: {fileID: 613585200}
   engineViewManager: {fileID: 1934940471}
   engineInteractor: {fileID: 1098886765}
   infoPanel: {fileID: 0}
@@ -37905,6 +38136,7 @@ Transform:
   - {fileID: 1025270905}
   - {fileID: 1882456145}
   - {fileID: 661496153}
+  - {fileID: 613585199}
   m_Father: {fileID: 2024388548}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1940303043
@@ -37933,6 +38165,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 6
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 1.5
@@ -39015,6 +39250,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 6
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.0354
@@ -39389,6 +39627,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 3021646698936931629}
   - {fileID: 2009237814}
   - {fileID: 5071626726482345477}
   - {fileID: 1577091812}
@@ -39772,6 +40011,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 6
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.0354
@@ -40012,6 +40254,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 6
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.0354
@@ -41410,6 +41655,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 3
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.5
@@ -42141,6 +42389,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 3
   outlineColor: {r: 0, g: 1, b: 0.26723504, a: 1}
   outlineWidth: 0.5
@@ -42274,6 +42525,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 5
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.5
@@ -46393,6 +46647,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 10
   outlineColor: {r: 0.28324133, g: 0.8962264, b: 0.54195786, a: 1}
   outlineWidth: 0.5
@@ -49089,6 +49346,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 7
   outlineColor: {r: 0.9811321, g: 0.33784264, b: 0.33784264, a: 1}
   outlineWidth: 0.5
@@ -51004,6 +51264,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 2
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.01343
@@ -54534,6 +54797,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 3
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 1.5
@@ -54589,6 +54855,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 2
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 1.5
@@ -55238,6 +55507,77 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1001 &3021646698936931628
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2024388548}
+    m_Modifications:
+    - target: {fileID: 3914201465261252716, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_Name
+      value: Rocket Engine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3914201465261252716, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402789607075592918, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402789607075592918, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402789607075592918, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402789607075592918, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402789607075592918, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402789607075592918, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402789607075592918, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402789607075592918, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402789607075592918, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402789607075592918, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+--- !u!4 &3021646698936931629 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4402789607075592918, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+  m_PrefabInstance: {fileID: 3021646698936931628}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3021646698936931630 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3914201465261252716, guid: d8cfac9737d88ee48aad349b6240c102, type: 3}
+  m_PrefabInstance: {fileID: 3021646698936931628}
+  m_PrefabAsset: {fileID: 0}
 --- !u!222 &3022463656472485840
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -56405,6 +56745,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 9
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.01343
@@ -56539,6 +56882,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 6
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.01343
@@ -56652,6 +56998,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 6
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.01343
@@ -57666,6 +58015,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 8
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.5
@@ -58749,6 +59101,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 6
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.5
@@ -60138,6 +60493,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 5
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.5
@@ -61992,6 +62350,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 1
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.5
@@ -62396,6 +62757,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 7
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.01343
@@ -63808,6 +64172,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 10
   outlineColor: {r: 1, g: 0.24449521, b: 0, a: 1}
   outlineWidth: 0.5
@@ -65878,6 +66245,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 8
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.5
@@ -67421,6 +67791,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 2
   outlineColor: {r: 0.7735849, g: 0.28151056, b: 0.07662869, a: 1}
   outlineWidth: 0.5
@@ -68063,6 +68436,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 4
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.5
@@ -72649,6 +73025,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 4
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.02
@@ -75481,6 +75860,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 1
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.5
@@ -77004,6 +77386,9 @@ MonoBehaviour:
   xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
   xrayAlpha: 0.3
   xrayGlowIntensity: 1
+  xrayOuterColor: {r: 0, g: 0.5, b: 1, a: 1}
+  xrayOuterWidthMultiplier: 1.5
+  isOutermostOutline: 0
   outlineColorPreset: 9
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0.5

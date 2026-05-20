@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Pompe
+  m_EditorClassIdentifier: 
+  partName: Fuel Pump
+  description: The Fuel Pump is located at the top-left-front of the rocket engine
+    and is made of a durable Pompe material, which provides a high level of resistance
+    to corrosion and wear. This medium-sized, elongated component is responsible
+    for pressurizing and delivering fuel to the combustion chamber, playing a critical
+    role in the engine's overall performance and efficiency. Notably, the fuel pump
+    is designed to operate at extremely high pressures and flow rates, making it
+    a challenging component to design and manufacture.
+  audioExplanation: {fileID: 0}
