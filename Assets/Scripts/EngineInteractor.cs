@@ -20,6 +20,12 @@ public class EngineInteractor : MonoBehaviour
     [Header("Movement Detection")]
     public float moveThreshold = 0.1f;
 
+    [Header("Haptics")]
+    [Range(0f, 1f)] public float hoverHapticAmplitude = 0.2f;
+    public float hoverHapticDuration = 0.05f;
+    [Range(0f, 1f)] public float selectHapticAmplitude = 0.4f;
+    public float selectHapticDuration = 0.08f;
+
     // ── Events for tablet to subscribe to ────────────────────────────────────
     /// <summary>Fired when a part is selected (trigger pressed). Null = deselected.</summary>
     public event Action<EnginePart> OnPartSelected;
@@ -192,6 +198,12 @@ public class EngineInteractor : MonoBehaviour
 
                 if (_stablePart != null)
                 {
+                    // Trigger haptic impulse on the active controller
+                    if (rayInteractor != null && rayInteractor.xrController != null)
+                    {
+                        rayInteractor.xrController.SendHapticImpulse(hoverHapticAmplitude, hoverHapticDuration);
+                    }
+
                     // Don't show hover panels while the engine is in exploded view
                     if (!EngineViewManager.IsExplodedActive)
                     {
@@ -284,6 +296,10 @@ public class EngineInteractor : MonoBehaviour
             EnginePart target = GetCurrentRaycastPart();
             if (target == null) return;
 
+            // Trigger select haptic
+            if (rayInteractor.xrController != null)
+                rayInteractor.xrController.SendHapticImpulse(selectHapticAmplitude, selectHapticDuration);
+
             // Stop any currently playing explanation
             _audioSource.Stop();
 
@@ -304,6 +320,10 @@ public class EngineInteractor : MonoBehaviour
         // toggle off — restore full engine view
         if (_activePart != null)
         {
+            // Trigger select haptic
+            if (rayInteractor.xrController != null)
+                rayInteractor.xrController.SendHapticImpulse(selectHapticAmplitude, selectHapticDuration);
+
             _activePart.HidePanel();
             _activePart = null;
             _audioSource.Stop();
@@ -320,6 +340,10 @@ public class EngineInteractor : MonoBehaviour
             Debug.LogWarning("[EngineInteractor] Ray is not on an engine part — ignoring select");
             return;
         }
+
+        // Trigger select haptic
+        if (rayInteractor.xrController != null)
+            rayInteractor.xrController.SendHapticImpulse(selectHapticAmplitude, selectHapticDuration);
 
         _activePart = selected;
 

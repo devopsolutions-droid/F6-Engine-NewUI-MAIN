@@ -101,6 +101,14 @@ public class SimplePartExplorer : MonoBehaviour, IPointerClickHandler
             return;
         }
 
+        // Initialize audio source if null
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+            if (audioSource == null)
+                audioSource = FindFirstObjectByType<AudioSource>();
+        }
+
         if (!LoadPartsFromManifest())
         {
             Debug.LogError("SimplePartExplorer: Failed to load parts from manifest!");
@@ -187,6 +195,14 @@ public class SimplePartExplorer : MonoBehaviour, IPointerClickHandler
             explorerPanel.SetActive(false);
         }
         
+        // Initialize audio source if null
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+            if (audioSource == null)
+                audioSource = FindFirstObjectByType<AudioSource>();
+        }
+
         // Stop audio
         if (audioSource != null && audioSource.isPlaying)
             audioSource.Stop();
@@ -296,14 +312,32 @@ public class SimplePartExplorer : MonoBehaviour, IPointerClickHandler
         }
 
         // Play audio explanation
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+            if (audioSource == null)
+                audioSource = FindFirstObjectByType<AudioSource>();
+        }
+
         if (audioSource != null)
         {
             if (audioSource.isPlaying)
                 audioSource.Stop();
 
-            if (partData.audioExplanation != null)
+            // Find matching audio clip (prefer PartData, fallback to EnginePart)
+            AudioClip clipToPlay = null;
+            if (partData != null && partData.audioExplanation != null)
             {
-                audioSource.clip = partData.audioExplanation;
+                clipToPlay = partData.audioExplanation;
+            }
+            else if (enginePart != null)
+            {
+                clipToPlay = enginePart.AudioClip;
+            }
+
+            if (clipToPlay != null)
+            {
+                audioSource.clip = clipToPlay;
                 audioSource.Play();
             }
         }
