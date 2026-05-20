@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Fuel_Cap
+  m_EditorClassIdentifier: 
+  partName: Fuel Cap
+  description: The Fuel Injector 12 is a thin, flat, tiny component positioned at
+    the middle-center-center of the engine, made from high-pressure shaft material.
+    Its primary function is to inject fuel into the combustion chamber, facilitating
+    efficient combustion. An interesting aspect of this component is its precise
+    engineering, allowing for optimal fuel distribution and engine performance.
+  audioExplanation: {fileID: 0}

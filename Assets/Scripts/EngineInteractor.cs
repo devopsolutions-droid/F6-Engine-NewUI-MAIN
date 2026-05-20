@@ -53,6 +53,7 @@ public class EngineInteractor : MonoBehaviour
     private XRInteractorLineVisual _lineVisual;
     private Gradient _defaultLineColorGradient;
     private Gradient _hoverLineColorGradient;
+    private Gradient _whiteToBlueGradient;
     private EnginePart _stablePart;
     private EnginePart _pendingPart;
     private EnginePart _activePart;
@@ -96,6 +97,24 @@ public class EngineInteractor : MonoBehaviour
         {
             _lineVisual = rayInteractor.GetComponent<XRInteractorLineVisual>();
             if (_lineVisual != null) _defaultLineColorGradient = _lineVisual.invalidColorGradient;
+        }
+
+        // White to Blue gradient (white at start, deep blue at end)
+        var whiteToBlue = new Gradient();
+        whiteToBlue.SetKeys(
+            new[] { 
+                new GradientColorKey(Color.white, 0f),                                  // White at start
+                new GradientColorKey(new Color(0f, 0.2f, 1f), 0.5f),                    // Blue in middle
+                new GradientColorKey(new Color(0f, 0f, 0.6f), 1f)                       // Deep blue at end
+            },
+            new[] { new GradientAlphaKey(1f, 0f), new GradientAlphaKey(1f, 1f) });
+        _whiteToBlueGradient = whiteToBlue;
+
+        // Apply white-to-blue gradient immediately on start
+        if (_lineVisual != null)
+        {
+            _lineVisual.invalidColorGradient = _whiteToBlueGradient;
+            _lineVisual.validColorGradient = _whiteToBlueGradient;
         }
 
         var g = new Gradient();
@@ -225,10 +244,11 @@ public class EngineInteractor : MonoBehaviour
         _pendingPart = null;
     }
 
+    // Line color is always white-to-blue gradient (set in Start)
     void SetLineColor(bool hovering)
     {
         if (_lineVisual == null) return;
-        var g = hovering ? _hoverLineColorGradient : _defaultLineColorGradient;
+        var g = hovering ? _hoverLineColorGradient : _whiteToBlueGradient;
         _lineVisual.invalidColorGradient = g;
         _lineVisual.validColorGradient = g;
     }

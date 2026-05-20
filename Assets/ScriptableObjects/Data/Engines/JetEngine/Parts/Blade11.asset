@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Blade11
+  m_EditorClassIdentifier: 
+  partName: Blade11
+  description: The Blade11 is a tiny, elongated blade located at the middle-center-center
+    of the jet engine, made of Blades texture material, tasked with channeling and
+    accelerating the air through the engine, with a notable feature being its textured
+    surface that reduces turbulence and enhances airflow. Its elongated shape provides
+    a larger surface area, allowing for more efficient energy transfer, and its position
+    in the compressor stage makes it crucial for the engine's overall performance.
+    By optimizing airflow and minimizing losses, Blade11 contributes to the engine's
+    ability to produce high thrust levels.
+  audioExplanation: {fileID: 0}

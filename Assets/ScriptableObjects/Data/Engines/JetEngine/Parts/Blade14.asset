@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Blade14
+  m_EditorClassIdentifier: 
+  partName: Blade14
+  description: The Blade14 is a tiny, thin-flat blade located at the middle-center-center
+    of the jet engine, made of Blades2 material, tasked with compressing and accelerating
+    the air flowing through the engine, with an interesting detail being its optimized
+    shape for minimizing energy losses due to friction and maximizing airflow efficiency.
+    Its small size and thin-flat shape enable it to operate efficiently at high speeds,
+    making it a key component of the engine's compressor stage. By working in conjunction
+    with other blades, Blade14 helps to achieve the high compression ratios required
+    for efficient engine operation, thereby contributing to the engine's overall
+    performance and efficiency.
+  audioExplanation: {fileID: 0}

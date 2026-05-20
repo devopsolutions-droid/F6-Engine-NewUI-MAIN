@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Blade4
+  m_EditorClassIdentifier: 
+  partName: Rear Blade Shroud 2
+  description: The Rear Blade Shroud 2 is a thin, flat component situated at the
+    middle-center-rear of the engine, crafted from Blades2 material. Like the Rear
+    Blade Shroud 1, it provides a protective casing for the Rear Blade 2, ensuring
+    a smooth airflow and minimizing obstruction. Its identical design to the Rear
+    Blade Shroud 1 underscores the engine's emphasis on symmetry and balance in its
+    design.
+  audioExplanation: {fileID: 0}

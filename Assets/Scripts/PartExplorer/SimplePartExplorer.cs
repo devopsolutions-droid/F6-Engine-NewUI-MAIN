@@ -150,13 +150,14 @@ public class SimplePartExplorer : MonoBehaviour, IPointerClickHandler
         isExplorerActive = false;
         currentPartIndex = -1;
 
-        // Restore all parts to fully visible and their original looks
+        // Restore all parts to fully visible, their original looks, and original positions
         foreach (var part in enginePartsList)
         {
             if (part != null)
             {
                 part.SetVisible(true);
                 part.RestoreOriginal();
+                part.LowerDown(0f);
             }
         }
 
@@ -245,9 +246,10 @@ public class SimplePartExplorer : MonoBehaviour, IPointerClickHandler
             return;
         }
 
-        // Make the active part visible and restore its original look (textured, not ghosted)
+        // Make the active part visible and show its original look with a solid outline
         enginePart.SetVisible(true);
-        enginePart.RestoreOriginal();
+        enginePart.SetSelected();
+        enginePart.LiftUp(0.15f, 0.25f);
 
         // Make all other parts transparent/ghosted (alpha 0.1 - 0.3)
         for (int i = 0; i < enginePartsList.Count; i++)
@@ -256,6 +258,7 @@ public class SimplePartExplorer : MonoBehaviour, IPointerClickHandler
             {
                 enginePartsList[i].SetVisible(true);
                 enginePartsList[i].SetGhost();
+                enginePartsList[i].LowerDown(0.25f);
             }
         }
 

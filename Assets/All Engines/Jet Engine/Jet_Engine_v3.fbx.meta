@@ -8,12 +8,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Blades2
-    second: {fileID: 2100000, guid: 9d1b7b42dd34a484fa7bf87dc98233b0, type: 2}
+    second: {fileID: 2100000, guid: aee2d5d2afbae4545b6a59283ed8e0dc, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Blades_texture
-    second: {fileID: 2100000, guid: 20699d1c07bd2f74f826ed7d18385d42, type: 2}
+    second: {fileID: 2100000, guid: 58242193702b98743877a288386dcf0a, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -33,7 +33,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Shaft1
-    second: {fileID: 2100000, guid: d6ca70393ff89f344bca4235654446a4, type: 2}
+    second: {fileID: 2100000, guid: 5c21bcb12d74b83428f9399194727bfa, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -45,9 +45,9 @@ ModelImporter:
       name: highpressure_shaft
     second: {fileID: 2100000, guid: 039018057fca5de43b4d91bfe3bf28f2, type: 2}
   materials:
-    materialImportMode: 2
+    materialImportMode: 1
     materialName: 0
-    materialSearch: 0
+    materialSearch: 1
     materialLocation: 1
   animations:
     legacyGenerateAnimations: 4

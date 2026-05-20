@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Blade24
+  m_EditorClassIdentifier: 
+  partName: Blade24
+  description: The Blade25 is a thin, flat component positioned at the middle-center-front
+    of the jet engine, constructed from Blades2 material, responsible for further
+    compressing air and enhancing engine efficiency. Its compact size and strategic
+    placement enable the engine to achieve optimal performance. Notably, the Blade25
+    is carefully angled to minimize air resistance and maximize airflow, contributing
+    to the engine's remarkable power-to-weight ratio.
+  audioExplanation: {fileID: 0}

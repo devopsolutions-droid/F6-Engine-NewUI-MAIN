@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Blade20
+  m_EditorClassIdentifier: 
+  partName: Blade20
+  description: The Blade20 is a tiny, thin-flat blade situated at the middle-center-front
+    of the jet engine, playing a vital role in air compression and flow direction.
+    Constructed from Blades2 material, its small size and thin-flat shape enable
+    it to navigate high-velocity air flows while maintaining structural integrity.
+    Interestingly, the Blade20's material properties allow for optimal thermal management
+    and resistance to fatigue.
+  audioExplanation: {fileID: 0}

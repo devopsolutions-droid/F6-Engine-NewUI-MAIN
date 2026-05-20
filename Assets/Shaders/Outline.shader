@@ -8,16 +8,25 @@ Shader "Custom/Outline"
 
     SubShader
     {
-        Tags { "RenderType"="Opaque" "Queue"="Geometry+1" }
+        Tags { "RenderType"="Transparent" "Queue"="Transparent+1" }
 
-        // ── Pass 1: Render outline by expanding silhouette ──────────────────
+        // Pass 1: Write depth for the mesh body (invisible) so the outline
+        // has correct depth to test against. ColorMask 0 = writes no colour.
+        Pass
+        {
+            Name "DepthPrime"
+            Cull Back
+            ZWrite On
+            ZTest LEqual
+            ColorMask 0
+        }
+
+        // Pass 2: Render the outline by expanding back-face silhouette
         Pass
         {
             Name "Outline"
-
-            // Render back faces expanded outward
             Cull Front
-            ZWrite On
+            ZWrite Off
             ZTest LEqual
             ColorMask RGB
 
@@ -53,13 +62,11 @@ Shader "Custom/Outline"
                 float4 clipPos = UnityObjectToClipPos(v.vertex);
                 float3 viewNormal = normalize(mul((float3x3)UNITY_MATRIX_IT_MV, v.normal));
 
-                // Expand in screen space for a solid, smooth outline
                 float2 screenNormal = normalize(float2(
                     viewNormal.x * UNITY_MATRIX_P[0][0],
                     viewNormal.y * UNITY_MATRIX_P[1][1]
                 ));
 
-                // Larger expansion for a more visible, solid outline
                 float2 ndcOffset = screenNormal * (_OutlineWidth / _ScreenParams.xy);
                 clipPos.xy += ndcOffset * clipPos.w;
 
@@ -70,7 +77,6 @@ Shader "Custom/Outline"
             fixed4 frag(v2f i) : SV_Target
             {
                 UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
-                // Solid red, fully opaque
                 return fixed4(_OutlineColor.rgb, 1.0);
             }
             ENDCG

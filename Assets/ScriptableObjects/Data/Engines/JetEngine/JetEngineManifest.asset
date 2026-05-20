@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd2eea37a43cd340b7c552abaee2a64, type: 3}
+  m_Name: JetEngineManifest
+  m_EditorClassIdentifier: 
+  parts:
+  - gameObjectName: backcap
+    partData: {fileID: 11400000, guid: 6d429d76b9d426c4586cfde08ae5b665, type: 2}
+  - gameObjectName: Cap1
+    partData: {fileID: 11400000, guid: 90f70f685a37247419d25ae1f188a4bf, type: 2}
+  - gameObjectName: Cap2
+    partData: {fileID: 11400000, guid: cb81bffea31345643a06c8f08d6b9f6d, type: 2}
+  - gameObjectName: Cap3
+    partData: {fileID: 11400000, guid: bb56717f0be1e4b42986d05cc2d09640, type: 2}
+  - gameObjectName: Cap4
+    partData: {fileID: 11400000, guid: bb1df5070d749e44194b4b39b1a79eab, type: 2}
+  - gameObjectName: Fan_Blades
+    partData: {fileID: 11400000, guid: 242d5ff63a1f46e4ab2f729e07927935, type: 2}
+  - gameObjectName: Frontcap
+    partData: {fileID: 11400000, guid: 751d55d01aa97d64c9832d379640b65d, type: 2}
+  - gameObjectName: Fuel_Cap
+    partData: {fileID: 11400000, guid: cc3177bf486ee984fb2bdee21b7fea82, type: 2}
+  - gameObjectName: Fuel_Injector12
+    partData: {fileID: 11400000, guid: 705f4e116c12af44fa9f3452ecb2e806, type: 2}
+  - gameObjectName: Blade1
+    partData: {fileID: 11400000, guid: f733997ed440c9245b83d50c8db5495f, type: 2}
+  - gameObjectName: Blade2
+    partData: {fileID: 11400000, guid: 9535a345ea2f4fa4e8a77c1b5a0a31c5, type: 2}
+  - gameObjectName: Blade3
+    partData: {fileID: 11400000, guid: 2aab084782c73f54da10939978c99668, type: 2}
+  - gameObjectName: Blade4
+    partData: {fileID: 11400000, guid: 274e77dfeeec43e4f83c4d78b1adfd85, type: 2}
+  - gameObjectName: Blade5
+    partData: {fileID: 11400000, guid: 280f6799c84080a45868ab944000f2b8, type: 2}
+  - gameObjectName: Blade6
+    partData: {fileID: 11400000, guid: 7441b1fad1fde6640bc2821828542d4a, type: 2}
+  - gameObjectName: Blade7
+    partData: {fileID: 11400000, guid: 1f7907ac06a97e14a9dc1cb659bae5cf, type: 2}
+  - gameObjectName: Blade8
+    partData: {fileID: 11400000, guid: 6fbbc6c909d4a5944a9336b28e13027d, type: 2}
+  - gameObjectName: Blade17
+    partData: {fileID: 11400000, guid: 18d95d3a5579d9b438a8507c8765261d, type: 2}
+  - gameObjectName: Blade18
+    partData: {fileID: 11400000, guid: 8e94e19037feb9e4fb06d0e3062586e9, type: 2}
+  - gameObjectName: Blade19
+    partData: {fileID: 11400000, guid: dcc38bf8297a23e4f955710036315816, type: 2}
+  - gameObjectName: Blade20
+    partData: {fileID: 11400000, guid: 9351092de7e8a64499024e9a4559ddc8, type: 2}
+  - gameObjectName: Highpressure_turbine_shaft
+    partData: {fileID: 11400000, guid: 58e8fcaa8b5afc348b803bdc3360eeeb, type: 2}
+  - gameObjectName: Innercover 1
+    partData: {fileID: 11400000, guid: ee501251a4bde3a4a9647be25833c842, type: 2}
+  - gameObjectName: Innercover1
+    partData: {fileID: 11400000, guid: bd0f6b46209d2744f9d124113e51e7ca, type: 2}
+  - gameObjectName: Blade9
+    partData: {fileID: 11400000, guid: f43a9a213e20bb5408fc7ccd5b176ab2, type: 2}
+  - gameObjectName: Blade10
+    partData: {fileID: 11400000, guid: 7d9f2352486392142928cd8cf7fe7a90, type: 2}
+  - gameObjectName: Blade11
+    partData: {fileID: 11400000, guid: c72d52d6ea21f0b4abf048e904994db4, type: 2}
+  - gameObjectName: Blade12
+    partData: {fileID: 11400000, guid: 6765d6f316a5000489babb14f98830ee, type: 2}
+  - gameObjectName: Blade13
+    partData: {fileID: 11400000, guid: 0d9880ace12cc3444a50437268650fcb, type: 2}
+  - gameObjectName: Blade14
+    partData: {fileID: 11400000, guid: a1942c2f3c0b22240938a6b155289ce3, type: 2}
+  - gameObjectName: Blade15
+    partData: {fileID: 11400000, guid: 7245d9780e777254387239dce9c13e6b, type: 2}
+  - gameObjectName: Blade16
+    partData: {fileID: 11400000, guid: 19b55d9815465384793fa81c4c879039, type: 2}
+  - gameObjectName: Blade21
+    partData: {fileID: 11400000, guid: e490e39548e9dbe47bfe2470b16f79b4, type: 2}
+  - gameObjectName: Blade22
+    partData: {fileID: 11400000, guid: b8f6dd0c7a55565429a5fa7996edb6ad, type: 2}
+  - gameObjectName: Blade23
+    partData: {fileID: 11400000, guid: 9e8dde379badd624486950ef246088fa, type: 2}
+  - gameObjectName: Blade24
+    partData: {fileID: 11400000, guid: 74a670676e76782448fc513c63317d87, type: 2}
+  - gameObjectName: Blade25
+    partData: {fileID: 11400000, guid: e4a9e5ad60181d2409958adc9e77b62a, type: 2}
+  - gameObjectName: Blade26
+    partData: {fileID: 11400000, guid: 13da75ee51db0ad4fb1ec3235a33884a, type: 2}
+  - gameObjectName: polySurface1
+    partData: {fileID: 11400000, guid: 9e0a3cd659ba65c4896e3904eea9b443, type: 2}
+  - gameObjectName: polySurface2
+    partData: {fileID: 11400000, guid: a60f98ef52536a540b1c73d4ee9376c3, type: 2}
+  - gameObjectName: Shaft
+    partData: {fileID: 11400000, guid: 0a713700e665fb045a1b7c6af1304d5a, type: 2}
+  - gameObjectName: Wires_set
+    partData: {fileID: 11400000, guid: df3ab4d78d6010643a39af80e14508f9, type: 2}

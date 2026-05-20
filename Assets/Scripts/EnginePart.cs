@@ -626,7 +626,7 @@ public class EnginePart : MonoBehaviour
     [Range(0f, 4f)] public float glowIntensity = 2.5f;
 
     [Header("Ghost")]
-    [Range(0f, 1f)] public float ghostAlpha = 0.2f;
+    [Range(0f, 1f)] public float ghostAlpha = 0.08f;
     [Range(0f, 1f)] public float ghostFadeDuration = 0.25f;
 
     [Header("X-Ray View")]
@@ -649,6 +649,8 @@ public class EnginePart : MonoBehaviour
     [Range(0f, 6f)] public float explodeDistance = 6f;
     [Tooltip("Optional: override the direction this part explodes. Leave at zero to use preset or auto-calculate from engine center.")]
     public Vector3 explodeDirectionOverride = Vector3.zero;
+    [Tooltip("Width of the middle zone (in meters). Parts within this distance from the center line will explode upwards.")]
+    public float midZoneThreshold = 0.18f;
 
     private Renderer[] _renderers;
     private Material[] _materials;
@@ -658,6 +660,8 @@ public class EnginePart : MonoBehaviour
     private Material   _outlineMat;
     private bool       _outlineActive;
     private bool       _isInitialized;
+    private Coroutine  _liftCoroutine;
+    private bool       _isSelected;
 
     // Explode state
     private Vector3 _assembledLocalPos;
@@ -776,7 +780,21 @@ public class EnginePart : MonoBehaviour
         }
         else
         {
-            dir = (transform.position - engineWorldCenter).normalized;
+            // Calculate relative offset in world space
+            Vector3 relativePos = transform.position - engineWorldCenter;
+            float dx = relativePos.x;
+
+            if (Mathf.Abs(dx) < midZoneThreshold)
+            {
+                // Middle part -> Explode upwards (with slight Z/X spread to avoid overlapping)
+                dir = new Vector3(dx * 0.3f, 1.0f, relativePos.z * 0.2f).normalized;
+            }
+            else
+            {
+                // Left/Right parts -> Explode radially (the working default)
+                dir = relativePos.normalized;
+            }
+
             // If part is exactly at center, push it upward
             if (dir.sqrMagnitude < 0.001f) dir = Vector3.up;
         }
@@ -857,7 +875,30 @@ public class EnginePart : MonoBehaviour
                 if (mat.HasProperty("_EmissionColor"))   { mat.SetColor("_EmissionColor", Color.black); mat.DisableKeyword("_EMISSION"); }
                 if (mat.HasProperty("_EmissiveColor"))   mat.SetColor("_EmissiveColor", Color.black);
             }
-            HideOutline();
+
+            // Retain outline if selected or in X-Ray mode
+            if (_isSelected)
+            {
+                if (_outlineMat != null)
+                {
+                    _outlineMat.SetColor("_OutlineColor", ActiveOutlineColor);
+                    _outlineMat.SetFloat("_OutlineWidth", outlineWidth);
+                }
+                ShowOutline();
+            }
+            else if (EngineViewManager.IsXRayActive)
+            {
+                if (_outlineMat != null)
+                {
+                    _outlineMat.SetColor("_OutlineColor", xrayColor);
+                    _outlineMat.SetFloat("_OutlineWidth", outlineWidth);
+                }
+                ShowOutline();
+            }
+            else
+            {
+                HideOutline();
+            }
         }
     }
 
@@ -866,6 +907,9 @@ public class EnginePart : MonoBehaviour
     {
         if (!_isInitialized) InitializePart();
         if (_renderers == null || _renderers.Length == 0) return;
+
+        _isSelected = true;
+        _outlineActive = false; // Reset outline state since we are replacing the material list below
 
         // Restore original opaque look — no glow, no emission
         for (int i = 0; i < _renderers.Length; i++)
@@ -906,6 +950,7 @@ public class EnginePart : MonoBehaviour
         if (!_isInitialized) InitializePart();
         if (_renderers == null || _renderers.Length == 0) return;
 
+        _isSelected = false;
         HideOutline();
 
         // Re-sync _materials[] from the live renderers in case a prior SetSelected()
@@ -1000,40 +1045,42 @@ public class EnginePart : MonoBehaviour
     }
 
     // ── X-Ray View ────────────────────────────────────────────────────────────
+    // Renders the mesh body as a translucent glowing blue hologram/x-ray scan.
     public void SetXRayView()
     {
         if (!_isInitialized) InitializePart();
         if (_renderers == null || _renderers.Length == 0) return;
 
-        HideOutline();
+        _isSelected = false;
+
+        // Step 1: Make the mesh body translucent blue with soft glowing emission
         foreach (var mat in _materials)
         {
             if (mat == null) continue;
             SetTransparent(mat);
 
-            Color baseColor = new Color(xrayColor.r, xrayColor.g, xrayColor.b, xrayAlpha);
-            Color emissiveColor = xrayColor * xrayGlowIntensity;
-
-            // Set base transparent color
+            // Set base color to translucent blue using xrayColor and xrayAlpha
+            Color xrayBodyColor = new Color(xrayColor.r, xrayColor.g, xrayColor.b, xrayAlpha);
             if (mat.HasProperty("_BaseColorFactor"))
-                mat.SetColor("_BaseColorFactor", baseColor);
-            else if (mat.HasProperty("_Color"))
-                mat.SetColor("_Color", baseColor);
+                mat.SetColor("_BaseColorFactor", xrayBodyColor);
+            if (mat.HasProperty("_BaseColor"))
+                mat.SetColor("_BaseColor", xrayBodyColor);
+            if (mat.HasProperty("_Color"))
+                mat.SetColor("_Color", xrayBodyColor);
             else
-                mat.color = baseColor;
+                mat.color = xrayBodyColor;
 
-            // Apply Teal Emission
-            if (mat.HasProperty("_EmissiveFactor"))
-                mat.SetColor("_EmissiveFactor", emissiveColor);
-
-            if (mat.HasProperty("_EmissionColor"))
-            {
-                mat.EnableKeyword("_EMISSION");
-                mat.SetColor("_EmissionColor", emissiveColor);
-            }
-            if (mat.HasProperty("_EmissiveColor"))
-                mat.SetColor("_EmissiveColor", emissiveColor);
+            // Apply a soft blue emission glow to match the holographic reference
+            ApplyGlowToMat(mat, xrayColor, xrayGlowIntensity * 0.35f);
         }
+
+        // Step 2: Show outline in xrayColor
+        if (_outlineMat != null)
+        {
+            _outlineMat.SetColor("_OutlineColor", xrayColor);
+            _outlineMat.SetFloat("_OutlineWidth", outlineWidth);
+        }
+        ShowOutline();
     }
 
     // ── Restore original look ─────────────────────────────────────────────────
@@ -1041,6 +1088,7 @@ public class EnginePart : MonoBehaviour
     {
         if (!_isInitialized) InitializePart();
 
+        _isSelected = false;
         if (_ghostCoroutine != null) { StopCoroutine(_ghostCoroutine); _ghostCoroutine = null; }
 
         _outlineActive = false;
@@ -1062,6 +1110,7 @@ public class EnginePart : MonoBehaviour
     // ── Exploded View Animation ─────────────────────────────────────────────
     public void AnimateToExploded(float duration)
     {
+        if (_liftCoroutine != null) { StopCoroutine(_liftCoroutine); _liftCoroutine = null; }
         if (_explodeCoroutine != null) StopCoroutine(_explodeCoroutine);
         // Inactive GameObjects can't run coroutines — snap directly
         if (!gameObject.activeInHierarchy || duration <= 0.01f)
@@ -1074,6 +1123,7 @@ public class EnginePart : MonoBehaviour
 
     public void AnimateToAssembled(float duration)
     {
+        if (_liftCoroutine != null) { StopCoroutine(_liftCoroutine); _liftCoroutine = null; }
         if (_explodeCoroutine != null) StopCoroutine(_explodeCoroutine);
         // Inactive GameObjects can't run coroutines — snap directly
         if (!gameObject.activeInHierarchy || duration <= 0.01f)
@@ -1099,6 +1149,54 @@ public class EnginePart : MonoBehaviour
 
         transform.localPosition = targetLocal;
         _explodeCoroutine = null;
+    }
+
+    // ── Show Working Lift Up/Down Animation ─────────────────────────────────
+    public void LiftUp(float amount, float duration)
+    {
+        if (!_isInitialized) InitializePart();
+        if (_liftCoroutine != null) StopCoroutine(_liftCoroutine);
+        if (_explodeCoroutine != null) { StopCoroutine(_explodeCoroutine); _explodeCoroutine = null; }
+
+        Vector3 targetLocal = _assembledLocalPos + new Vector3(0f, amount, 0f);
+
+        if (!gameObject.activeInHierarchy || duration <= 0.01f)
+        {
+            transform.localPosition = targetLocal;
+            return;
+        }
+        _liftCoroutine = StartCoroutine(AnimateLift(targetLocal, duration));
+    }
+
+    public void LowerDown(float duration)
+    {
+        if (!_isInitialized) InitializePart();
+        if (_liftCoroutine != null) StopCoroutine(_liftCoroutine);
+        if (_explodeCoroutine != null) { StopCoroutine(_explodeCoroutine); _explodeCoroutine = null; }
+
+        if (!gameObject.activeInHierarchy || duration <= 0.01f)
+        {
+            transform.localPosition = _assembledLocalPos;
+            return;
+        }
+        _liftCoroutine = StartCoroutine(AnimateLift(_assembledLocalPos, duration));
+    }
+
+    private System.Collections.IEnumerator AnimateLift(Vector3 targetLocal, float duration)
+    {
+        Vector3 start = transform.localPosition;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.SmoothStep(0f, 1f, elapsed / duration);
+            transform.localPosition = Vector3.Lerp(start, targetLocal, t);
+            yield return null;
+        }
+
+        transform.localPosition = targetLocal;
+        _liftCoroutine = null;
     }
 
     // ── Outline ───────────────────────────────────────────────────────────────
@@ -1182,18 +1280,39 @@ public class EnginePart : MonoBehaviour
     {
         if (mat == null) return;
 
+        // ── glTFast / glTF PBR materials ──────────────────────────────────────
+        if (mat.HasProperty("_AlphaMode"))
+        {
+            mat.SetFloat("_AlphaMode", 0); // 0 = Opaque
+            mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+            mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+            mat.SetInt("_ZWrite", 1);
+            mat.DisableKeyword("_ALPHABLEND_ON");
+            mat.renderQueue = -1;
+            return;
+        }
+
+        // ── URP Lit shader compatibility ──────────────────────────────────────
+        if (mat.HasProperty("_Surface"))
+        {
+            mat.SetFloat("_Surface", 0f); // 0 = Opaque
+            mat.SetFloat("_Blend", 0f);   // 0 = Alpha blend
+            mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+            mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+            mat.SetInt("_ZWrite", 1);
+            mat.DisableKeyword("_SURFACE_TYPE_TRANSPARENT");
+            mat.renderQueue = -1;
+            return;
+        }
+
+        // ── Standard / Built-in fallback ──────────────────────────────────────
         mat.SetFloat("_Mode", 0);
-        mat.SetInt("_SrcBlend", (int)BlendMode.One);
-        mat.SetInt("_DstBlend", (int)BlendMode.Zero);
+        mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+        mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
         mat.SetInt("_ZWrite", 1);
         mat.DisableKeyword("_ALPHATEST_ON");
         mat.DisableKeyword("_ALPHABLEND_ON");
         mat.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-        
-        // For glTF materials, also set _AlphaMode
-        if (mat.HasProperty("_AlphaMode"))
-            mat.SetFloat("_AlphaMode", 0);
-        
         mat.renderQueue = -1;
     }
 
@@ -1217,7 +1336,21 @@ public class EnginePart : MonoBehaviour
             return;
         }
 
-        // ── Standard / URP fallback ───────────────────────────────────────────
+        // ── URP Lit shader compatibility ──────────────────────────────────────
+        if (mat.HasProperty("_Surface"))
+        {
+            mat.SetFloat("_Surface", 1f); // 1 = Transparent
+            mat.SetFloat("_Blend", 0f);   // 0 = Alpha blend
+            mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+            mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+            mat.SetInt("_ZWrite", 0);
+            mat.DisableKeyword("_ALPHATEST_ON");
+            mat.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
+            mat.renderQueue = 3000;
+            return;
+        }
+
+        // ── Standard / Built-in fallback ──────────────────────────────────────
         mat.SetFloat("_Mode", 2);
         mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
         mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);

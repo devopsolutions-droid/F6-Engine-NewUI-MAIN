@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
+  m_Name: Blade23
+  m_EditorClassIdentifier: 
+  partName: Blade23
+  description: The Blade24 is a tiny, elongated component located at the middle-center-front
+    of the jet engine, made of Blades texture material, which plays a crucial role
+    in compressing air and directing it towards the combustion chamber. Its unique
+    shape allows for efficient airflow and increased engine performance. Interestingly,
+    the Blade24 is designed to withstand extremely high temperatures and stresses,
+    making it a critical component of the engine's overall functionality.
+  audioExplanation: {fileID: 0}
