@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
   m_Name: Cap1
   m_EditorClassIdentifier: 
-  partName: Cap1
-  description: The Cap2 is a tiny, elongated component positioned at the middle-center-front
-    of the jet engine, constructed from Shaft1 material, which provides a secure
-    seal around the engine's shaft. Its compact design enables the engine to maintain
-    optimal performance while minimizing the risk of damage from external factors.
-    Interestingly, the Cap2 is designed to be easily removable, allowing for convenient
-    maintenance and inspection of the shaft and surrounding components.
-  audioExplanation: {fileID: 0}
+  partName: Cap
+  description: The Cap is a tiny, elongated component positioned at the middle-front
+    center of the jet engine, which provides a secure seal around the engine's shaft.
+    Its compact design enables the engine to maintain optimal performance while minimizing
+    the risk of damage from external factors. Interestingly, the Cap is designed
+    to be easily removable, allowing for convenient maintenance and inspection of
+    the shaft and surrounding components.
+  audioExplanation: {fileID: 8300000, guid: b1219aac4eb17bc4e8b1f508cd005da2, type: 3}

@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: Fuel_Injector12
   m_EditorClassIdentifier: 
   partName: Fuel Injector 12
-  description: The High Pressure Turbine Shaft is a thin, flat, tiny part located
-    at the middle-center-center of the engine, constructed from high-pressure shaft
-    material. It is vital for transmitting power from the high-pressure turbine to
-    the engine's gearbox, driving the engine's accessories. A notable feature of
-    this shaft is its ability to withstand extremely high pressures and stresses
-    while maintaining rotational stability.
+  description: The Fuel Injector 12 is a thin, flat, tiny component positioned at
+    the middle-center-center of the engine, made from high-pressure shaft material.
+    Its primary function is to inject fuel into the combustion chamber, facilitating
+    efficient combustion. An interesting aspect of this component is its precise
+    engineering, allowing for optimal fuel distribution and engine performance.
   audioExplanation: {fileID: 0}

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: polySurface2
   m_EditorClassIdentifier: 
   partName: Left Outer Cover
-  description: The Shaft is a crucial component located at the middle-center-center
-    of the jet engine, made of Shaft1 material, and has a small, thin-flat shape.
-    It plays a vital role in connecting and transmitting power between the turbine
-    and compressor sections, enabling the engine to generate thrust. Interestingly,
-    the Shaft's thin-flat design allows for minimal weight while maintaining exceptional
-    strength and durability.
-  audioExplanation: {fileID: 0}
+  description: The Left Outer Cover is a large, elongated part situated at the middle-left-center
+    of the engine, constructed from Outer cover material. Its primary role is to
+    provide a protective and aerodynamic casing for the engine, shielding internal
+    components while minimizing drag. Notably, its mirrored design with the Right
+    Outer Cover enables a symmetrical and balanced engine configuration, optimizing
+    performance and stability.
+  audioExplanation: {fileID: 8300000, guid: 6c43739df9ae7be4587824371232ff2d, type: 3}

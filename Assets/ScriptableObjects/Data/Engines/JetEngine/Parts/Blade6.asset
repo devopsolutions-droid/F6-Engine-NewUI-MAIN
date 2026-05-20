@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
   m_Name: Blade6
   m_EditorClassIdentifier: 
-  partName: Rear Blade Shroud 3
-  description: The Rear Blade Shroud 3 is a thin, flat component located at the middle-center-rear
-    of the engine, crafted from Blades2 material. Similar to the Rear Blade Shroud
-    1 and 2, it provides a protective casing for the Rear Blade 3, ensuring a smooth
-    airflow and minimizing obstruction. Its identical design to the previous shrouds
-    highlights the engine's use of standardized components, simplifying manufacturing
+  partName: Rear Blade Shroud
+  description: The Rear Blade Shroud is a thin, flat component located at the middle-rear
+    center of the engine, crafted from Blades material. Similar to the Rear Blade
+    Shroud and , it provides a protective casing for the Rear Blade , ensuring a
+    smooth airflow and minimizing obstruction. Its identical design to the previous
+    shrouds highlights the engine's use of standardized components, simplifying manufacturing
     and maintenance processes.
-  audioExplanation: {fileID: 0}
+  audioExplanation: {fileID: 8300000, guid: c94b9b102ec93ab4c8591dcd2e46cc02, type: 3}

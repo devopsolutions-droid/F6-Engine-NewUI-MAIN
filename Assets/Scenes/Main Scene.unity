@@ -820,6 +820,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &47813673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2351,6 +2352,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &98039086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5277,6 +5279,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &228809275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6984,6 +6987,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &317157166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7040,6 +7044,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &319673655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8880,6 +8885,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!64 &461785879
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9835,6 +9841,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   moveThreshold: 0.1
+  hoverHapticAmplitude: 0.2
+  hoverHapticDuration: 0.05
+  selectHapticAmplitude: 0.4
+  selectHapticDuration: 0.08
 --- !u!82 &477484862
 AudioSource:
   m_ObjectHideFlags: 0
@@ -10009,6 +10019,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &488109004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10065,6 +10076,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &489658685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12953,6 +12965,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &675802622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13531,6 +13544,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &690797447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14683,6 +14697,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!64 &736654362
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -14781,6 +14796,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &740769492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14813,6 +14829,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!4 &743658639 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3036300240199965713, guid: 1db7ecaeae08f844b896bd9cab710cc3, type: 3}
@@ -16891,6 +16908,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &842187565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18491,6 +18509,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &960910879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18523,6 +18542,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &960910882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18853,6 +18873,162 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 988519047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 787aba2d67a93c345a297c6d7face770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &992654041
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2009237814}
+    m_Modifications:
+    - target: {fileID: 6851793845644114797, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851793845644114797, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851793845644114797, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0382
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851793845644114797, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851793845644114797, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0443
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851793845644114797, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.017440818
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851793845644114797, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.0006319056
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851793845644114797, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.99919206
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851793845644114797, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.036202144
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851793845644114797, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 4.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851793845644114797, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 182
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851793845644114797, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8773403163920647858, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      propertyPath: m_Name
+      value: Engine Bolts
+      objectReference: {fileID: 0}
+    - target: {fileID: 8773403163920647858, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8773403163920647858, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 992654045}
+    - targetCorrespondingSourceObject: {fileID: 8773403163920647858, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 992654044}
+    - targetCorrespondingSourceObject: {fileID: 8773403163920647858, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 992654046}
+  m_SourcePrefab: {fileID: 100100000, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+--- !u!4 &992654042 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6851793845644114797, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+  m_PrefabInstance: {fileID: 992654041}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &992654043 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8773403163920647858, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+  m_PrefabInstance: {fileID: 992654041}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &992654044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 992654043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5a834285bdae334baf91c63c9567a5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partData: {fileID: 0}
+  partName: 'Bolts '
+  description: These are the Engine Outer Cover  Bolts. These bolts make sure the
+    engine cover stays intact.
+  audioExplanation: {fileID: 0}
+  hoverPanel: {fileID: 0}
+  highlightColor: {r: 1, g: 0.6, b: 0, a: 1}
+  highlightIntensity: 0
+  glowColor: {r: 0, g: 0.8, b: 1, a: 1}
+  glowIntensity: 2.5
+  ghostAlpha: 0.08
+  ghostFadeDuration: 0.25
+  xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
+  xrayAlpha: 0.3
+  xrayGlowIntensity: 1
+  outlineColorPreset: 1
+  outlineColor: {r: 1, g: 0.08, b: 0.08, a: 1}
+  outlineWidth: 3.5
+  explodePosition: 0
+  explodeDistance: 6
+  explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
+--- !u!64 &992654045
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 992654043}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7817772490143577013, guid: 604fc36ee7bd8ae4e878e0f9ebba6261, type: 3}
+--- !u!114 &992654046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 992654043}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 787aba2d67a93c345a297c6d7face770, type: 3}
@@ -19594,6 +19770,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!64 &1032745661
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -19937,6 +20114,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &1067600621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21300,6 +21478,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   moveThreshold: 0.1
+  hoverHapticAmplitude: 0.2
+  hoverHapticDuration: 0.05
+  selectHapticAmplitude: 0.4
+  selectHapticDuration: 0.08
 --- !u!82 &1098886766
 AudioSource:
   m_ObjectHideFlags: 0
@@ -21981,6 +22163,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &1159612581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22306,6 +22489,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &1188506230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22554,6 +22738,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &1217596660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22615,6 +22800,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!64 &1234882496
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -25272,6 +25458,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &1392326400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25676,6 +25863,154 @@ Transform:
   - {fileID: 1502062712}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -3.106, y: 86.195, z: -4.245}
+--- !u!1001 &1412143647
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2009237814}
+    m_Modifications:
+    - target: {fileID: 6851793845644114797, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0382
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851793845644114797, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851793845644114797, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.0456
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851793845644114797, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851793845644114797, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851793845644114797, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851793845644114797, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851793845644114797, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851793845644114797, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851793845644114797, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8773403163920647858, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      propertyPath: m_Name
+      value: Engine Bolts
+      objectReference: {fileID: 0}
+    - target: {fileID: 8773403163920647858, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8773403163920647858, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1412143651}
+    - targetCorrespondingSourceObject: {fileID: 8773403163920647858, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1412143650}
+    - targetCorrespondingSourceObject: {fileID: 8773403163920647858, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1412143652}
+  m_SourcePrefab: {fileID: 100100000, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+--- !u!4 &1412143648 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6851793845644114797, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+  m_PrefabInstance: {fileID: 1412143647}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1412143649 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8773403163920647858, guid: ca3652133a08c7341a25cef0ad610e3a, type: 3}
+  m_PrefabInstance: {fileID: 1412143647}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1412143650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412143649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5a834285bdae334baf91c63c9567a5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partData: {fileID: 0}
+  partName: 'Bolts '
+  description: These are the Engine Outer Cover  Bolts. These bolts make sure the
+    engine cover stays intact.
+  audioExplanation: {fileID: 0}
+  hoverPanel: {fileID: 0}
+  highlightColor: {r: 1, g: 0.6, b: 0, a: 1}
+  highlightIntensity: 0
+  glowColor: {r: 0, g: 0.8, b: 1, a: 1}
+  glowIntensity: 2.5
+  ghostAlpha: 0.08
+  ghostFadeDuration: 0.25
+  xrayColor: {r: 0, g: 0.8, b: 0.8, a: 1}
+  xrayAlpha: 0.3
+  xrayGlowIntensity: 1
+  outlineColorPreset: 1
+  outlineColor: {r: 1, g: 0.08, b: 0.08, a: 1}
+  outlineWidth: 3.5
+  explodePosition: 0
+  explodeDistance: 6
+  explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
+--- !u!64 &1412143651
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412143649}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7817772490143577013, guid: 604fc36ee7bd8ae4e878e0f9ebba6261, type: 3}
+--- !u!114 &1412143652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412143649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 787aba2d67a93c345a297c6d7face770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1414595285
 GameObject:
   m_ObjectHideFlags: 0
@@ -33969,6 +34304,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &1629803677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34319,6 +34655,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &1694260444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35365,6 +35702,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &1765975740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35673,6 +36011,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &1796179217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37175,6 +37514,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &1887067576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37299,6 +37639,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &1918351707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37598,6 +37939,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!64 &1940303044
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -38679,6 +39021,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &2014937826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39435,6 +39778,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &2058101857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39674,6 +40018,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &2091970025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41071,6 +41416,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 0.5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!224 &151842025261690471
 RectTransform:
   m_ObjectHideFlags: 0
@@ -41801,6 +42147,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 0.5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!222 &323446885337649168
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -41933,6 +42280,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 0.5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!1 &351259339985803364
 GameObject:
   m_ObjectHideFlags: 0
@@ -46051,6 +46399,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 3.8
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &1269480306142941154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48746,6 +49095,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 3.6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &1740812218353576171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50660,6 +51010,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 0.5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!222 &2192742863470406278
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -54189,6 +54540,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!64 &2843259266759144003
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -54243,6 +54595,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 6
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!64 &2843259266759144005
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -56058,6 +56411,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 0.5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!1 &3186814419072847063
 GameObject:
   m_ObjectHideFlags: 0
@@ -56191,6 +56545,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 0.5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!222 &3258606790644598431
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -56303,6 +56658,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 0.5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!224 &3294981902852375153
 RectTransform:
   m_ObjectHideFlags: 0
@@ -57316,6 +57672,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 2.67
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!225 &3496837045356473357
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -58398,6 +58755,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 0.5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &3742829862734005611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59786,6 +60144,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 0.5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &3834876360257171515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60594,7 +60953,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2798365715294490811, guid: bec76860cf663aa4fb7ac2b2f37dd92e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1412143648}
+    - targetCorrespondingSourceObject: {fileID: 2798365715294490811, guid: bec76860cf663aa4fb7ac2b2f37dd92e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 992654042}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bec76860cf663aa4fb7ac2b2f37dd92e, type: 3}
 --- !u!1 &3990441190099768686 stripped
@@ -61633,6 +61998,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 2.42
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &4321767967012952284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62036,6 +62402,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 0.5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!1 &4413757862670711193
 GameObject:
   m_ObjectHideFlags: 0
@@ -63447,6 +63814,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 0.5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &4739047695765020411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65516,6 +65884,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 0.5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!1 &5185527934076188283
 GameObject:
   m_ObjectHideFlags: 0
@@ -67058,6 +67427,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 0.5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &5484970940789916657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67699,6 +68069,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 0.5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!222 &5636907573965529172
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -72284,6 +72655,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 0.5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &6776559666254462543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75115,6 +75487,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 0.5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!1 &7350904200645143839
 GameObject:
   m_ObjectHideFlags: 0
@@ -76637,6 +77010,7 @@ MonoBehaviour:
   explodePosition: 0
   explodeDistance: 0.5
   explodeDirectionOverride: {x: 0, y: 0, z: 0}
+  midZoneThreshold: 0.18
 --- !u!114 &7677705755739803408
 MonoBehaviour:
   m_ObjectHideFlags: 0

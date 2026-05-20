@@ -13,5 +13,11 @@ MonoBehaviour:
   m_Name: Wires_set
   m_EditorClassIdentifier: 
   partName: Electrical Harness
-  description: Description for Wires_set.
-  audioExplanation: {fileID: 0}
+  description: The Electrical Harness is a complex network of wires and pipes situated
+    at the middle-center-center of the jet engine, with a large size that accommodates
+    the various electrical systems. It distributes electrical power to critical engine
+    components, such as fuel pumps and ignition systems, making it essential for
+    engine operation. Notably, the Electrical Harness's complex shape is designed
+    to withstand the harsh environmental conditions within the engine, including
+    high temperatures and vibrations.
+  audioExplanation: {fileID: 8300000, guid: 32f1cfdd0009a1441be2b830c576ce5b, type: 3}

@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
   m_Name: Blade20
   m_EditorClassIdentifier: 
-  partName: Blade20
-  description: The Blade20 is a tiny, thin-flat blade situated at the middle-center-front
-    of the jet engine, playing a vital role in air compression and flow direction.
-    Constructed from Blades2 material, its small size and thin-flat shape enable
-    it to navigate high-velocity air flows while maintaining structural integrity.
-    Interestingly, the Blade20's material properties allow for optimal thermal management
-    and resistance to fatigue.
-  audioExplanation: {fileID: 0}
+  partName: Blade
+  description: The Blade is a tiny, thin-flat blade located at the middle-center
+    of the jet engine, made of Blades material, playing a crucial role in compressing
+    air and increasing its temperature and pressure, with an interesting detail being
+    its ability to withstand extremely high rotational speeds. Its small size and
+    specific shape allow for efficient airflow and minimal energy loss. As part of
+    the engine's compressor stage, Blade is essential for the overall performance
+    and efficiency of the jet engine.
+  audioExplanation: {fileID: 8300000, guid: 21452f4069d06a04ebb04f94a01014c6, type: 3}

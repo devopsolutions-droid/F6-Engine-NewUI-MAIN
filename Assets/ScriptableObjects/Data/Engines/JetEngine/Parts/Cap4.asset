@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
   m_Name: Cap4
   m_EditorClassIdentifier: 
-  partName: Cap4
-  description: The Fan Blades are small, thin-flat components positioned at the middle-center-rear
-    of the jet engine, constructed from Front fan material, responsible for drawing
-    in large volumes of air and directing it towards the engine's core. Their unique
-    shape and strategic placement enable the engine to achieve remarkable efficiency
-    and performance. Notably, the Fan Blades are designed to be highly resistant
-    to fatigue and stress, allowing them to withstand the intense forces generated
-    during engine operation and maintain optimal performance over time.
-  audioExplanation: {fileID: 0}
+  partName: Cap
+  description: The Cap is a tiny, elongated component positioned at the middle-front
+    center of the jet engine, which provides a secure seal around the engine's shaft.
+    Its compact design enables the engine to maintain optimal performance while minimizing
+    the risk of damage from external factors. Interestingly, the Cap is designed
+    to be easily removable, allowing for convenient maintenance and inspection of
+    the shaft and surrounding components.
+  audioExplanation: {fileID: 8300000, guid: b1219aac4eb17bc4e8b1f508cd005da2, type: 3}

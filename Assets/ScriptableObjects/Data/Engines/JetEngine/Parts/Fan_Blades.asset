@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Fan_Blades
   m_EditorClassIdentifier: 
   partName: Fan Blades
-  description: The Front Cap is a compact, tiny component located at the middle-center-rear
-    of the jet engine, made from the front fan material. It plays a crucial role
-    in enclosing the front section of the engine, protecting internal components
-    from external factors. Interestingly, its compact design allows for minimal obstruction
-    of airflow into the engine.
-  audioExplanation: {fileID: 0}
+  description: The Fan Blades are small, thin-flat components positioned at the middle-center-rear
+    of the jet engine, constructed from Front fan material, responsible for drawing
+    in large volumes of air and directing it towards the engine's core. Their unique
+    shape and strategic placement enable the engine to achieve remarkable efficiency
+    and performance. Notably, the Fan Blades are designed to be highly resistant
+    to fatigue and stress, allowing them to withstand the intense forces generated
+    during engine operation and maintain optimal performance over time.
+  audioExplanation: {fileID: 8300000, guid: 066b6dd1107e28c409953565df7e933d, type: 3}

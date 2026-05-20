@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
   m_Name: Blade19
   m_EditorClassIdentifier: 
-  partName: Blade19
-  description: The Blade19 is a tiny, elongated blade located at the middle-center-front
-    of the jet engine, tasked with compressing and accelerating air towards the combustion
-    chamber. Made of Blades texture material, its elongated shape and strategic positioning
-    allow for efficient airflow management and energy transfer. Notably, the Blade19's
-    design enables it to operate effectively in conjunction with adjacent blades.
-  audioExplanation: {fileID: 0}
+  partName: Blade
+  description: The Blade is a tiny, thin-flat blade located at the middle-center
+    of the jet engine, made of Blades material, playing a crucial role in compressing
+    air and increasing its temperature and pressure, with an interesting detail being
+    its ability to withstand extremely high rotational speeds. Its small size and
+    specific shape allow for efficient airflow and minimal energy loss. As part of
+    the engine's compressor stage, Blade is essential for the overall performance
+    and efficiency of the jet engine.
+  audioExplanation: {fileID: 8300000, guid: 21452f4069d06a04ebb04f94a01014c6, type: 3}

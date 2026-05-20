@@ -18,4 +18,4 @@ MonoBehaviour:
     Its primary function is to enclose and protect the engine's central components,
     maintaining a stable and secure environment. Notably, its central location enables
     it to provide uniform support and coverage to the surrounding components.
-  audioExplanation: {fileID: 0}
+  audioExplanation: {fileID: 8300000, guid: 55ca785c0e78b244a9045d1a2f19d5ed, type: 3}

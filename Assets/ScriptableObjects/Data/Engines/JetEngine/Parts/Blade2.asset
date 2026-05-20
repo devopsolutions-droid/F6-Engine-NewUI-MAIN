@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
   m_Name: Blade2
   m_EditorClassIdentifier: 
-  partName: Rear Blade Shroud 1
-  description: The Rear Blade Shroud 1 is a thin, flat component positioned at the
-    middle-center-rear of the engine, made from Blades2 material. It serves as a
-    protective casing for the Rear Blade 1, shielding it from the surrounding environment
-    and facilitating smooth airflow. Interestingly, its thin design allows for minimal
-    obstruction of the airflow, maximizing the engine's overall efficiency.
-  audioExplanation: {fileID: 0}
+  partName: Rear Blade Shroud
+  description: The Rear Blade Shroud is a thin, flat component positioned at the
+    middle-center-rear of the engine. It serves as a protective casing for the Rear
+    Blade, shielding it from the surrounding environment and facilitating smooth
+    airflow. Interestingly, its thin design allows for minimal obstruction of the
+    airflow, maximizing the engine's overall efficiency.
+  audioExplanation: {fileID: 8300000, guid: c94b9b102ec93ab4c8591dcd2e46cc02, type: 3}

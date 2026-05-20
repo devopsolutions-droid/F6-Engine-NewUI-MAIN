@@ -19,4 +19,4 @@ MonoBehaviour:
     components while minimizing drag. Notably, its mirrored design with the Right
     Outer Cover enables a symmetrical and balanced engine configuration, optimizing
     performance and stability.
-  audioExplanation: {fileID: 0}
+  audioExplanation: {fileID: 8300000, guid: 6c43739df9ae7be4587824371232ff2d, type: 3}

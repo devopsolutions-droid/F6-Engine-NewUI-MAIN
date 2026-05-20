@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
   m_Name: Cap2
   m_EditorClassIdentifier: 
-  partName: Cap2
-  description: The Cap3 is a tiny, elongated component situated at the middle-center-center
-    of the jet engine, fabricated from Shaft1 material, functioning as a protective
-    covering for the engine's shaft. Its primary purpose is to safeguard the shaft
-    from damage and ensure the engine's overall integrity, thereby maintaining reliability
-    and performance. Notably, the Cap3 is carefully balanced to minimize vibration
-    and noise during engine operation, contributing to a smoother and more efficient
-    flight experience.
-  audioExplanation: {fileID: 0}
+  partName: Cap
+  description: The Cap is a tiny, elongated component positioned at the middle-front
+    center of the jet engine, which provides a secure seal around the engine's shaft.
+    Its compact design enables the engine to maintain optimal performance while minimizing
+    the risk of damage from external factors. Interestingly, the Cap is designed
+    to be easily removable, allowing for convenient maintenance and inspection of
+    the shaft and surrounding components.
+  audioExplanation: {fileID: 8300000, guid: b1219aac4eb17bc4e8b1f508cd005da2, type: 3}

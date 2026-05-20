@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Highpressure_turbine_shaft
   m_EditorClassIdentifier: 
   partName: High Pressure Turbine Shaft
-  description: The Right Inner Cover is a large, elongated component situated at
-    the middle-right-center of the engine, made from Inside cover1 material. It serves
-    as a protective casing for the engine's internal components, shielding them from
-    external damage and debris. Interestingly, its elongated shape allows for a snug
-    fit around the engine's core, providing comprehensive coverage and support.
-  audioExplanation: {fileID: 0}
+  description: The High Pressure Turbine Shaft is a thin, flat, tiny part located
+    at the middle-center of the engine, constructed from high-pressure shaft material.
+    It is vital for transmitting power from the high-pressure turbine to the engine's
+    gearbox, driving the engine's accessories. A notable feature of this shaft is
+    its ability to withstand extremely high pressures and stresses while maintaining
+    rotational stability.
+  audioExplanation: {fileID: 8300000, guid: 6e0b49cfbb1a17d4585cab62254774c0, type: 3}

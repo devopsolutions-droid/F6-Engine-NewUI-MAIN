@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: Shaft
   m_EditorClassIdentifier: 
   partName: Shaft
-  description: The Electrical Harness is a complex network of wires and pipes situated
-    at the middle-center-center of the jet engine, with a large size that accommodates
-    the various electrical systems. It distributes electrical power to critical engine
-    components, such as fuel pumps and ignition systems, making it essential for
-    engine operation. Notably, the Electrical Harness's complex shape is designed
-    to withstand the harsh environmental conditions within the engine, including
-    high temperatures and vibrations.
-  audioExplanation: {fileID: 0}
+  description: The Shaft is a crucial component located at the middle-center-center
+    of the jet engine, made of Shaft1 material, and has a small, thin-flat shape.
+    It plays a vital role in connecting and transmitting power between the turbine
+    and compressor sections, enabling the engine to generate thrust. Interestingly,
+    the Shaft's thin-flat design allows for minimal weight while maintaining exceptional
+    strength and durability.
+  audioExplanation: {fileID: 8300000, guid: d11fc28afc9aa33439fa837310607453, type: 3}

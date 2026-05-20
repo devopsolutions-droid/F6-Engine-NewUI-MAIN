@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
   m_Name: Cap3
   m_EditorClassIdentifier: 
-  partName: Cap3
-  description: The Cap4 is a tiny, compact component located at the middle-center-center
-    of the jet engine, made of Shaft1 material, serving as a protective covering
-    for the engine's shaft. Its primary function is to prevent damage from debris
-    and ensure the shaft's integrity, thereby maintaining engine reliability. Interestingly,
-    the Cap4 is designed to be highly durable, withstanding the harsh conditions
-    and extreme temperatures encountered during engine operation.
-  audioExplanation: {fileID: 0}
+  partName: Cap
+  description: The Cap is a tiny, elongated component positioned at the middle-front
+    center of the jet engine, which provides a secure seal around the engine's shaft.
+    Its compact design enables the engine to maintain optimal performance while minimizing
+    the risk of damage from external factors. Interestingly, the Cap is designed
+    to be easily removable, allowing for convenient maintenance and inspection of
+    the shaft and surrounding components.
+  audioExplanation: {fileID: 8300000, guid: b1219aac4eb17bc4e8b1f508cd005da2, type: 3}

@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
   m_Name: Blade5
   m_EditorClassIdentifier: 
-  partName: Rear Blade 3
-  description: The Rear Blade 3 is a tiny, elongated component positioned at the
-    middle-center-rear of the engine, made from Blades texture material. As the third
-    blade in the turbine section, it further contributes to the engine's energy extraction
-    process, working in tandem with the Rear Blade 1 and 2 to produce mechanical
-    energy. Notably, its placement at the rear of the engine allows it to take advantage
+  partName: Rear Blade
+  description: The Rear Blade is a tiny, elongated component positioned at the middle-rear
+    center of the engine, made from Blades texture material. As the third blade in
+    the turbine section, it further contributes to the engine's energy extraction
+    process, working in tandem with the Rear Blade and to produce mechanical energy.
+    Notably, its placement at the rear of the engine allows it to take advantage
     of the exhaust gases' remaining energy potential.
-  audioExplanation: {fileID: 0}
+  audioExplanation: {fileID: 8300000, guid: a73c1543e44a92c4097a648c10b3c180, type: 3}

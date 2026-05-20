@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
   m_Name: Blade1
   m_EditorClassIdentifier: 
-  partName: Rear Blade 1
-  description: The Rear Blade 1 is a tiny, elongated component situated at the middle-center-rear
+  partName: Rear Blade
+  description: The Rear Blade is a tiny, elongated component situated at the middle-center-rear
     of the engine, crafted from Blades texture material. As part of the engine's
     turbine section, it helps to extract energy from the exhaust gases, converting
     it into mechanical energy. Notably, its unique shape and material properties
     enable it to withstand the high-temperature and high-stress environment of the
     turbine.
-  audioExplanation: {fileID: 0}
+  audioExplanation: {fileID: 8300000, guid: a73c1543e44a92c4097a648c10b3c180, type: 3}

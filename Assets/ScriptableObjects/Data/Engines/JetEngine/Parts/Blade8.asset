@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8570e25f67e4d9b47982d8b1123bce61, type: 3}
   m_Name: Blade8
   m_EditorClassIdentifier: 
-  partName: Blade8
-  description: The Blade8 is a tiny, thin-flat blade located at the middle-center-center
-    of the jet engine, made of Blades2 material, playing a crucial role in compressing
+  partName: Blade
+  description: The Blade is a tiny, thin-flat blade located at the middle-center
+    of the jet engine, made of Blades material, playing a crucial role in compressing
     air and increasing its temperature and pressure, with an interesting detail being
     its ability to withstand extremely high rotational speeds. Its small size and
     specific shape allow for efficient airflow and minimal energy loss. As part of
-    the engine's compressor stage, Blade8 is essential for the overall performance
+    the engine's compressor stage, Blade is essential for the overall performance
     and efficiency of the jet engine.
-  audioExplanation: {fileID: 0}
+  audioExplanation: {fileID: 8300000, guid: 21452f4069d06a04ebb04f94a01014c6, type: 3}

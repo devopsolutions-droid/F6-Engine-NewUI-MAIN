@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: Fuel_Cap
   m_EditorClassIdentifier: 
   partName: Fuel Cap
-  description: The Fuel Injector 12 is a thin, flat, tiny component positioned at
-    the middle-center-center of the engine, made from high-pressure shaft material.
-    Its primary function is to inject fuel into the combustion chamber, facilitating
-    efficient combustion. An interesting aspect of this component is its precise
-    engineering, allowing for optimal fuel distribution and engine performance.
-  audioExplanation: {fileID: 0}
+  description: The Fuel Cap is a complex, tiny part situated at the middle-center
+    of the engine, constructed from high-pressure material. It is essential for sealing
+    the fuel system, preventing leaks and maintaining pressure. Notably, its complex
+    shape enables a secure and precise connection with the fuel system components.
+  audioExplanation: {fileID: 8300000, guid: e9d32900ed4d13b49aecfbb02eadaf06, type: 3}
