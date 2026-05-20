@@ -8,128 +8,74 @@ Shader "Custom/Outline"
 
     SubShader
     {
-        Tags { "RenderType"="Transparent" "Queue"="Transparent+1" "RenderPipeline"="UniversalPipeline" }
+        Tags { "RenderType"="Opaque" "Queue"="Geometry+1" }
 
-        // Pass 1: Depth Prime (transparent mask)
-        Pass
-        {
-            Name "DepthPrime"
-            Cull Back
-            ZWrite On
-            ZTest LEqual
-            ColorMask 0
-
-            HLSLPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
-            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-
-            struct Attributes
-            {
-                float4 positionOS : POSITION;
-                UNITY_VERTEX_INPUT_INSTANCE_ID
-            };
-
-            struct Varyings
-            {
-                float4 positionCS : SV_POSITION;
-                UNITY_VERTEX_INPUT_INSTANCE_ID
-                UNITY_VERTEX_OUTPUT_STEREO
-            };
-
-            Varyings vert(Attributes input)
-            {
-                Varyings output;
-                UNITY_SETUP_INSTANCE_ID(input);
-                UNITY_TRANSFER_INSTANCE_ID(input, output);
-                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
-
-                VertexPositionInputs vertexInput = GetVertexPositionInputs(input.positionOS.xyz);
-                output.positionCS = vertexInput.positionCS;
-                return output;
-            }
-
-            half4 frag(Varyings input) : SV_Target
-            {
-                UNITY_SETUP_INSTANCE_ID(input);
-                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
-                return half4(0, 0, 0, 0);
-            }
-            ENDHLSL
-        }
-
-        // Pass 2: Expanded back-face silhouette outline
+        // ── Pass 1: Render outline by expanding silhouette ──────────────────
         Pass
         {
             Name "Outline"
+
+            // Render back faces expanded outward
             Cull Front
-            ZWrite Off
+            ZWrite On
             ZTest LEqual
             ColorMask RGB
 
-            HLSLPROGRAM
+            CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
             #pragma multi_compile_instancing
-            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
-            struct Attributes
+            #include "UnityCG.cginc"
+
+            fixed4 _OutlineColor;
+            float  _OutlineWidth;
+
+            struct appdata
             {
-                float4 positionOS : POSITION;
-                float3 normalOS   : NORMAL;
+                float4 vertex : POSITION;
+                float3 normal : NORMAL;
                 UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
-            struct Varyings
+            struct v2f
             {
-                float4 positionCS : SV_POSITION;
-                UNITY_VERTEX_INPUT_INSTANCE_ID
+                float4 pos : SV_POSITION;
                 UNITY_VERTEX_OUTPUT_STEREO
             };
 
-            // Global shader variables inside a CBUFFER to ensure SRP Batcher compatibility
-            CBUFFER_START(UnityPerMaterial)
-                float4 _OutlineColor;
-                float  _OutlineWidth;
-            CBUFFER_END
-
-            Varyings vert(Attributes input)
+            v2f vert(appdata v)
             {
-                Varyings output;
-                UNITY_SETUP_INSTANCE_ID(input);
-                UNITY_TRANSFER_INSTANCE_ID(input, output);
-                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
+                v2f o;
+                UNITY_SETUP_INSTANCE_ID(v);
+                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
-                // 1. Transform position to clip space
-                VertexPositionInputs vertexInput = GetVertexPositionInputs(input.positionOS.xyz);
-                float4 clipPos = vertexInput.positionCS;
+                float4 clipPos = UnityObjectToClipPos(v.vertex);
+                float3 viewNormal = normalize(mul((float3x3)UNITY_MATRIX_IT_MV, v.normal));
 
-                // 2. Transform normal to view space
-                float3 normalWS = TransformObjectToWorldNormal(input.normalOS);
-                float3 viewNormal = TransformWorldToViewDir(normalWS, true);
-
-                // 3. Project normal to screen space
+                // Expand in screen space for a solid, smooth outline
                 float2 screenNormal = normalize(float2(
                     viewNormal.x * UNITY_MATRIX_P[0][0],
                     viewNormal.y * UNITY_MATRIX_P[1][1]
                 ));
 
-                // 4. Offset clip space position (NDC expansion)
+                // Larger expansion for a more visible, solid outline
                 float2 ndcOffset = screenNormal * (_OutlineWidth / _ScreenParams.xy);
                 clipPos.xy += ndcOffset * clipPos.w;
 
-                output.positionCS = clipPos;
-                return output;
+                o.pos = clipPos;
+                return o;
             }
 
-            half4 frag(Varyings input) : SV_Target
+            fixed4 frag(v2f i) : SV_Target
             {
-                UNITY_SETUP_INSTANCE_ID(input);
-                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
-                return half4(_OutlineColor.rgb, 1.0);
+                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
+                // Solid red, fully opaque
+                return fixed4(_OutlineColor.rgb, 1.0);
             }
-            ENDHLSL
+            ENDCG
         }
     }
+
     FallBack Off
 }
