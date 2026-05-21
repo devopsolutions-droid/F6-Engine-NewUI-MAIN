@@ -1,3 +1,582 @@
+// using UnityEngine;
+// using UnityEngine.Rendering;
+
+// public enum ExplodePosition { Auto, LeftTop, Left, Center, Right, RightTop }
+
+// public enum OutlineColorPreset
+// {
+//     Custom,
+//     Red,
+//     Orange,
+//     Yellow,
+//     LightGreen,
+//     Green,
+//     Cyan,
+//     Blue,
+//     Purple,
+//     White,
+//     Pink
+// }
+
+// public class EnginePart : MonoBehaviour
+// {
+//     [Header("Part Info")]
+//     [Tooltip("Assign a PartData asset to drive this part's name, description and audio. If set, overrides the fields below.")]
+//     public PartData partData;
+
+//     [Tooltip("Used only if partData is not assigned.")]
+//     public string partName = "Engine Part";
+//     [TextArea, Tooltip("Used only if partData is not assigned.")]
+//     public string description = "Part description here.";
+//     [Tooltip("Used only if partData is not assigned.")]
+//     public AudioClip audioExplanation;
+
+//     [Header("Hover Panel")]
+//     [Tooltip("Drag the pre-designed panel for THIS part here.")]
+//     public GameObject hoverPanel;
+
+//     [Header("Hover Highlight")]
+//     public Color highlightColor = new Color(1f, 0.6f, 0f, 1f);
+//     [Range(0f, 1f)] public float highlightIntensity = 0.4f;
+
+//     [Header("Selection Glow")]
+//     public Color glowColor = new Color(0f, 0.8f, 1f, 1f); // cyan-blue
+//     [Range(0f, 4f)] public float glowIntensity = 2.5f;
+
+//     [Header("Ghost")]
+//     [Range(0f, 1f)] public float ghostAlpha = 0.08f;
+//     [Range(0f, 1f)] public float ghostFadeDuration = 0.25f;
+
+//     [Header("X-Ray View")]
+//     public Color xrayColor = new Color(0f, 0.8f, 0.8f, 1f); // Teal blue
+//     [Range(0f, 1f)] public float xrayAlpha = 0.3f;
+//     [Range(0f, 4f)] public float xrayGlowIntensity = 1.0f;
+
+//     [Header("Outline")]
+//     public OutlineColorPreset outlineColorPreset = OutlineColorPreset.Custom;
+//     public Color outlineColor = Color.red;
+//     [Range(0.001f, 0.02f)] public float outlineWidth = 0.01343f;
+
+//     [Header("Exploded View")]
+//     [Tooltip("Preset position for organized explosion layout.")]
+//     public ExplodePosition explodePosition = ExplodePosition.Auto;
+//     [Tooltip("How far this part moves outward when exploded. Set to 0 to keep it in place.")]
+//     [Range(0f, 6f)] public float explodeDistance = 6f;
+//     [Tooltip("Optional: override the direction this part explodes. Leave at zero to use preset or auto-calculate from engine center.")]
+//     public Vector3 explodeDirectionOverride = Vector3.zero;
+
+//     private Renderer[] _renderers;
+//     private Material[] _materials;
+//     private Material[] _originalMaterials;
+//     private Material[] _originalMaterialsBackup;
+//     private int[]      _originalMatCounts;
+//     private Material   _outlineMat;
+//     private bool       _outlineActive;
+//     private bool       _isInitialized;
+
+//     // Explode state
+//     private Vector3 _assembledLocalPos;
+//     private Vector3 _explodedLocalPos;
+//     private Coroutine _explodeCoroutine;
+//     private Coroutine _ghostCoroutine;
+
+//     // ── Data accessors (prefer PartData SO if assigned) ───────────────────────
+//     public string PartName        => partData != null ? partData.partName        : partName;
+//     public string Description     => partData != null ? partData.description     : description;
+//     public AudioClip AudioClip    => partData != null ? partData.audioExplanation : audioExplanation;
+
+//     // ── Resolves the active outline color (preset overrides custom) ───────────
+//     public Color ActiveOutlineColor
+//     {
+//         get
+//         {
+//             switch (outlineColorPreset)
+//             {
+//                 case OutlineColorPreset.Red:        return new Color(1.00f, 0.15f, 0.15f);
+//                 case OutlineColorPreset.Orange:     return new Color(1.00f, 0.50f, 0.05f);
+//                 case OutlineColorPreset.Yellow:     return new Color(1.00f, 0.92f, 0.10f);
+//                 case OutlineColorPreset.LightGreen: return new Color(0.50f, 1.00f, 0.30f);
+//                 case OutlineColorPreset.Green:      return new Color(0.10f, 0.85f, 0.20f);
+//                 case OutlineColorPreset.Cyan:       return new Color(0.00f, 0.90f, 1.00f);
+//                 case OutlineColorPreset.Blue:       return new Color(0.15f, 0.40f, 1.00f);
+//                 case OutlineColorPreset.Purple:     return new Color(0.70f, 0.20f, 1.00f);
+//                 case OutlineColorPreset.White:      return new Color(0.95f, 0.95f, 0.95f);
+//                 case OutlineColorPreset.Pink:       return new Color(1.00f, 0.40f, 0.70f);
+//                 default:                            return outlineColor; // Custom
+//             }
+//         }
+//     }
+
+//     void Awake()
+//     {
+//         InitializePart();
+//     }
+
+//     void OnDestroy()
+//     {
+//         if (_explodeCoroutine != null) StopCoroutine(_explodeCoroutine);
+//         if (_ghostCoroutine != null)   StopCoroutine(_ghostCoroutine);
+//     }
+
+//     /// <summary>Safely initialize all material caches and outline.</summary>
+//     private void InitializePart()
+//     {
+//         if (_isInitialized) return;
+
+//         _renderers          = GetComponentsInChildren<Renderer>();
+//         if (_renderers == null || _renderers.Length == 0)
+//         {
+//             Debug.LogWarning($"[EnginePart] {gameObject.name} has no renderers!");
+//             _isInitialized = true;
+//             return;
+//         }
+
+//         _materials          = new Material[_renderers.Length];
+//         _originalMaterials  = new Material[_renderers.Length];
+//         _originalMaterialsBackup = new Material[_renderers.Length];
+//         _originalMatCounts  = new int[_renderers.Length];
+
+//         for (int i = 0; i < _renderers.Length; i++)
+//         {
+//             if (_renderers[i] == null) continue;
+
+//             _materials[i]         = _renderers[i].material;           // live instance
+//             _originalMaterials[i] = new Material(_materials[i]);      // deep copy
+//             _originalMaterialsBackup[i] = new Material(_materials[i]); // backup copy
+//             _originalMatCounts[i] = _renderers[i].sharedMaterials.Length;
+//         }
+
+//         // Build the shared outline material once per part
+//         var shader = Shader.Find("Custom/Outline");
+//         if (shader != null)
+//         {
+//             _outlineMat = new Material(shader);
+//             _outlineMat.SetColor("_OutlineColor", ActiveOutlineColor);
+//             _outlineMat.SetFloat("_OutlineWidth",  outlineWidth);
+//             _outlineMat.hideFlags = HideFlags.HideAndDontSave;
+//         }
+//         else
+//         {
+//             Debug.LogError($"[EnginePart] '{gameObject.name}': Custom/Outline shader NOT found. " +
+//                            "Make sure Outline.shader is in Assets/Shaders/ and has compiled.");
+//         }
+
+//         // Store assembled position for explode
+//         _assembledLocalPos = transform.localPosition;
+//         _isInitialized = true;
+//     }
+
+//     /// <summary>Call once after all parts are initialized to compute explode targets.</summary>
+//     public void ComputeExplodeTarget(Vector3 engineWorldCenter)
+//     {
+//         if (explodePosition == ExplodePosition.Center)
+//         {
+//             _explodedLocalPos = _assembledLocalPos;
+//             return;
+//         }
+
+//         Vector3 dir;
+//         if (explodeDirectionOverride.sqrMagnitude > 0.001f)
+//             dir = explodeDirectionOverride.normalized;
+//         else if (explodePosition != ExplodePosition.Auto)
+//         {
+//             switch (explodePosition)
+//             {
+//                 case ExplodePosition.LeftTop: dir = new Vector3(-0.5f, 0.5f, 0).normalized; break;
+//                 case ExplodePosition.Left: dir = Vector3.left; break;
+//                 case ExplodePosition.Right: dir = Vector3.right; break;
+//                 case ExplodePosition.RightTop: dir = new Vector3(0.5f, 0.5f, 0).normalized; break;
+//                 default: dir = (transform.position - engineWorldCenter).normalized; break;
+//             }
+//         }
+//         else
+//         {
+//             dir = (transform.position - engineWorldCenter).normalized;
+//             // If part is exactly at center, push it upward
+//             if (dir.sqrMagnitude < 0.001f) dir = Vector3.up;
+//         }
+
+//         // Ensure Y direction is positive to prevent parts from going underground
+//         dir.y = Mathf.Abs(dir.y);
+
+//         // Convert world direction to local-space offset
+//         Vector3 worldOffset = dir * explodeDistance;
+//         Vector3 localOffset = transform.parent != null
+//             ? transform.parent.InverseTransformDirection(worldOffset)
+//             : worldOffset;
+
+//         _explodedLocalPos = _assembledLocalPos + localOffset;
+//     }
+
+//     // ── Hover ────────────────────────────────────────────────────────────────
+//     public void SetHighlight(bool on)
+//     {
+//         if (!_isInitialized) InitializePart();
+//         if (_renderers == null || _renderers.Length == 0) return;
+
+//         if (on)
+//         {
+//             // Refresh outline mat properties in case Inspector values changed
+//             if (_outlineMat != null)
+//             {
+//                 _outlineMat.SetColor("_OutlineColor", ActiveOutlineColor);
+//                 _outlineMat.SetFloat("_OutlineWidth",  outlineWidth);
+//             }
+//             foreach (var mat in _materials)
+//             {
+//                 if (mat == null) continue;
+//                 ApplyGlowToMat(mat, highlightColor, highlightIntensity);
+//             }
+//             ShowOutline();
+//         }
+//         else
+//         {
+//             foreach (var mat in _materials)
+//             {
+//                 if (mat == null) continue;
+//                 if (mat.HasProperty("_EmissiveFactor"))  mat.SetColor("_EmissiveFactor", Color.black);
+//                 if (mat.HasProperty("_EmissionColor"))   { mat.SetColor("_EmissionColor", Color.black); mat.DisableKeyword("_EMISSION"); }
+//                 if (mat.HasProperty("_EmissiveColor"))   mat.SetColor("_EmissiveColor", Color.black);
+//             }
+//             HideOutline();
+//         }
+//     }
+
+//     // ── Selected: solid blue glow ─────────────────────────────────────────────
+//     public void SetGlowSelected()
+//     {
+//         if (!_isInitialized) InitializePart();
+//         if (_renderers == null || _renderers.Length == 0) return;
+
+//         foreach (var mat in _materials)
+//         {
+//             if (mat == null) continue;
+//             SetOpaque(mat);
+//             ApplyGlowToMat(mat, glowColor, glowIntensity);
+//         }
+//         ShowOutline();
+//     }
+
+//     private static void ApplyGlowToMat(Material mat, Color color, float intensity)
+//     {
+//         // glTF/PbrMetallicRoughness — base color tint
+//         if (mat.HasProperty("_BaseColorFactor"))
+//             mat.SetColor("_BaseColorFactor", new Color(color.r, color.g, color.b, 1f));
+
+//         // glTF emissive — this is the correct emission property for glTFast
+//         if (mat.HasProperty("_EmissiveFactor"))
+//             mat.SetColor("_EmissiveFactor", color * intensity);
+
+//         // fallbacks for Standard / URP
+//         if (mat.HasProperty("_EmissionColor"))
+//         {
+//             mat.EnableKeyword("_EMISSION");
+//             mat.SetColor("_EmissionColor", color * intensity);
+//         }
+//         if (mat.HasProperty("_EmissiveColor"))
+//             mat.SetColor("_EmissiveColor", color * intensity);
+//     }
+
+//     // ── Others: ghost / semi-transparent ─────────────────────────────────────
+//     public void SetGhost()
+//     {
+//         if (!_isInitialized) InitializePart();
+//         if (_renderers == null || _renderers.Length == 0) return;
+
+//         HideOutline();
+
+//         if (_ghostCoroutine != null) StopCoroutine(_ghostCoroutine);
+
+//         if (ghostFadeDuration > 0.01f && gameObject.activeInHierarchy)
+//             _ghostCoroutine = StartCoroutine(FadeToGhost());
+//         else
+//             ApplyGhostImmediate();
+//     }
+
+//     private System.Collections.IEnumerator FadeToGhost()
+//     {
+//         // Switch blend mode immediately before animating alpha
+//         foreach (var mat in _materials)
+//         {
+//             if (mat == null) continue;
+//             SetTransparent(mat);
+//             ClearEmission(mat);
+//         }
+
+//         float elapsed = 0f;
+//         while (elapsed < ghostFadeDuration)
+//         {
+//             elapsed += Time.deltaTime;
+//             float alpha = Mathf.Lerp(1f, ghostAlpha, elapsed / ghostFadeDuration);
+//             SetAlphaOnMaterials(alpha);
+//             yield return null;
+//         }
+
+//         SetAlphaOnMaterials(ghostAlpha);
+//         _ghostCoroutine = null;
+//     }
+
+//     private void ApplyGhostImmediate()
+//     {
+//         foreach (var mat in _materials)
+//         {
+//             if (mat == null) continue;
+//             SetTransparent(mat);
+//             ClearEmission(mat);
+//         }
+//         SetAlphaOnMaterials(ghostAlpha);
+//     }
+
+//     private void SetAlphaOnMaterials(float alpha)
+//     {
+//         foreach (var mat in _materials)
+//         {
+//             if (mat == null) continue;
+//             if (mat.HasProperty("_BaseColorFactor"))
+//             {
+//                 var c = mat.GetColor("_BaseColorFactor");
+//                 mat.SetColor("_BaseColorFactor", new Color(c.r, c.g, c.b, alpha));
+//             }
+//             else if (mat.HasProperty("_Color"))
+//             {
+//                 var c = mat.GetColor("_Color");
+//                 mat.SetColor("_Color", new Color(c.r, c.g, c.b, alpha));
+//             }
+//             else
+//             {
+//                 var c = mat.color;
+//                 mat.color = new Color(c.r, c.g, c.b, alpha);
+//             }
+//         }
+//     }
+
+//     private static void ClearEmission(Material mat)
+//     {
+//         if (mat.HasProperty("_EmissiveFactor"))  mat.SetColor("_EmissiveFactor", Color.black);
+//         if (mat.HasProperty("_EmissionColor"))   { mat.SetColor("_EmissionColor", Color.black); mat.DisableKeyword("_EMISSION"); }
+//         if (mat.HasProperty("_EmissiveColor"))   mat.SetColor("_EmissiveColor", Color.black);
+//     }
+
+//     // ── X-Ray View ────────────────────────────────────────────────────────────
+//     public void SetXRayView()
+//     {
+//         if (!_isInitialized) InitializePart();
+//         if (_renderers == null || _renderers.Length == 0) return;
+
+//         HideOutline();
+//         foreach (var mat in _materials)
+//         {
+//             if (mat == null) continue;
+//             SetTransparent(mat);
+
+//             Color baseColor = new Color(xrayColor.r, xrayColor.g, xrayColor.b, xrayAlpha);
+//             Color emissiveColor = xrayColor * xrayGlowIntensity;
+
+//             // Set base transparent color
+//             if (mat.HasProperty("_BaseColorFactor"))
+//                 mat.SetColor("_BaseColorFactor", baseColor);
+//             else if (mat.HasProperty("_Color"))
+//                 mat.SetColor("_Color", baseColor);
+//             else
+//                 mat.color = baseColor;
+
+//             // Apply Teal Emission
+//             if (mat.HasProperty("_EmissiveFactor"))
+//                 mat.SetColor("_EmissiveFactor", emissiveColor);
+
+//             if (mat.HasProperty("_EmissionColor"))
+//             {
+//                 mat.EnableKeyword("_EMISSION");
+//                 mat.SetColor("_EmissionColor", emissiveColor);
+//             }
+//             if (mat.HasProperty("_EmissiveColor"))
+//                 mat.SetColor("_EmissiveColor", emissiveColor);
+//         }
+//     }
+
+//     // ── Restore original look ─────────────────────────────────────────────────
+//     public void RestoreOriginal()
+//     {
+//         if (!_isInitialized) InitializePart();
+
+//         if (_ghostCoroutine != null) { StopCoroutine(_ghostCoroutine); _ghostCoroutine = null; }
+
+//         _outlineActive = false;
+//         if (_renderers == null || _renderers.Length == 0) return;
+
+//         for (int i = 0; i < _renderers.Length; i++)
+//         {
+//             if (_renderers[i] == null || _originalMaterialsBackup[i] == null) continue;
+
+//             _renderers[i].enabled = true;
+            
+//             // Create a fresh copy from the backup to ensure clean state
+//             Material restoredMat = new Material(_originalMaterialsBackup[i]);
+//             _renderers[i].materials = new Material[] { restoredMat };
+//             _materials[i] = _renderers[i].materials[0];
+//         }
+//     }
+
+//     // ── Exploded View Animation ─────────────────────────────────────────────
+//     public void AnimateToExploded(float duration)
+//     {
+//         if (_explodeCoroutine != null) StopCoroutine(_explodeCoroutine);
+//         // Inactive GameObjects can't run coroutines — snap directly
+//         if (!gameObject.activeInHierarchy || duration <= 0.01f)
+//         {
+//             transform.localPosition = _explodedLocalPos;
+//             return;
+//         }
+//         _explodeCoroutine = StartCoroutine(AnimatePosition(_explodedLocalPos, duration));
+//     }
+
+//     public void AnimateToAssembled(float duration)
+//     {
+//         if (_explodeCoroutine != null) StopCoroutine(_explodeCoroutine);
+//         // Inactive GameObjects can't run coroutines — snap directly
+//         if (!gameObject.activeInHierarchy || duration <= 0.01f)
+//         {
+//             transform.localPosition = _assembledLocalPos;
+//             return;
+//         }
+//         _explodeCoroutine = StartCoroutine(AnimatePosition(_assembledLocalPos, duration));
+//     }
+
+//     private System.Collections.IEnumerator AnimatePosition(Vector3 targetLocal, float duration)
+//     {
+//         Vector3 start = transform.localPosition;
+//         float elapsed = 0f;
+
+//         while (elapsed < duration)
+//         {
+//             elapsed += Time.deltaTime;
+//             float t = Mathf.SmoothStep(0f, 1f, elapsed / duration);
+//             transform.localPosition = Vector3.Lerp(start, targetLocal, t);
+//             yield return null;
+//         }
+
+//         transform.localPosition = targetLocal;
+//         _explodeCoroutine = null;
+//     }
+
+//     // ── Outline ───────────────────────────────────────────────────────────────
+//     // The outline shader is a 2-pass stencil shader stored as a SEPARATE material
+//     // appended to the renderer's material array. This works on any mesh.
+//     void ShowOutline()
+//     {
+//         if (_outlineMat == null)
+//         {
+//             // Lazy re-init in case shader compiled after Awake
+//             var shader = Shader.Find("Custom/Outline");
+//             if (shader == null) { Debug.LogError($"[EnginePart] Outline shader still not found on '{gameObject.name}'"); return; }
+//             _outlineMat = new Material(shader);
+//             _outlineMat.SetColor("_OutlineColor", ActiveOutlineColor);
+//             _outlineMat.SetFloat("_OutlineWidth",  outlineWidth);
+//             _outlineMat.hideFlags = HideFlags.HideAndDontSave;
+//         }
+
+//         if (_outlineActive) return;
+//         if (_renderers == null || _renderers.Length == 0) return;
+
+//         _outlineActive = true;
+//         for (int i = 0; i < _renderers.Length; i++)
+//         {
+//             if (_renderers[i] == null) continue;
+//             var current  = _renderers[i].materials;
+//             if (current == null || current.Length == 0) continue;
+
+//             // Only append if not already there
+//             bool alreadyHas = false;
+//             foreach (var m in current)
+//                 if (m != null && m.shader == _outlineMat.shader) { alreadyHas = true; break; }
+//             if (alreadyHas) continue;
+
+//             var extended = new Material[current.Length + 1];
+//             current.CopyTo(extended, 0);
+//             extended[extended.Length - 1] = _outlineMat;
+//             _renderers[i].materials = extended;
+//         }
+//     }
+
+//     void HideOutline()
+//     {
+//         if (!_outlineActive) return;
+//         if (_renderers == null || _renderers.Length == 0) return;
+
+//         _outlineActive = false;
+//         for (int i = 0; i < _renderers.Length; i++)
+//         {
+//             if (_renderers[i] == null) continue;
+//             var current = _renderers[i].materials;
+//             if (current == null || current.Length == 0) continue;
+
+//             // Remove any material using the outline shader
+//             var trimmed = new System.Collections.Generic.List<Material>();
+//             foreach (var m in current)
+//                 if (m == null || _outlineMat == null || m.shader != _outlineMat.shader)
+//                     trimmed.Add(m);
+
+//             _renderers[i].materials = trimmed.ToArray();
+
+//             // Keep _materials[i] in sync
+//             if (i < _materials.Length && _renderers[i].materials.Length > 0)
+//                 _materials[i] = _renderers[i].materials[0];
+//         }
+//     }
+
+//     // ── Hover Panel ───────────────────────────────────────────────────────────
+//     public void ShowPanel() { if (hoverPanel != null) hoverPanel.SetActive(true); }
+//     public void HidePanel() { if (hoverPanel != null) hoverPanel.SetActive(false); }
+
+//     // ── Kept for compatibility ────────────────────────────────────────────────
+//     public void SetVisible(bool visible)
+//     {
+//         foreach (var r in _renderers)
+//             r.enabled = visible;
+//     }
+
+//     // ── Helpers ───────────────────────────────────────────────────────────────
+//     private static void SetOpaque(Material mat)
+//     {
+//         if (mat == null) return;
+
+//         mat.SetFloat("_Mode", 0);
+//         mat.SetInt("_SrcBlend", (int)BlendMode.One);
+//         mat.SetInt("_DstBlend", (int)BlendMode.Zero);
+//         mat.SetInt("_ZWrite", 1);
+//         mat.DisableKeyword("_ALPHATEST_ON");
+//         mat.DisableKeyword("_ALPHABLEND_ON");
+//         mat.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        
+//         // For glTF materials, also set _AlphaMode
+//         if (mat.HasProperty("_AlphaMode"))
+//             mat.SetFloat("_AlphaMode", 0);
+        
+//         mat.renderQueue = -1;
+//     }
+
+//     private static void SetTransparent(Material mat)
+//     {
+//         if (mat == null) return;
+
+//         mat.SetFloat("_Mode", 2);
+//         mat.SetInt("_SrcBlend", (int)BlendMode.SrcAlpha);
+//         mat.SetInt("_DstBlend", (int)BlendMode.OneMinusSrcAlpha);
+//         mat.SetInt("_ZWrite", 0);
+//         mat.DisableKeyword("_ALPHATEST_ON");
+//         mat.EnableKeyword("_ALPHABLEND_ON");
+//         mat.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        
+//         // For glTF materials, also set _AlphaMode
+//         if (mat.HasProperty("_AlphaMode"))
+//             mat.SetFloat("_AlphaMode", 1);
+        
+//         mat.renderQueue = 3000;
+//     }
+// }
+
+
+
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -40,10 +619,10 @@ public class EnginePart : MonoBehaviour
     public Color highlightColor = new Color(1f, 0.6f, 0f, 1f);
     [Range(0f, 1f)]
     [Tooltip("Set to 0 for a clean outline-only hover with no colour tint on the mesh.")]
-    public float highlightIntensity = 0f;
+    public float highlightIntensity = 0f;   // 0 = outline only, matches reference image
 
     [Header("Selection Glow")]
-    public Color glowColor = new Color(0f, 0.8f, 1f, 1f);
+    public Color glowColor = new Color(0f, 0.8f, 1f, 1f); // cyan-blue
     [Range(0f, 4f)] public float glowIntensity = 2.5f;
 
     [Header("Ghost")]
@@ -51,55 +630,51 @@ public class EnginePart : MonoBehaviour
     [Range(0f, 1f)] public float ghostFadeDuration = 0.25f;
 
     [Header("X-Ray View")]
-    [Tooltip("Color of the X-Ray effect. Bright cyan gives the best sci-fi CT-scan look.")]
-    public Color xrayColor = new Color(0f, 0.95f, 1f, 1f);
-    [Range(0f, 1f)]
-    [Tooltip("Base transparency of face centres. Keep very low (0.04-0.08) so you can see through the mesh. Fresnel rim handles edge brightness automatically.")]
-    public float xrayAlpha = 0.05f;
-    [Range(0f, 1f)]
-    [Tooltip("How bright the silhouette rim glows. 0.55 gives a clean CT-scan edge.")]
-    public float xrayRimAlpha = 0.55f;
-    [Range(0f, 3f)]
-    [Tooltip("Inner glow intensity. 0.6 gives a professional medical-scan look.")]
-    public float xrayGlowIntensity = 0.6f;
-    [Range(1f, 10f)]
-    [Tooltip("Outline width in X-Ray mode. Slightly thicker than normal for visibility through geometry.")]
-    public float xrayOutlineWidth = 5f;
+    public Color xrayColor = new Color(0f, 0.8f, 0.8f, 1f); // Teal blue
+    [Range(0f, 1f)] public float xrayAlpha = 0.3f;
+    [Range(0f, 4f)] public float xrayGlowIntensity = 1.0f;
 
     [Header("Outline")]
-    [Tooltip("Outline color preset for hover/select. Cyan matches the X-Ray theme.")]
-    public OutlineColorPreset outlineColorPreset = OutlineColorPreset.Cyan;
-    public Color outlineColor = new Color(0f, 0.95f, 1f, 1f);
+    [Tooltip("Red matches the reference image. Switch to Custom to pick your own colour.")]
+    public OutlineColorPreset outlineColorPreset = OutlineColorPreset.Red;
+    public Color outlineColor = new Color(1f, 0.08f, 0.08f, 1f);   // used when preset = Custom
     [Range(1f, 10f)]
-    [Tooltip("Pixel width of the outline. 3-5 px looks solid and clean at typical VR viewing distance.")]
-    public float outlineWidth = 2.5f;
+    [Tooltip("Pixel width of the outline. 3–5 px looks solid and clean at typical VR viewing distance.")]
+    public float outlineWidth = 3.5f;
 
     [Header("Exploded View")]
+    [Tooltip("Preset position for organized explosion layout.")]
     public ExplodePosition explodePosition = ExplodePosition.Auto;
+    [Tooltip("How far this part moves outward when exploded. Set to 0 to keep it in place.")]
     [Range(0f, 6f)] public float explodeDistance = 6f;
+    [Tooltip("Optional: override the direction this part explodes. Leave at zero to use preset or auto-calculate from engine center.")]
     public Vector3 explodeDirectionOverride = Vector3.zero;
     [Tooltip("Width of the middle zone (in meters). Parts within this distance from the center line will explode upwards.")]
     public float midZoneThreshold = 0.18f;
 
-    private Renderer[]  _renderers;
-    private Material[]  _materials;
-    private Material[]  _originalMaterialsBackup;
-    private Material    _outlineMat;
-    private bool        _outlineActive;
-    private bool        _isInitialized;
-    private Coroutine   _liftCoroutine;
-    private bool        _isSelected;
+    private Renderer[] _renderers;
+    private Material[] _materials;
+    private Material[] _originalMaterials;
+    private Material[] _originalMaterialsBackup;
+    private int[]      _originalMatCounts;
+    private Material   _outlineMat;
+    private bool       _outlineActive;
+    private bool       _isInitialized;
+    private Coroutine  _liftCoroutine;
+    private bool       _isSelected;
 
-    private Vector3   _assembledLocalPos;
-    private Vector3   _explodedLocalPos;
+    // Explode state
+    private Vector3 _assembledLocalPos;
+    private Vector3 _explodedLocalPos;
     private Coroutine _explodeCoroutine;
     private Coroutine _ghostCoroutine;
 
-    // ── Data accessors ────────────────────────────────────────────────────────
-    public string    PartName  => partData != null ? partData.partName        : partName;
-    public string    Description => partData != null ? partData.description   : description;
-    public AudioClip AudioClip => partData != null ? partData.audioExplanation : audioExplanation;
+    // ── Data accessors (prefer PartData SO if assigned) ───────────────────────
+    public string PartName        => partData != null ? partData.partName        : partName;
+    public string Description     => partData != null ? partData.description     : description;
+    public AudioClip AudioClip    => partData != null ? partData.audioExplanation : audioExplanation;
 
+    // ── Resolves the active outline color (preset overrides custom) ───────────
     public Color ActiveOutlineColor
     {
         get
@@ -116,24 +691,28 @@ public class EnginePart : MonoBehaviour
                 case OutlineColorPreset.Purple:     return new Color(0.70f, 0.20f, 1.00f);
                 case OutlineColorPreset.White:      return new Color(0.95f, 0.95f, 0.95f);
                 case OutlineColorPreset.Pink:       return new Color(1.00f, 0.40f, 0.70f);
-                default:                            return outlineColor;
+                default:                            return outlineColor; // Custom
             }
         }
     }
 
-    void Awake()   => InitializePart();
+    void Awake()
+    {
+        InitializePart();
+    }
 
     void OnDestroy()
     {
         if (_explodeCoroutine != null) StopCoroutine(_explodeCoroutine);
-        if (_ghostCoroutine   != null) StopCoroutine(_ghostCoroutine);
+        if (_ghostCoroutine != null)   StopCoroutine(_ghostCoroutine);
     }
 
+    /// <summary>Safely initialize all material caches and outline.</summary>
     private void InitializePart()
     {
         if (_isInitialized) return;
 
-        _renderers = GetComponentsInChildren<Renderer>();
+        _renderers          = GetComponentsInChildren<Renderer>();
         if (_renderers == null || _renderers.Length == 0)
         {
             Debug.LogWarning($"[EnginePart] {gameObject.name} has no renderers!");
@@ -141,34 +720,42 @@ public class EnginePart : MonoBehaviour
             return;
         }
 
-        _materials              = new Material[_renderers.Length];
+        _materials          = new Material[_renderers.Length];
+        _originalMaterials  = new Material[_renderers.Length];
         _originalMaterialsBackup = new Material[_renderers.Length];
+        _originalMatCounts  = new int[_renderers.Length];
 
         for (int i = 0; i < _renderers.Length; i++)
         {
             if (_renderers[i] == null) continue;
-            _materials[i]               = _renderers[i].material;
-            _originalMaterialsBackup[i] = new Material(_materials[i]);
+
+            _materials[i]         = _renderers[i].material;           // live instance
+            _originalMaterials[i] = new Material(_materials[i]);      // deep copy
+            _originalMaterialsBackup[i] = new Material(_materials[i]); // backup copy
+            _originalMatCounts[i] = _renderers[i].sharedMaterials.Length;
         }
 
-        var outlineShader = Shader.Find("Custom/Outline");
-        if (outlineShader != null)
+        // Build the shared outline material once per part
+        var shader = Shader.Find("Custom/Outline");
+        if (shader != null)
         {
-            _outlineMat = new Material(outlineShader);
+            _outlineMat = new Material(shader);
             _outlineMat.SetColor("_OutlineColor", ActiveOutlineColor);
             _outlineMat.SetFloat("_OutlineWidth",  outlineWidth);
             _outlineMat.hideFlags = HideFlags.HideAndDontSave;
         }
         else
         {
-            Debug.LogError($"[EnginePart] '{gameObject.name}': Custom/Outline shader NOT found.");
+            Debug.LogError($"[EnginePart] '{gameObject.name}': Custom/Outline shader NOT found. " +
+                           "Make sure Outline.shader is in Assets/Shaders/ and has compiled.");
         }
 
+        // Store assembled position for explode
         _assembledLocalPos = transform.localPosition;
         _isInitialized = true;
     }
 
-    // ── Explode target computation ────────────────────────────────────────────
+    /// <summary>Call once after all parts are initialized to compute explode targets.</summary>
     public void ComputeExplodeTarget(Vector3 engineWorldCenter)
     {
         if (explodePosition == ExplodePosition.Center)
@@ -184,25 +771,38 @@ public class EnginePart : MonoBehaviour
         {
             switch (explodePosition)
             {
-                case ExplodePosition.LeftTop:  dir = new Vector3(-0.5f, 0.5f, 0).normalized; break;
-                case ExplodePosition.Left:     dir = Vector3.left;  break;
-                case ExplodePosition.Right:    dir = Vector3.right; break;
-                case ExplodePosition.RightTop: dir = new Vector3(0.5f, 0.5f, 0).normalized;  break;
-                default:                       dir = (transform.position - engineWorldCenter).normalized; break;
+                case ExplodePosition.LeftTop: dir = new Vector3(-0.5f, 0.5f, 0).normalized; break;
+                case ExplodePosition.Left: dir = Vector3.left; break;
+                case ExplodePosition.Right: dir = Vector3.right; break;
+                case ExplodePosition.RightTop: dir = new Vector3(0.5f, 0.5f, 0).normalized; break;
+                default: dir = (transform.position - engineWorldCenter).normalized; break;
             }
         }
         else
         {
+            // Calculate relative offset in world space
             Vector3 relativePos = transform.position - engineWorldCenter;
-            float   dx          = relativePos.x;
-            dir = Mathf.Abs(dx) < midZoneThreshold
-                ? new Vector3(dx * 0.3f, 1.0f, relativePos.z * 0.2f).normalized
-                : relativePos.normalized;
+            float dx = relativePos.x;
+
+            if (Mathf.Abs(dx) < midZoneThreshold)
+            {
+                // Middle part -> Explode upwards (with slight Z/X spread to avoid overlapping)
+                dir = new Vector3(dx * 0.3f, 1.0f, relativePos.z * 0.2f).normalized;
+            }
+            else
+            {
+                // Left/Right parts -> Explode radially (the working default)
+                dir = relativePos.normalized;
+            }
+
+            // If part is exactly at center, push it upward
             if (dir.sqrMagnitude < 0.001f) dir = Vector3.up;
         }
 
+        // Ensure Y direction is positive to prevent parts from going underground
         dir.y = Mathf.Abs(dir.y);
 
+        // Convert world direction to local-space offset
         Vector3 worldOffset = dir * explodeDistance;
         Vector3 localOffset = transform.parent != null
             ? transform.parent.InverseTransformDirection(worldOffset)
@@ -211,21 +811,33 @@ public class EnginePart : MonoBehaviour
         _explodedLocalPos = _assembledLocalPos + localOffset;
     }
 
+    /// <summary>
+    /// Override the explode target with an explicit world-space position.
+    /// Used when a "Dismantled" prefab defines the exact resting position of each part.
+    /// Converts the world position to local space relative to this part's parent.
+    /// </summary>
     public void SetExplodeWorldTarget(Vector3 worldPosition)
     {
         if (!_isInitialized) InitializePart();
+
         _explodedLocalPos = transform.parent != null
             ? transform.parent.InverseTransformPoint(worldPosition)
             : worldPosition;
     }
 
+    /// <summary>
+    /// Override the explode target with an explicit LOCAL-space position.
+    /// This is the preferred method when reading positions from a dismantled prefab,
+    /// because local positions are independent of where the root is placed in the scene.
+    /// The value is applied directly as transform.localPosition — no conversion needed.
+    /// </summary>
     public void SetExplodeLocalTarget(Vector3 localPosition)
     {
         if (!_isInitialized) InitializePart();
         _explodedLocalPos = localPosition;
     }
 
-    // ── Hover highlight ───────────────────────────────────────────────────────
+    // ── Hover ────────────────────────────────────────────────────────────────
     public void SetHighlight(bool on)
     {
         if (!_isInitialized) InitializePart();
@@ -233,19 +845,29 @@ public class EnginePart : MonoBehaviour
 
         if (on)
         {
+            // Refresh outline material properties in case Inspector values changed at runtime
             if (_outlineMat != null)
             {
                 _outlineMat.SetColor("_OutlineColor", ActiveOutlineColor);
                 _outlineMat.SetFloat("_OutlineWidth",  outlineWidth);
             }
+
+            // Only apply emissive tint when intensity > 0.
+            // Default is 0 — outline-only hover matches the reference image exactly.
             if (highlightIntensity > 0f)
+            {
                 foreach (var mat in _materials)
-                    if (mat != null) ApplyGlowToMat(mat, highlightColor, highlightIntensity);
+                {
+                    if (mat == null) continue;
+                    ApplyGlowToMat(mat, highlightColor, highlightIntensity);
+                }
+            }
 
             ShowOutline();
         }
         else
         {
+            // Clear any emissive tint that may have been applied
             foreach (var mat in _materials)
             {
                 if (mat == null) continue;
@@ -254,6 +876,7 @@ public class EnginePart : MonoBehaviour
                 if (mat.HasProperty("_EmissiveColor"))   mat.SetColor("_EmissiveColor", Color.black);
             }
 
+            // Retain outline if selected or in X-Ray mode
             if (_isSelected)
             {
                 if (_outlineMat != null)
@@ -265,11 +888,10 @@ public class EnginePart : MonoBehaviour
             }
             else if (EngineViewManager.IsXRayActive)
             {
-                // In X-Ray mode keep the cyan outline visible on hover-off
                 if (_outlineMat != null)
                 {
                     _outlineMat.SetColor("_OutlineColor", xrayColor);
-                    _outlineMat.SetFloat("_OutlineWidth", xrayOutlineWidth);
+                    _outlineMat.SetFloat("_OutlineWidth", outlineWidth);
                 }
                 ShowOutline();
             }
@@ -280,26 +902,49 @@ public class EnginePart : MonoBehaviour
         }
     }
 
-    // ── Selection ─────────────────────────────────────────────────────────────
+    // ── Selected: keep original look, just show outline ─────────────────────
     public void SetSelected()
     {
         if (!_isInitialized) InitializePart();
         if (_renderers == null || _renderers.Length == 0) return;
 
-        _isSelected    = true;
-        _outlineActive = false;
+        _isSelected = true;
+        _outlineActive = false; // Reset outline state since we are replacing the material list below
 
+        // Restore original opaque look — no glow, no emission
         for (int i = 0; i < _renderers.Length; i++)
         {
             if (_renderers[i] == null || _originalMaterialsBackup[i] == null) continue;
-            _renderers[i].enabled   = true;
-            _renderers[i].materials = new Material[] { new Material(_originalMaterialsBackup[i]) };
-            _materials[i]           = _renderers[i].materials[0];
+            _renderers[i].enabled = true;
+            Material restoredMat = new Material(_originalMaterialsBackup[i]);
+            _renderers[i].materials = new Material[] { restoredMat };
+            // Keep _materials[i] in sync with the live renderer slot
+            _materials[i] = _renderers[i].materials[0];
         }
         ShowOutline();
     }
 
-    // ── Ghost ─────────────────────────────────────────────────────────────────
+    private static void ApplyGlowToMat(Material mat, Color color, float intensity)
+    {
+        // glTF/PbrMetallicRoughness — base color tint
+        if (mat.HasProperty("_BaseColorFactor"))
+            mat.SetColor("_BaseColorFactor", new Color(color.r, color.g, color.b, 1f));
+
+        // glTF emissive — this is the correct emission property for glTFast
+        if (mat.HasProperty("_EmissiveFactor"))
+            mat.SetColor("_EmissiveFactor", color * intensity);
+
+        // fallbacks for Standard / URP
+        if (mat.HasProperty("_EmissionColor"))
+        {
+            mat.EnableKeyword("_EMISSION");
+            mat.SetColor("_EmissionColor", color * intensity);
+        }
+        if (mat.HasProperty("_EmissiveColor"))
+            mat.SetColor("_EmissiveColor", color * intensity);
+    }
+
+    // ── Others: ghost / semi-transparent ─────────────────────────────────────
     public void SetGhost()
     {
         if (!_isInitialized) InitializePart();
@@ -308,11 +953,14 @@ public class EnginePart : MonoBehaviour
         _isSelected = false;
         HideOutline();
 
+        // Re-sync _materials[] from the live renderers in case a prior SetSelected()
+        // or RestoreOriginal() rebuilt the material arrays and left _materials[] stale.
         for (int i = 0; i < _renderers.Length; i++)
         {
             if (_renderers[i] == null) continue;
             var mats = _renderers[i].materials;
-            if (mats != null && mats.Length > 0) _materials[i] = mats[0];
+            if (mats != null && mats.Length > 0)
+                _materials[i] = mats[0];
         }
 
         if (_ghostCoroutine != null) StopCoroutine(_ghostCoroutine);
@@ -325,6 +973,7 @@ public class EnginePart : MonoBehaviour
 
     private System.Collections.IEnumerator FadeToGhost()
     {
+        // Switch blend mode immediately before animating alpha
         foreach (var mat in _materials)
         {
             if (mat == null) continue;
@@ -336,7 +985,8 @@ public class EnginePart : MonoBehaviour
         while (elapsed < ghostFadeDuration)
         {
             elapsed += Time.deltaTime;
-            SetAlphaOnMaterials(Mathf.Lerp(1f, ghostAlpha, elapsed / ghostFadeDuration));
+            float alpha = Mathf.Lerp(1f, ghostAlpha, elapsed / ghostFadeDuration);
+            SetAlphaOnMaterials(alpha);
             yield return null;
         }
 
@@ -355,10 +1005,47 @@ public class EnginePart : MonoBehaviour
         SetAlphaOnMaterials(ghostAlpha);
     }
 
+    private void SetAlphaOnMaterials(float alpha)
+    {
+        foreach (var mat in _materials)
+        {
+            if (mat == null) continue;
+
+            // glTFast — primary property
+            if (mat.HasProperty("_BaseColorFactor"))
+            {
+                var c = mat.GetColor("_BaseColorFactor");
+                mat.SetColor("_BaseColorFactor", new Color(c.r, c.g, c.b, alpha));
+            }
+            // Also set _BaseColor if present (some glTFast versions use this)
+            if (mat.HasProperty("_BaseColor"))
+            {
+                var c = mat.GetColor("_BaseColor");
+                mat.SetColor("_BaseColor", new Color(c.r, c.g, c.b, alpha));
+            }
+            // Standard shader fallback
+            else if (mat.HasProperty("_Color"))
+            {
+                var c = mat.GetColor("_Color");
+                mat.SetColor("_Color", new Color(c.r, c.g, c.b, alpha));
+            }
+            else
+            {
+                var c = mat.color;
+                mat.color = new Color(c.r, c.g, c.b, alpha);
+            }
+        }
+    }
+
+    private static void ClearEmission(Material mat)
+    {
+        if (mat.HasProperty("_EmissiveFactor"))  mat.SetColor("_EmissiveFactor", Color.black);
+        if (mat.HasProperty("_EmissionColor"))   { mat.SetColor("_EmissionColor", Color.black); mat.DisableKeyword("_EMISSION"); }
+        if (mat.HasProperty("_EmissiveColor"))   mat.SetColor("_EmissiveColor", Color.black);
+    }
+
     // ── X-Ray View ────────────────────────────────────────────────────────────
-    // Uses the dedicated Custom/XRay shader which renders through geometry (ZTest Always),
-    // applies Fresnel rim glow, animated scanline sweep, and pulse breathing.
-    // XRayPulseController feeds per-renderer Y bounds every frame for the scanline.
+    // Renders the mesh body as a translucent glowing blue hologram/x-ray scan.
     public void SetXRayView()
     {
         if (!_isInitialized) InitializePart();
@@ -366,46 +1053,37 @@ public class EnginePart : MonoBehaviour
 
         _isSelected = false;
 
-        var xrayShader = Shader.Find("Custom/XRay");
-        if (xrayShader == null)
+        // Step 1: Make the mesh body translucent blue with soft glowing emission
+        foreach (var mat in _materials)
         {
-            Debug.LogError("[EnginePart] Custom/XRay shader not found. Make sure XRay.shader is in Assets/Shaders/ and has compiled.");
-            return;
+            if (mat == null) continue;
+            SetTransparent(mat);
+
+            // Set base color to translucent blue using xrayColor and xrayAlpha
+            Color xrayBodyColor = new Color(xrayColor.r, xrayColor.g, xrayColor.b, xrayAlpha);
+            if (mat.HasProperty("_BaseColorFactor"))
+                mat.SetColor("_BaseColorFactor", xrayBodyColor);
+            if (mat.HasProperty("_BaseColor"))
+                mat.SetColor("_BaseColor", xrayBodyColor);
+            if (mat.HasProperty("_Color"))
+                mat.SetColor("_Color", xrayBodyColor);
+            else
+                mat.color = xrayBodyColor;
+
+            // Apply a soft blue emission glow to match the holographic reference
+            ApplyGlowToMat(mat, xrayColor, xrayGlowIntensity * 0.35f);
         }
 
-        for (int i = 0; i < _renderers.Length; i++)
-        {
-            if (_renderers[i] == null) continue;
-
-            // Compute world-space Y bounds for this renderer so the scanline
-            // sweeps correctly from top to bottom of this specific mesh
-            Bounds  b    = _renderers[i].bounds;
-            float   minY = b.min.y;
-            float   maxY = b.max.y;
-
-            var xrayMat = new Material(xrayShader);
-            xrayMat.SetColor("_XRayColor",      xrayColor);
-            xrayMat.SetFloat("_Alpha",          xrayAlpha);
-            xrayMat.SetFloat("_RimAlpha",       xrayRimAlpha);
-            xrayMat.SetFloat("_GlowIntensity",  xrayGlowIntensity);
-            xrayMat.SetFloat("_ObjectMinY",     minY);
-            xrayMat.SetFloat("_ObjectMaxY",     maxY);
-            xrayMat.hideFlags = HideFlags.HideAndDontSave;
-
-            _renderers[i].materials = new Material[] { xrayMat };
-            _materials[i]           = xrayMat;
-        }
-
-        // Bright cyan outline — wider than normal so it reads clearly through geometry
+        // Step 2: Show outline in xrayColor
         if (_outlineMat != null)
         {
             _outlineMat.SetColor("_OutlineColor", xrayColor);
-            _outlineMat.SetFloat("_OutlineWidth", xrayOutlineWidth);
+            _outlineMat.SetFloat("_OutlineWidth", outlineWidth);
         }
         ShowOutline();
     }
 
-    // ── Restore ───────────────────────────────────────────────────────────────
+    // ── Restore original look ─────────────────────────────────────────────────
     public void RestoreOriginal()
     {
         if (!_isInitialized) InitializePart();
@@ -419,86 +1097,118 @@ public class EnginePart : MonoBehaviour
         for (int i = 0; i < _renderers.Length; i++)
         {
             if (_renderers[i] == null || _originalMaterialsBackup[i] == null) continue;
-            _renderers[i].enabled   = true;
-            _renderers[i].materials = new Material[] { new Material(_originalMaterialsBackup[i]) };
-            _materials[i]           = _renderers[i].materials[0];
+
+            _renderers[i].enabled = true;
+            
+            // Create a fresh copy from the backup to ensure clean state
+            Material restoredMat = new Material(_originalMaterialsBackup[i]);
+            _renderers[i].materials = new Material[] { restoredMat };
+            _materials[i] = _renderers[i].materials[0];
         }
     }
 
-    // ── Explode animations ────────────────────────────────────────────────────
+    // ── Exploded View Animation ─────────────────────────────────────────────
     public void AnimateToExploded(float duration)
     {
-        if (_liftCoroutine    != null) { StopCoroutine(_liftCoroutine);    _liftCoroutine    = null; }
-        if (_explodeCoroutine != null)   StopCoroutine(_explodeCoroutine);
-        if (!gameObject.activeInHierarchy || duration <= 0.01f) { transform.localPosition = _explodedLocalPos; return; }
+        if (_liftCoroutine != null) { StopCoroutine(_liftCoroutine); _liftCoroutine = null; }
+        if (_explodeCoroutine != null) StopCoroutine(_explodeCoroutine);
+        // Inactive GameObjects can't run coroutines — snap directly
+        if (!gameObject.activeInHierarchy || duration <= 0.01f)
+        {
+            transform.localPosition = _explodedLocalPos;
+            return;
+        }
         _explodeCoroutine = StartCoroutine(AnimatePosition(_explodedLocalPos, duration));
     }
 
     public void AnimateToAssembled(float duration)
     {
-        if (_liftCoroutine    != null) { StopCoroutine(_liftCoroutine);    _liftCoroutine    = null; }
-        if (_explodeCoroutine != null)   StopCoroutine(_explodeCoroutine);
-        if (!gameObject.activeInHierarchy || duration <= 0.01f) { transform.localPosition = _assembledLocalPos; return; }
+        if (_liftCoroutine != null) { StopCoroutine(_liftCoroutine); _liftCoroutine = null; }
+        if (_explodeCoroutine != null) StopCoroutine(_explodeCoroutine);
+        // Inactive GameObjects can't run coroutines — snap directly
+        if (!gameObject.activeInHierarchy || duration <= 0.01f)
+        {
+            transform.localPosition = _assembledLocalPos;
+            return;
+        }
         _explodeCoroutine = StartCoroutine(AnimatePosition(_assembledLocalPos, duration));
     }
 
     private System.Collections.IEnumerator AnimatePosition(Vector3 targetLocal, float duration)
     {
-        Vector3 start   = transform.localPosition;
-        float   elapsed = 0f;
+        Vector3 start = transform.localPosition;
+        float elapsed = 0f;
+
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            transform.localPosition = Vector3.Lerp(start, targetLocal, Mathf.SmoothStep(0f, 1f, elapsed / duration));
+            float t = Mathf.SmoothStep(0f, 1f, elapsed / duration);
+            transform.localPosition = Vector3.Lerp(start, targetLocal, t);
             yield return null;
         }
+
         transform.localPosition = targetLocal;
         _explodeCoroutine = null;
     }
 
-    // ── Show Working lift animations ──────────────────────────────────────────
+    // ── Show Working Lift Up/Down Animation ─────────────────────────────────
     public void LiftUp(float amount, float duration)
     {
         if (!_isInitialized) InitializePart();
-        if (_liftCoroutine    != null) StopCoroutine(_liftCoroutine);
+        if (_liftCoroutine != null) StopCoroutine(_liftCoroutine);
         if (_explodeCoroutine != null) { StopCoroutine(_explodeCoroutine); _explodeCoroutine = null; }
 
         Vector3 targetLocal = _assembledLocalPos + new Vector3(0f, amount, 0f);
-        if (!gameObject.activeInHierarchy || duration <= 0.01f) { transform.localPosition = targetLocal; return; }
+
+        if (!gameObject.activeInHierarchy || duration <= 0.01f)
+        {
+            transform.localPosition = targetLocal;
+            return;
+        }
         _liftCoroutine = StartCoroutine(AnimateLift(targetLocal, duration));
     }
 
     public void LowerDown(float duration)
     {
         if (!_isInitialized) InitializePart();
-        if (_liftCoroutine    != null) StopCoroutine(_liftCoroutine);
+        if (_liftCoroutine != null) StopCoroutine(_liftCoroutine);
         if (_explodeCoroutine != null) { StopCoroutine(_explodeCoroutine); _explodeCoroutine = null; }
 
-        if (!gameObject.activeInHierarchy || duration <= 0.01f) { transform.localPosition = _assembledLocalPos; return; }
+        if (!gameObject.activeInHierarchy || duration <= 0.01f)
+        {
+            transform.localPosition = _assembledLocalPos;
+            return;
+        }
         _liftCoroutine = StartCoroutine(AnimateLift(_assembledLocalPos, duration));
     }
 
     private System.Collections.IEnumerator AnimateLift(Vector3 targetLocal, float duration)
     {
-        Vector3 start   = transform.localPosition;
-        float   elapsed = 0f;
+        Vector3 start = transform.localPosition;
+        float elapsed = 0f;
+
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            transform.localPosition = Vector3.Lerp(start, targetLocal, Mathf.SmoothStep(0f, 1f, elapsed / duration));
+            float t = Mathf.SmoothStep(0f, 1f, elapsed / duration);
+            transform.localPosition = Vector3.Lerp(start, targetLocal, t);
             yield return null;
         }
+
         transform.localPosition = targetLocal;
         _liftCoroutine = null;
     }
 
     // ── Outline ───────────────────────────────────────────────────────────────
+    // The outline shader is a 2-pass stencil shader stored as a SEPARATE material
+    // appended to the renderer's material array. This works on any mesh.
     void ShowOutline()
     {
         if (_outlineMat == null)
         {
+            // Lazy re-init in case shader compiled after Awake
             var shader = Shader.Find("Custom/Outline");
-            if (shader == null) { Debug.LogError($"[EnginePart] Outline shader not found on '{gameObject.name}'"); return; }
+            if (shader == null) { Debug.LogError($"[EnginePart] Outline shader still not found on '{gameObject.name}'"); return; }
             _outlineMat = new Material(shader);
             _outlineMat.SetColor("_OutlineColor", ActiveOutlineColor);
             _outlineMat.SetFloat("_OutlineWidth",  outlineWidth);
@@ -512,9 +1222,10 @@ public class EnginePart : MonoBehaviour
         for (int i = 0; i < _renderers.Length; i++)
         {
             if (_renderers[i] == null) continue;
-            var current = _renderers[i].materials;
+            var current  = _renderers[i].materials;
             if (current == null || current.Length == 0) continue;
 
+            // Only append if not already there
             bool alreadyHas = false;
             foreach (var m in current)
                 if (m != null && m.shader == _outlineMat.shader) { alreadyHas = true; break; }
@@ -539,6 +1250,7 @@ public class EnginePart : MonoBehaviour
             var current = _renderers[i].materials;
             if (current == null || current.Length == 0) continue;
 
+            // Remove any material using the outline shader
             var trimmed = new System.Collections.Generic.List<Material>();
             foreach (var m in current)
                 if (m == null || _outlineMat == null || m.shader != _outlineMat.shader)
@@ -546,80 +1258,77 @@ public class EnginePart : MonoBehaviour
 
             _renderers[i].materials = trimmed.ToArray();
 
+            // Keep _materials[i] in sync
             if (i < _materials.Length && _renderers[i].materials.Length > 0)
                 _materials[i] = _renderers[i].materials[0];
         }
     }
 
     // ── Hover Panel ───────────────────────────────────────────────────────────
-    public void ShowPanel() { if (hoverPanel != null) hoverPanel.SetActive(true);  }
+    public void ShowPanel() { if (hoverPanel != null) hoverPanel.SetActive(true); }
     public void HidePanel() { if (hoverPanel != null) hoverPanel.SetActive(false); }
 
+    // ── Kept for compatibility ────────────────────────────────────────────────
     public void SetVisible(bool visible)
     {
-        foreach (var r in _renderers) r.enabled = visible;
+        foreach (var r in _renderers)
+            r.enabled = visible;
     }
 
-    // ── Private helpers ───────────────────────────────────────────────────────
-    private static void ApplyGlowToMat(Material mat, Color color, float intensity)
+    // ── Helpers ───────────────────────────────────────────────────────────────
+    private static void SetOpaque(Material mat)
     {
-        if (mat.HasProperty("_BaseColorFactor"))
-            mat.SetColor("_BaseColorFactor", new Color(color.r, color.g, color.b, 1f));
-        if (mat.HasProperty("_EmissiveFactor"))
-            mat.SetColor("_EmissiveFactor", color * intensity);
-        if (mat.HasProperty("_EmissionColor"))
+        if (mat == null) return;
+
+        // ── glTFast / glTF PBR materials ──────────────────────────────────────
+        if (mat.HasProperty("_AlphaMode"))
         {
-            mat.EnableKeyword("_EMISSION");
-            mat.SetColor("_EmissionColor", color * intensity);
+            mat.SetFloat("_AlphaMode", 0); // 0 = Opaque
+            mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+            mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+            mat.SetInt("_ZWrite", 1);
+            mat.DisableKeyword("_ALPHABLEND_ON");
+            mat.renderQueue = -1;
+            return;
         }
-        if (mat.HasProperty("_EmissiveColor"))
-            mat.SetColor("_EmissiveColor", color * intensity);
-    }
 
-    private void SetAlphaOnMaterials(float alpha)
-    {
-        foreach (var mat in _materials)
+        // ── URP Lit shader compatibility ──────────────────────────────────────
+        if (mat.HasProperty("_Surface"))
         {
-            if (mat == null) continue;
-            if (mat.HasProperty("_BaseColorFactor"))
-            {
-                var c = mat.GetColor("_BaseColorFactor");
-                mat.SetColor("_BaseColorFactor", new Color(c.r, c.g, c.b, alpha));
-            }
-            if (mat.HasProperty("_BaseColor"))
-            {
-                var c = mat.GetColor("_BaseColor");
-                mat.SetColor("_BaseColor", new Color(c.r, c.g, c.b, alpha));
-            }
-            else if (mat.HasProperty("_Color"))
-            {
-                var c = mat.GetColor("_Color");
-                mat.SetColor("_Color", new Color(c.r, c.g, c.b, alpha));
-            }
-            else
-            {
-                var c = mat.color;
-                mat.color = new Color(c.r, c.g, c.b, alpha);
-            }
+            mat.SetFloat("_Surface", 0f); // 0 = Opaque
+            mat.SetFloat("_Blend", 0f);   // 0 = Alpha blend
+            mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+            mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+            mat.SetInt("_ZWrite", 1);
+            mat.DisableKeyword("_SURFACE_TYPE_TRANSPARENT");
+            mat.renderQueue = -1;
+            return;
         }
-    }
 
-    private static void ClearEmission(Material mat)
-    {
-        if (mat.HasProperty("_EmissiveFactor"))  mat.SetColor("_EmissiveFactor", Color.black);
-        if (mat.HasProperty("_EmissionColor"))   { mat.SetColor("_EmissionColor", Color.black); mat.DisableKeyword("_EMISSION"); }
-        if (mat.HasProperty("_EmissiveColor"))   mat.SetColor("_EmissiveColor", Color.black);
+        // ── Standard / Built-in fallback ──────────────────────────────────────
+        mat.SetFloat("_Mode", 0);
+        mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+        mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+        mat.SetInt("_ZWrite", 1);
+        mat.DisableKeyword("_ALPHATEST_ON");
+        mat.DisableKeyword("_ALPHABLEND_ON");
+        mat.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        mat.renderQueue = -1;
     }
 
     private static void SetTransparent(Material mat)
     {
         if (mat == null) return;
 
+        // ── glTFast / glTF PBR materials ──────────────────────────────────────
         if (mat.HasProperty("_AlphaMode"))
         {
-            mat.SetFloat("_AlphaMode", 1);
-            mat.SetInt("_SrcBlend",  (int)BlendMode.SrcAlpha);
-            mat.SetInt("_DstBlend",  (int)BlendMode.OneMinusSrcAlpha);
+            mat.SetFloat("_AlphaMode", 1); // 1 = Blend
+
+            // Force blend state manually — glTFast bakes this at import
+            // so we must override it at runtime
+            mat.SetInt("_SrcBlend",  (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+            mat.SetInt("_DstBlend",  (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
             mat.SetInt("_ZWrite",    0);
             mat.SetInt("_AlphaClip", 0);
             mat.EnableKeyword("_ALPHABLEND_ON");
@@ -627,23 +1336,25 @@ public class EnginePart : MonoBehaviour
             return;
         }
 
+        // ── URP Lit shader compatibility ──────────────────────────────────────
         if (mat.HasProperty("_Surface"))
         {
-            mat.SetFloat("_Surface", 1f);
-            mat.SetFloat("_Blend",   0f);
-            mat.SetInt("_SrcBlend",  (int)BlendMode.SrcAlpha);
-            mat.SetInt("_DstBlend",  (int)BlendMode.OneMinusSrcAlpha);
-            mat.SetInt("_ZWrite",    0);
+            mat.SetFloat("_Surface", 1f); // 1 = Transparent
+            mat.SetFloat("_Blend", 0f);   // 0 = Alpha blend
+            mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+            mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+            mat.SetInt("_ZWrite", 0);
             mat.DisableKeyword("_ALPHATEST_ON");
             mat.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
             mat.renderQueue = 3000;
             return;
         }
 
-        mat.SetFloat("_Mode",    2);
-        mat.SetInt("_SrcBlend",  (int)BlendMode.SrcAlpha);
-        mat.SetInt("_DstBlend",  (int)BlendMode.OneMinusSrcAlpha);
-        mat.SetInt("_ZWrite",    0);
+        // ── Standard / Built-in fallback ──────────────────────────────────────
+        mat.SetFloat("_Mode", 2);
+        mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+        mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        mat.SetInt("_ZWrite", 0);
         mat.DisableKeyword("_ALPHATEST_ON");
         mat.EnableKeyword("_ALPHABLEND_ON");
         mat.DisableKeyword("_ALPHAPREMULTIPLY_ON");
